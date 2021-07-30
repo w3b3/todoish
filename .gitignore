@@ -12,8 +12,8 @@
 /build
 
 # misc
-.idea
-.husky
+/.idea
+/.husky
 .DS_Store
 .env
 .env.local
