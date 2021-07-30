@@ -45,9 +45,11 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <section>
-        <label htmlFor="taskDescription">Task description</label>
+    <div style={{ padding: "2rem", maxWidth: "500px" }}>
+      <section style={{ display: "flex", flexWrap: "wrap" }}>
+        <label htmlFor="taskDescription" style={{ display: "block" }}>
+          Tarefa:
+        </label>
         <input
           type="text"
           id="taskDescription"
@@ -55,13 +57,19 @@ function App() {
           onChange={handleTypeTaskName}
           onKeyPress={handleEnter}
           value={taskName}
+          style={{ flex: 1 }}
         />
-        <button onClick={handleAddTask}>Add new</button>
+        <button onClick={handleAddTask}>Salvar</button>
       </section>
       <ol>
         {taskList.sort(sortTasks).map((entry) => (
           <li key={entry.id}>
-            <button onClick={() => handleDelete(entry.id)}>Delete</button>
+            <button
+              onClick={() => handleDelete(entry.id)}
+              style={{ marginRight: "1em" }}
+            >
+              Apagar
+            </button>
             {entry.name}
           </li>
         ))}

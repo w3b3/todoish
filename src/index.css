@@ -1,5 +1,23 @@
+* {
+  font-family: monospace;
+  font-size:18px;
+  box-sizing: border-box;
+}
+
+section, div {
+  max-width: 100vw;
+}
+
 body {
+  /*P*/
+  display: flex;
+  justify-content:center;
+  align-items: center;
+  /*B*/
   margin: 0;
-  background-color: #282c34;
+  min-height: 100vh;
+  /*T*/
   color: ghostwhite;
+  /*V*/
+  background-color: #282c34;
 }
