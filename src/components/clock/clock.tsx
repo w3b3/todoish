@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 const Clock = () => {
-  const [date, setDate] = useState(new Date());
+  const date = new Date();
   /*https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat#using_datetimeformat*/
   const timeOptions = {
     hour12: true,

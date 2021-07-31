@@ -20,7 +20,7 @@ export function TaskManagement() {
   const [taskName, setTaskName] = useState<string>("");
   const [taskList, setTaskList] = useState<Task[]>([]);
   const [totalNumberOfTasks, setTotalNumberOfTasks] = useState<number>(0);
-  const [apiPagination, setApiPagination] = useState<string>("");
+  // const [apiPagination, setApiPagination] = useState<string>("");
   const [editMode, setEditMode] = useState<EditMode>({
     id: "",
     isEditing: false,
@@ -63,7 +63,7 @@ export function TaskManagement() {
     setTaskName("");
     const newList = await getAllEntries();
     setTaskList(newList.tasks);
-    setApiPagination(newList.pagination);
+    // setApiPagination(newList.pagination);
     setTotalNumberOfTasks(newList.rowCount);
   };
 
@@ -73,7 +73,7 @@ export function TaskManagement() {
     await deleteEntry(id);
     const newList = await getAllEntries();
     setTaskList(newList.tasks);
-    setApiPagination(newList.pagination);
+    // setApiPagination(newList.pagination);
     setTotalNumberOfTasks(newList.rowCount);
   };
 
@@ -118,7 +118,7 @@ export function TaskManagement() {
   useEffect(() => {
     getAllEntries().then((newList) => {
       setTaskList(newList.tasks);
-      setApiPagination(newList.pagination);
+      // setApiPagination(newList.pagination);
       setTotalNumberOfTasks(newList.rowCount);
     });
   }, []);
