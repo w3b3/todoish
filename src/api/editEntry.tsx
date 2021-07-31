@@ -10,8 +10,6 @@ export const editEntry = async (task: Task) => {
         headers,
         body: JSON.stringify({
           ...task,
-          // taskName: entry,
-          // updateTime: new Date().valueOf(),
         }),
       }
     );

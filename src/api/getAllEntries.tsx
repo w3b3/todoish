@@ -12,9 +12,7 @@ export const getAllEntries = async () => {
     const parsedResponse = await response.json();
     const tasks = Object.entries(parsedResponse.data).map((e: any) => {
       return {
-        id: e[0],
-        name: e[1].name || e[1].taskName,
-        creationTime: e[1].creationTime,
+        ...e[1],
       };
     });
     return {

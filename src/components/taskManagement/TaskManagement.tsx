@@ -49,7 +49,6 @@ export function TaskManagement() {
     if (!taskName) return;
     if (editMode.isEditing) {
       const newTask = { ...findTask(editMode.id)! };
-      // debugger;
       newTask.name = taskName;
       newTask.lastUpdateTime = new Date().valueOf();
       newTask.tags?.push("updated");
@@ -78,12 +77,34 @@ export function TaskManagement() {
     setTotalNumberOfTasks(newList.rowCount);
   };
 
-  const handleComplete = async (id: string) => {
-    // await completeEntry(id);
+  const handleFavorite = async (id: string) => {
+    const newTask = { ...findTask(id)! };
+    newTask.tags = newTask.tags.find((tag) => tag === "favorite")
+      ? newTask.tags.filter((tag) => tag !== "favorite")
+      : newTask.tags.concat("favorite");
+    await editEntry(newTask);
     const newList = await getAllEntries();
     setTaskList(newList.tasks);
-    // setApiPagination(newList.pagination);
-    // setTotalNumberOfTasks(newList.rowCount);
+  };
+
+  const handleComplete = async (id: string) => {
+    const newTask = { ...findTask(id)! };
+    newTask.isDone = true;
+    newTask.lastUpdateTime = new Date().valueOf();
+    await editEntry(newTask);
+    const newList = await getAllEntries();
+    setTaskList(newList.tasks);
+  };
+
+  const handleRestore = async (id: string) => {
+    const newTask = { ...findTask(id)! };
+    newTask.isDone = false;
+    newTask.lastUpdateTime = new Date().valueOf();
+    await editEntry(newTask);
+    setEditMode({ id: "", isEditing: false });
+    setTaskName("");
+    const newList = await getAllEntries();
+    setTaskList(newList.tasks);
   };
 
   const handleEdit = async (id: string) => {
@@ -120,76 +141,196 @@ export function TaskManagement() {
             value={taskName}
             style={{ flex: 1, fontSize: "1.5em", padding: "0.5em" }}
           />
-          <button onClick={handleAddTask} disabled={!taskName}>
-            Salvar
+          <button onClick={handleAddTask} disabled={!taskName} title="Salvar">
+            <i className="fas fa-cloud-upload-alt" />
           </button>
         </div>
       </section>
-      <hr />
+      {/*<hr />*/}
       {totalNumberOfTasks ? (
-        <h2>Tarefas salvas ({totalNumberOfTasks})</h2>
+        <h2
+          style={{
+            padding: "1em 1em 0",
+            fontWeight: "bold",
+            color: "cadetblue",
+            margin: 0,
+          }}
+        >
+          <i className="fas fa-tasks" /> Itens salvos ({totalNumberOfTasks})
+          {/*TODO*/}
+        </h2>
       ) : (
         <h2>Ainda sem nenhum lembrete</h2>
       )}
-      <ol>
+      <section>
         {taskList &&
           taskList
             .sort(sortTasks)
-            .map((entry) => (
-              <li key={entry.id}>
-                <button
-                  onClick={() => handleComplete(entry.id)}
-                  disabled={editMode.isEditing && editMode.id !== entry.id}
-                  style={{
-                    marginRight: "1em",
-                    border: "none",
-                    background: "none",
-                    color: "greenyellow",
-                  }}
-                >
-                  Concluido <i className="fas fa-check-circle" />
-                </button>
-                <span id={`task${entry.id}`}>{entry.name}</span>
-                {!editMode.isEditing && (
-                  <button
-                    onClick={() => handleEdit(entry.id)}
+            .map((entry) => {
+              console.info(entry);
+              return (
+                <>
+                  <p
+                    id={`task${entry.id}`}
+                    style={{ padding: "1em 1em 0", lineHeight: "2" }}
+                  >
+                    {entry.name}
+                  </p>
+                  <div
+                    key={entry.id}
                     style={{
-                      border: "none",
-                      background: "none",
-                      color: "cadetblue",
+                      height: "65px",
+                      padding: "1em",
+                      backgroundColor: "#504c4c4a",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      borderBottom: "1px solid #ffffff4f",
                     }}
                   >
-                    Expandir <i className="fas fa-angle-double-down" />
-                  </button>
-                )}
-                {editMode.isEditing && entry.id === editMode.id && (
-                  <>
-                    <button
-                      onClick={() => handleCancelEdit()}
-                      style={{
-                        border: "none",
-                        background: "none",
-                        color: "cadetblue",
-                      }}
-                    >
-                      Cancelar <i className="fas fa-arrow-alt-circle-left" />
-                    </button>
-                    <button
-                      onClick={() => handleDelete(entry.id)}
-                      style={{
-                        border: "none",
-                        background: "none",
-                        color: "red",
-                      }}
-                    >
-                      Apagar <i className="fas fa-trash-alt" />
-                    </button>
-                  </>
-                )}
-              </li>
-            ))
+                    <div style={{ flex: 1, textAlign: "left" }}>
+                      <i className="fas fa-calendar-alt" />{" "}
+                      {new Intl.DateTimeFormat("pt-br", {
+                        weekday: "short",
+                        month: "short",
+                        day: "numeric",
+                      }).format(
+                        new Date(entry.lastUpdateTime || entry.creationTime)
+                      )}
+                    </div>
+                    {!editMode.isEditing &&
+                      !entry.isDone &&
+                      (entry.tags.includes("favorite") ? (
+                        <button
+                          onClick={() => handleFavorite(entry.id)}
+                          disabled={
+                            editMode.isEditing && editMode.id !== entry.id
+                          }
+                          style={{
+                            marginRight: "1em",
+                            padding: "0.25em 1em",
+                            background: "white",
+                            color: "red",
+                            borderRadius: "0.25em",
+                            border: "1px solid crimson",
+                            fontWeight: "bold",
+                          }}
+                          title="Favorito"
+                        >
+                          <i className="fas fa-exclamation-circle" />
+                        </button>
+                      ) : (
+                        <button
+                          onClick={() => handleFavorite(entry.id)}
+                          disabled={
+                            editMode.isEditing && editMode.id !== entry.id
+                          }
+                          style={{
+                            marginRight: "1em",
+                            padding: "0.25em 1em",
+                            background: "none",
+                            color: "white",
+                            borderRadius: "0.25em",
+                            border: "1px solid white",
+                            fontWeight: "bold",
+                          }}
+                          title="Favorito"
+                        >
+                          <i className="fas fa-thumbs-up" />
+                        </button>
+                      ))}
+                    {!editMode.isEditing &&
+                      (entry.isDone ? (
+                        <div style={{ color: "goldenrod" }}>
+                          <i className="fas fa-check-circle" />
+                        </div>
+                      ) : (
+                        <button
+                          onClick={() => handleComplete(entry.id)}
+                          disabled={
+                            editMode.isEditing && editMode.id !== entry.id
+                          }
+                          style={{
+                            marginRight: "1em",
+                            padding: "0.25em 1em",
+                            background: "#adff2f4a none repeat scroll 0% 0%",
+                            // background: "greenyellow",
+                            color: "white",
+                            borderRadius: "0.25em",
+                            border: "1px solid white",
+                            fontWeight: "bold",
+                          }}
+                          title="Concluido"
+                        >
+                          <span className="hidden-mobile">Completar</span>
+                          <i className="fas fa-check-circle" />
+                        </button>
+                      ))}
+
+                    {!editMode.isEditing && (
+                      <button
+                        onClick={() => handleEdit(entry.id)}
+                        style={{
+                          border: "none",
+                          background: "none",
+                          color: "cadetblue",
+                        }}
+                      >
+                        <span className="hidden-mobile">Editar</span>{" "}
+                        <i className="fas fa-angle-double-down" />
+                      </button>
+                    )}
+                    {editMode.isEditing && entry.id === editMode.id && (
+                      <>
+                        {entry.isDone && (
+                          <button
+                            onClick={() => handleRestore(entry.id)}
+                            style={{
+                              marginRight: "1em",
+                              padding: "0.25em 1em",
+                              // background: "#adff2f4a none repeat scroll 0% 0%",
+                              background: "lightyellow",
+                              color: "black",
+                              borderRadius: "0.25em",
+                              border: "1px solid white",
+                              fontWeight: "bold",
+                            }}
+                            title="Restaurar"
+                          >
+                            <span className="hidden-mobile">Restaurar</span>{" "}
+                            <i className="fas fa-trash-restore" />
+                          </button>
+                        )}
+                        <button
+                          onClick={() => handleDelete(entry.id)}
+                          style={{
+                            border: "none",
+                            background: "none",
+                            color: "red",
+                          }}
+                        >
+                          <span className="hidden-mobile">Apagar</span>
+                          <i className="fas fa-trash-alt" />
+                        </button>
+                        <button
+                          onClick={() => handleCancelEdit()}
+                          style={{
+                            border: "none",
+                            background: "none",
+                            color: "cadetblue",
+                          }}
+                        >
+                          Cancelar{" "}
+                          <i className="fas fa-arrow-alt-circle-left" />
+                        </button>
+                      </>
+                    )}
+                  </div>
+                </>
+              );
+            })
             .reverse()}
-      </ol>
+      </section>
     </article>
   );
 }

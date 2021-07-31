@@ -4,5 +4,5 @@ export interface Task {
   creationTime: number;
   lastUpdateTime: number;
   isDone: boolean;
-  tags?: string[];
+  tags: string[];
 }

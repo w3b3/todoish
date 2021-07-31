@@ -35,12 +35,13 @@ const Clock = () => {
         style={{
           padding: "1rem",
           fontSize: "3rem",
-          borderBottom: "1px solid #ffffff4f",
         }}
       >
+        <i className="fas fa-clock" />
         {new Intl.DateTimeFormat("pt-br", timeOptions).format(date)}
       </section>
       <section style={{ color: "#ffffff4f", fontSize: "1.5rem" }}>
+        <i className="fas fa-calendar-alt" />
         {new Intl.DateTimeFormat("pt-br", dateOptions).format(date)}
       </section>
     </article>
