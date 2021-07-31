@@ -9,12 +9,22 @@ import { Task } from "../../types";
 import { addEntry } from "../../api/addEntry";
 import { getAllEntries } from "../../api/getAllEntries";
 import { deleteEntry } from "../../api/deleteEntry";
+import { editEntry } from "../../api/editEntry";
+
+interface EditMode {
+  id: string;
+  isEditing: boolean;
+}
 
 export function TaskManagement() {
   const [taskName, setTaskName] = useState<string>("");
   const [taskList, setTaskList] = useState<Task[]>([]);
   const [totalNumberOfTasks, setTotalNumberOfTasks] = useState<number>(0);
   const [apiPagination, setApiPagination] = useState<string>("");
+  const [editMode, setEditMode] = useState<EditMode>({
+    id: "",
+    isEditing: false,
+  });
 
   const handleEnter = (typeEvent: KeyboardEvent) => {
     if (typeEvent.key === "Enter") {
@@ -23,14 +33,34 @@ export function TaskManagement() {
   };
 
   const handleTypeTaskName = (typeEvent: SyntheticEvent<HTMLInputElement>) => {
-    //  TODO: field validation
+    //  Use this for field validation
     const target = typeEvent.target as HTMLInputElement;
     setTaskName(target.value);
   };
 
+  const handleCancelEdit = () => {
+    setEditMode({ id: "", isEditing: false });
+    setTaskName("");
+  };
+
+  const findTask = (id: string) => taskList.find((e) => e.id === id);
+
   const handleAddTask = async () => {
     if (!taskName) return;
-    await addEntry(taskName);
+    if (editMode.isEditing) {
+      const newTask = { ...findTask(editMode.id)! };
+      // debugger;
+      newTask.name = taskName;
+      newTask.lastUpdateTime = new Date().valueOf();
+      newTask.tags?.push("updated");
+      await editEntry(newTask);
+      setEditMode({
+        id: "",
+        isEditing: false,
+      });
+    } else {
+      await addEntry(taskName);
+    }
     setTaskName("");
     const newList = await getAllEntries();
     setTaskList(newList.tasks);
@@ -39,11 +69,29 @@ export function TaskManagement() {
   };
 
   const handleDelete = async (id: string) => {
+    setEditMode({ id: "", isEditing: false });
+    setTaskName("");
     await deleteEntry(id);
     const newList = await getAllEntries();
     setTaskList(newList.tasks);
     setApiPagination(newList.pagination);
     setTotalNumberOfTasks(newList.rowCount);
+  };
+
+  const handleComplete = async (id: string) => {
+    // await completeEntry(id);
+    const newList = await getAllEntries();
+    setTaskList(newList.tasks);
+    // setApiPagination(newList.pagination);
+    // setTotalNumberOfTasks(newList.rowCount);
+  };
+
+  const handleEdit = async (id: string) => {
+    setEditMode({
+      id: id,
+      isEditing: true,
+    });
+    setTaskName(taskList.find((e) => e.id === id)?.name ?? "N/A");
   };
 
   useEffect(() => {
@@ -59,26 +107,30 @@ export function TaskManagement() {
         style={{ display: "flex", flexDirection: "column", flexWrap: "wrap" }}
       >
         <label htmlFor="taskDescription">
-          <h1 style={{ fontSize: "1.5em", textAlign: "center" }}>
-            Digite aqui seu lembrete
-          </h1>
+          <h1 style={{ visibility: "hidden" }}>Digite aqui seu lembrete</h1>
         </label>
         <div style={{ display: "flex" }}>
           <input
             type="text"
             id="taskDescription"
             name="taskDescription"
-            placeholder="comprar um saco de batatas"
+            placeholder="Digite aqui seu lembrete"
             onChange={handleTypeTaskName}
             onKeyPress={handleEnter}
             value={taskName}
             style={{ flex: 1, fontSize: "1.5em", padding: "0.5em" }}
           />
-          <button onClick={handleAddTask}>Salvar</button>
+          <button onClick={handleAddTask} disabled={!taskName}>
+            Salvar
+          </button>
         </div>
       </section>
       <hr />
-      <h2>Tarefas salvas ({totalNumberOfTasks})</h2>
+      {totalNumberOfTasks ? (
+        <h2>Tarefas salvas ({totalNumberOfTasks})</h2>
+      ) : (
+        <h2>Ainda sem nenhum lembrete</h2>
+      )}
       <ol>
         {taskList &&
           taskList
@@ -86,12 +138,54 @@ export function TaskManagement() {
             .map((entry) => (
               <li key={entry.id}>
                 <button
-                  onClick={() => handleDelete(entry.id)}
-                  style={{ marginRight: "1em" }}
+                  onClick={() => handleComplete(entry.id)}
+                  disabled={editMode.isEditing && editMode.id !== entry.id}
+                  style={{
+                    marginRight: "1em",
+                    border: "none",
+                    background: "none",
+                    color: "greenyellow",
+                  }}
                 >
-                  Apagar
+                  Concluido <i className="fas fa-check-circle" />
                 </button>
-                {entry.name}
+                <span id={`task${entry.id}`}>{entry.name}</span>
+                {!editMode.isEditing && (
+                  <button
+                    onClick={() => handleEdit(entry.id)}
+                    style={{
+                      border: "none",
+                      background: "none",
+                      color: "cadetblue",
+                    }}
+                  >
+                    Expandir <i className="fas fa-angle-double-down" />
+                  </button>
+                )}
+                {editMode.isEditing && entry.id === editMode.id && (
+                  <>
+                    <button
+                      onClick={() => handleCancelEdit()}
+                      style={{
+                        border: "none",
+                        background: "none",
+                        color: "cadetblue",
+                      }}
+                    >
+                      Cancelar <i className="fas fa-arrow-alt-circle-left" />
+                    </button>
+                    <button
+                      onClick={() => handleDelete(entry.id)}
+                      style={{
+                        border: "none",
+                        background: "none",
+                        color: "red",
+                      }}
+                    >
+                      Apagar <i className="fas fa-trash-alt" />
+                    </button>
+                  </>
+                )}
               </li>
             ))
             .reverse()}

@@ -13,16 +13,15 @@ export const getAllEntries = async () => {
     const tasks = Object.entries(parsedResponse.data).map((e: any) => {
       return {
         id: e[0],
-        name: e[1].taskName,
+        name: e[1].name || e[1].taskName,
         creationTime: e[1].creationTime,
       };
     });
-    const test = {
+    return {
       tasks: tasks,
-      rowCount: parsedResponse.profile.nested[0].queries[0].rowCount / 2,
+      rowCount: parsedResponse.profile.nested[0].queries[0].rowCount,
       pagination: parsedResponse.pageState,
     };
-    return test;
   } catch (e) {
     console.info("getAllEntries", { e });
     return e;
