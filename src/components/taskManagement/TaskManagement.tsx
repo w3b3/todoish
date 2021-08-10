@@ -5,198 +5,21 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import {
-  CancelEditButtonInterface,
-  CompleteButtonInterface,
-  DeleteButtonInterface,
-  EditButtonInterface,
-  EditMode,
-  FavoriteButtonInterface,
-  RestoreButtonInterface,
-  Task,
-} from "../../types";
+import { EditMode, Task } from "../../types";
 import { addEntry } from "../../api/addEntry";
 import { getAllEntries } from "../../api/getAllEntries";
 import { deleteEntry } from "../../api/deleteEntry";
 import { editEntry } from "../../api/editEntry";
-
-function TaskDate(props: { input: Task }) {
-  const { input: entry } = props;
-  return (
-    <div style={{ flex: 1, textAlign: "left" }}>
-      <i className="fas fa-calendar-alt" />{" "}
-      {new Intl.DateTimeFormat("pt-br", {
-        weekday: "short",
-        month: "short",
-        day: "numeric",
-      }).format(new Date(entry.lastUpdateTime || entry.creationTime))}
-    </div>
-  );
-}
-
-function FavoriteAddButton({
-  handleFavorite,
-  entry,
-  editMode,
-}: FavoriteButtonInterface) {
-  return (
-    <button
-      onClick={() => handleFavorite(entry.id)}
-      disabled={editMode.isEditing && editMode.id !== entry.id}
-      style={{
-        marginRight: "1em",
-        padding: "0.25em 1em",
-        background: "none",
-        color: "white",
-        borderRadius: "0.25em",
-        border: "1px solid white",
-        fontWeight: "bold",
-      }}
-      title="Favorito"
-    >
-      <i className="fas fa-thumbs-up" />
-    </button>
-  );
-}
-
-function FavoriteRemoveButton({
-  handleFavorite,
-  entry,
-  editMode,
-}: FavoriteButtonInterface) {
-  return (
-    <button
-      onClick={() => handleFavorite(entry.id)}
-      disabled={editMode.isEditing && editMode.id !== entry.id}
-      style={{
-        marginRight: "1em",
-        padding: "0.25em 1em",
-        background: "white",
-        color: "red",
-        borderRadius: "0.25em",
-        border: "1px solid crimson",
-        fontWeight: "bold",
-      }}
-      title="Favorito"
-    >
-      <i className="fas fa-exclamation-circle" />
-    </button>
-  );
-}
-
-function CompleteButton({
-  handleComplete,
-  entry,
-  editMode,
-}: CompleteButtonInterface) {
-  return (
-    <button
-      onClick={() => handleComplete(entry.id)}
-      disabled={editMode.isEditing && editMode.id !== entry.id}
-      style={{
-        padding: "0.25em 1em",
-        background: "#adff2f4a none repeat scroll 0% 0%",
-        color: "white",
-        borderRadius: "0.25em",
-        border: "1px solid white",
-        fontWeight: "bold",
-      }}
-      title="Concluido"
-    >
-      <i className="fas fa-check-circle" />
-      <span className="hidden-mobile">Completar</span>
-    </button>
-  );
-}
-
-function EditButton({ handleEdit, editMode, entry }: EditButtonInterface) {
-  return !editMode.isEditing ? (
-    <button
-      onClick={() => handleEdit(entry.id)}
-      style={{
-        border: "none",
-        background: "none",
-        color: "cadetblue",
-        padding: "1em",
-      }}
-    >
-      <i className="fas fa-angle-double-down" />
-      {!entry.isDone && !editMode.isEditing && (
-        <span className="hidden-mobile">Editar</span>
-      )}
-    </button>
-  ) : null;
-}
-
-function RestoreButton({ handleRestore, entry }: RestoreButtonInterface) {
-  return entry.isDone ? (
-    <button
-      onClick={() => handleRestore(entry.id)}
-      style={{
-        // marginRight: "1em",
-        padding: "0.25em 1em",
-        // background: "#adff2f4a none repeat scroll 0% 0%",
-        background: "lightyellow",
-        color: "black",
-        borderRadius: "0.25em",
-        border: "1px solid white",
-        fontWeight: "bold",
-      }}
-      title="Restaurar"
-    >
-      <span className="hidden-mobile">Restaurar</span>{" "}
-      <i className="fas fa-trash-restore" />
-    </button>
-  ) : null;
-}
-
-function DeleteButton({ handleDelete, entry }: DeleteButtonInterface) {
-  return (
-    <button
-      onClick={() => handleDelete(entry.id)}
-      style={{
-        border: "none",
-        background: "none",
-        color: "red",
-      }}
-    >
-      <i className="fas fa-trash-alt" />
-      <span className="hidden-mobile">Apagar</span>
-    </button>
-  );
-}
-function CancelEditButton({ handleCancelEdit }: CancelEditButtonInterface) {
-  return (
-    <button
-      onClick={() => handleCancelEdit()}
-      style={{
-        border: "none",
-        background: "none",
-        color: "cadetblue",
-      }}
-    >
-      <i className="fas fa-arrow-alt-circle-left" />
-      <span className="XXXX-hidden-mobile">Cancelar</span>
-    </button>
-  );
-}
-
-function TaskDescription(entry: Task) {
-  return (
-    <p
-      id={`task${entry.id}`}
-      style={{
-        flex: "1",
-        padding: "0 1em",
-        lineHeight: "2",
-        textDecoration: entry.isDone ? "line-through" : "",
-        color: entry.isDone ? "gray" : "inherit",
-      }}
-    >
-      {entry.name}
-    </p>
-  );
-}
+import { FavoriteAddButton } from "./FavoriteAddButton";
+import { FavoriteRemoveButton } from "./FavoriteRemoveButton";
+import { CompleteButton } from "./CompleteButton";
+import { EditButton } from "./EditButton";
+import { RestoreButton } from "./RestoreButton";
+import { DeleteButton } from "./DeleteButton";
+import { CancelEditButton } from "./CancelEditButton";
+import { TaskDate } from "./TaskDate";
+import { TaskDescription } from "./TaskDescription";
+import { TaskInput } from "./TaskInput";
 
 export function TaskManagement() {
   const [taskName, setTaskName] = useState<string>("");
@@ -307,40 +130,12 @@ export function TaskManagement() {
   }, []);
   return (
     <article style={{ flex: 1 }}>
-      <section
-        style={{ display: "flex", flexDirection: "column", flexWrap: "wrap" }}
-      >
-        <label htmlFor="taskDescription" style={{ visibility: "hidden" }}>
-          Digite aqui seu lembrete
-        </label>
-        <div style={{ display: "flex" }}>
-          <input
-            type="text"
-            id="taskDescription"
-            name="taskDescription"
-            placeholder="Digite aqui seu lembrete"
-            onChange={handleTypeTaskName}
-            onKeyPress={handleEnter}
-            value={taskName}
-            style={{ flex: 1, fontSize: "1.5em", padding: "0.5em" }}
-          />
-          <button
-            style={{
-              border: "none",
-              padding: "1em",
-              backgroundColor: "gray",
-            }}
-            onClick={handleAddTask}
-            disabled={!taskName}
-            title="Salvar"
-          >
-            <i
-              className="fas fa-cloud-upload-alt"
-              style={{ textShadow: "0 0 8px white" }}
-            />
-          </button>
-        </div>
-      </section>
+      <TaskInput
+        handleAddTask={handleAddTask}
+        handleTypeTaskName={handleTypeTaskName}
+        handleEnter={handleEnter}
+        taskName={taskName}
+      />
       {totalNumberOfTasks ? (
         <h2
           style={{
