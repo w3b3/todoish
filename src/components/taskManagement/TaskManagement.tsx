@@ -43,6 +43,16 @@ export function TaskManagement() {
     setTaskName(target.value);
   };
 
+  const handleEdit = async (id: string) => {
+    setEditMode({
+      id: id,
+      isEditing: true,
+    });
+    setTaskName(
+      taskList.find((e) => e.id === id)?.name ?? "N/A"
+    ); /*N/A should never occur*/
+  };
+
   const handleCancelEdit = () => {
     setEditMode({ id: "", isEditing: false });
     setTaskName("");
@@ -113,14 +123,6 @@ export function TaskManagement() {
     setTaskList(newList.tasks);
   };
 
-  const handleEdit = async (id: string) => {
-    setEditMode({
-      id: id,
-      isEditing: true,
-    });
-    setTaskName(taskList.find((e) => e.id === id)?.name ?? "N/A");
-  };
-
   useEffect(() => {
     getAllEntries().then((newList) => {
       setTaskList(newList.tasks);
@@ -130,12 +132,23 @@ export function TaskManagement() {
   }, []);
   return (
     <article style={{ flex: 1 }}>
-      <TaskInput
-        handleAddTask={handleAddTask}
-        handleTypeTaskName={handleTypeTaskName}
-        handleEnter={handleEnter}
-        taskName={taskName}
-      />
+      {editMode.isEditing ? (
+        <>
+          <h1>Edit mode: ON</h1>
+          <h2>{editMode.id}</h2>
+          <h3>
+            {taskList.find((entry) => entry.id === editMode.id)?.name ??
+              "Nao encontrado"}
+          </h3>
+        </>
+      ) : (
+        <TaskInput
+          handleAddTask={handleAddTask}
+          handleTypeTaskName={handleTypeTaskName}
+          handleEnter={handleEnter}
+          taskName={taskName}
+        />
+      )}
       {totalNumberOfTasks ? (
         <h2
           style={{
@@ -161,15 +174,15 @@ export function TaskManagement() {
                   style={{
                     display: entry.isDone ? "flex" : "inherit",
                     flexDirection: !editMode.isEditing ? "row" : "column",
-                    backgroundColor: entry.isDone
-                      ? "inherit"
-                      : entry.tags.includes("favorite")
-                      ? "#ff000040"
-                      : "#504c4c4a",
+                    marginBottom: "8px",
+                    backgroundColor: entry.isDone ? "inherit" : "#504c4c4a",
                     borderBottom:
                       editMode.isEditing && editMode.id === entry.id
                         ? "3px solid red"
                         : "3px solid transparent",
+                    borderLeft: entry.tags.includes("favorite")
+                      ? "10px solid rgba(255, 0, 0, 0.25)"
+                      : "10px solid transparent",
                   }}
                 >
                   <div
@@ -179,7 +192,25 @@ export function TaskManagement() {
                       alignItems: "center",
                     }}
                   >
-                    <TaskDescription {...entry} />
+                    {editMode.isEditing && editMode.id === entry.id ? (
+                      <input
+                        type="text"
+                        id="taskDescription"
+                        name="taskDescription"
+                        placeholder="Digite aqui seu lembrete"
+                        onChange={handleTypeTaskName}
+                        onKeyPress={handleEnter}
+                        value={taskName}
+                        style={{
+                          flex: 1,
+                          fontSize: "1.5em",
+                          padding: "0.5em",
+                          border: "none",
+                        }}
+                      />
+                    ) : (
+                      <TaskDescription {...entry} />
+                    )}
                     <EditButton
                       editMode={editMode}
                       handleEdit={handleEdit}
