@@ -310,8 +310,8 @@ export function TaskManagement() {
       <section
         style={{ display: "flex", flexDirection: "column", flexWrap: "wrap" }}
       >
-        <label htmlFor="taskDescription">
-          <h1 style={{ visibility: "hidden" }}>Digite aqui seu lembrete</h1>
+        <label htmlFor="taskDescription" style={{ visibility: "hidden" }}>
+          Digite aqui seu lembrete
         </label>
         <div style={{ display: "flex" }}>
           <input
