@@ -2,19 +2,19 @@ import { Task } from "./types";
 
 export const mockApiResponse: Task[] = [
   {
-    name: "Task item 1",
     id: "ajsldkj2389049809432",
-    creationTime: 78,
+    name: "Task item 1",
+    creationTime: 1628458403094,
     isDone: false,
-    lastUpdateTime: 98,
+    lastUpdateTime: 1628458403094,
     tags: ["a"],
   },
   {
     name: "Task item 2",
     id: "hjsdjkfhjkd82378947",
-    creationTime: 45,
+    creationTime: 1628458403094,
     isDone: true,
-    lastUpdateTime: 46,
+    lastUpdateTime: 0,
     tags: ["a", "b"],
   },
 ];

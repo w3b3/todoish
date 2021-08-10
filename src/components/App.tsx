@@ -7,7 +7,6 @@ function App() {
   return (
     <main
       style={{
-        // padding: "2rem",
         margin: "0 auto",
         maxWidth: "500px",
         display: "flex",
