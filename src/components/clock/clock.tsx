@@ -27,21 +27,35 @@ const Clock = () => {
         alignItems: "center",
         minHeight: "3em",
         height: "20vh",
-        marginTop: "4em",
+        marginTop: "2em",
         textAlign: "center",
       }}
     >
       <section
         style={{
           padding: "1rem",
-          fontSize: "3rem",
+          fontSize: "2rem",
         }}
       >
-        <i className="fas fa-clock" />
+        <i
+          className="fas fa-clock"
+          style={{
+            fontSize: "1em",
+            display: "inline-block",
+            marginRight: "6px",
+          }}
+        />
         {new Intl.DateTimeFormat("pt-br", timeOptions).format(date)}
       </section>
-      <section style={{ color: "#ffffff4f", fontSize: "1.5rem" }}>
-        <i className="fas fa-calendar-alt" />
+      <section style={{ color: "#ffffff4f", fontSize: "1.25rem" }}>
+        <i
+          className="fas fa-calendar-alt"
+          style={{
+            fontSize: "1em",
+            display: "inline-block",
+            marginRight: "6px",
+          }}
+        />
         {new Intl.DateTimeFormat("pt-br", dateOptions).format(date)}
       </section>
     </article>
