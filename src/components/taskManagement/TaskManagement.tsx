@@ -77,10 +77,12 @@ export function TaskManagement() {
     }
     setTaskName("");
     const newList = await getAllEntries();
-    setTaskList(newList.tasks);
-    // setApiPagination(newList.pagination);
-    // setTotalNumberOfTasks(newList.rowCount); //DOES NOT WORK
-    setTotalNumberOfTasks(newList.tasks.length); //TEMPORARY SOLUTION - FLAKY SINCE ITS WITHOUT PAGINATION
+    if (newList && newList.tasks) {
+      setTaskList(newList.tasks);
+      // setApiPagination(newList.pagination);
+      // setTotalNumberOfTasks(newList.rowCount); //DOES NOT WORK
+      setTotalNumberOfTasks(newList.tasks.length); //TEMPORARY SOLUTION - FLAKY SINCE ITS WITHOUT PAGINATION
+    }
   };
 
   const handleDelete = async (id: string) => {
