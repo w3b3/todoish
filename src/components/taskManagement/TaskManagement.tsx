@@ -125,7 +125,7 @@ export function TaskManagement() {
 
   useEffect(() => {
     getAllEntries().then((newList) => {
-      if (newList) {
+      if (newList && newList.tasks) {
         setTaskList(newList.tasks);
         setTotalNumberOfTasks(newList.tasks.length); //TEMPORARY SOLUTION - FLAKY SINCE ITS WITHOUT PAGINATION
         // setApiPagination(newList.pagination);
