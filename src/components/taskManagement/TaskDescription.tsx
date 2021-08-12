@@ -11,6 +11,7 @@ export function TaskDescription(entry: Task) {
         lineHeight: "2",
         textDecoration: entry.isDone ? "line-through" : "",
         color: entry.isDone ? "gray" : "inherit",
+        userSelect: "text",
       }}
     >
       {entry.name}
