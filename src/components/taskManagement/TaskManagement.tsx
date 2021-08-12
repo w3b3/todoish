@@ -125,9 +125,9 @@ export function TaskManagement() {
 
   useEffect(() => {
     getAllEntries().then((newList) => {
-      setTaskList(newList.tasks);
+      setTaskList(newList?.tasks ?? []);
       // setApiPagination(newList.pagination);
-      setTotalNumberOfTasks(newList.tasks.length); //TEMPORARY SOLUTION - FLAKY SINCE ITS WITHOUT PAGINATION
+      setTotalNumberOfTasks(newList?.tasks.length ?? 0); //TEMPORARY SOLUTION - FLAKY SINCE ITS WITHOUT PAGINATION
     });
   }, []);
   return (
