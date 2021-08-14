@@ -4,7 +4,11 @@
   font-family: "Open Sans", sans-serif;
   font-size: 16px;
   box-sizing: border-box;
-  /*user-select: none;*/
+  user-select: none;
+}
+
+input {
+  user-select: auto;
 }
 
 section,
