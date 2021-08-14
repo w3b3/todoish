@@ -134,6 +134,38 @@ export function TaskManagement() {
       }
     });
   }, []);
+
+  function generateEntryStyles(entry: Task) {
+    return {
+      display: entry.isDone ? "flex" : "inherit",
+      marginBottom: "8px",
+      backgroundColor: entry.isDone ? "inherit" : "#504c4c4a",
+      borderBottom:
+        editMode.isEditing && editMode.id === entry.id
+          ? "3px solid red"
+          : "3px solid transparent",
+      borderLeft: entry.tags.includes("favorite")
+        ? "10px solid rgba(255, 0, 0, 0.25)"
+        : "10px solid transparent",
+    };
+  }
+
+  function generateControlsStyles(entry: Task) {
+    return (editMode.isEditing && editMode.id === entry.id) ||
+      (!editMode.isEditing && !entry.isDone)
+      ? {
+          height: "65px",
+          padding: "1em",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          borderBottom: editMode.isEditing ? "1px solid #ffffff4f" : "",
+        }
+      : {
+          display: "none",
+        };
+  }
+
   return (
     <article style={{ flex: 1 }}>
       {editMode.isEditing ? (
@@ -169,129 +201,92 @@ export function TaskManagement() {
       )}
       <section>
         {taskList &&
-          taskList
-            .sort(sortTasks)
-            .map((entry) => {
-              return (
-                <article
-                  key={entry.id}
+          taskList.sort(sortTasks).map((entry) => {
+            return (
+              <article key={entry.id} style={generateEntryStyles(entry)}>
+                <div
                   style={{
-                    display: entry.isDone ? "flex" : "inherit",
-                    flexDirection: !editMode.isEditing ? "row" : "column",
-                    marginBottom: "8px",
-                    backgroundColor: entry.isDone ? "inherit" : "#504c4c4a",
-                    borderBottom:
-                      editMode.isEditing && editMode.id === entry.id
-                        ? "3px solid red"
-                        : "3px solid transparent",
-                    borderLeft: entry.tags.includes("favorite")
-                      ? "10px solid rgba(255, 0, 0, 0.25)"
-                      : "10px solid transparent",
+                    width: "100%",
+                    display: "flex",
+                    alignItems: "center",
                   }}
                 >
-                  <div
-                    style={{
-                      width: "100%",
-                      display: "flex",
-                      alignItems: "center",
-                    }}
-                  >
-                    {editMode.isEditing && editMode.id === entry.id ? (
-                      <input
-                        type="text"
-                        id="taskDescription"
-                        name="taskDescription"
-                        placeholder="Digite aqui seu lembrete"
-                        onChange={handleTypeTaskName}
-                        onKeyPress={handleEnter}
-                        value={taskName}
-                        style={{
-                          flex: 1,
-                          fontSize: "1.5em",
-                          padding: "0.5em",
-                          border: "none",
-                        }}
-                      />
-                    ) : (
-                      <TaskDescription {...entry} />
-                    )}
-                    <EditButton
-                      editMode={editMode}
-                      handleEdit={handleEdit}
-                      entry={entry}
+                  {editMode.isEditing && editMode.id === entry.id ? (
+                    <input
+                      type="text"
+                      id="taskDescription"
+                      name="taskDescription"
+                      placeholder="Digite aqui seu lembrete"
+                      onChange={handleTypeTaskName}
+                      onKeyPress={handleEnter}
+                      value={taskName}
+                      style={{
+                        flex: 1,
+                        fontSize: "1.5em",
+                        padding: "0.5em",
+                        border: "none",
+                      }}
                     />
-                  </div>
-                  <div
-                    key={entry.id}
-                    style={
-                      (editMode.isEditing && editMode.id === entry.id) ||
-                      (!editMode.isEditing && !entry.isDone)
-                        ? {
-                            height: "65px",
-                            padding: "1em",
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            borderBottom: editMode.isEditing
-                              ? "1px solid #ffffff4f"
-                              : "",
-                          }
-                        : {
-                            display: "none",
-                          }
-                    }
-                  >
-                    {!entry.isDone && <TaskDate input={entry} />}
+                  ) : (
+                    <TaskDescription {...entry} />
+                  )}
+                  <EditButton
+                    editMode={editMode}
+                    handleEdit={handleEdit}
+                    entry={entry}
+                  />
+                </div>
+                <div key={entry.id} style={generateControlsStyles(entry)}>
+                  {!entry.isDone && <TaskDate input={entry} />}
 
-                    {/*FAVORITE*/}
-                    {!editMode.isEditing &&
-                      !entry.isDone &&
-                      (entry.tags.includes("favorite") ? (
-                        <FavoriteRemoveButton
-                          handleFavorite={handleFavorite}
-                          entry={entry}
-                          editMode={editMode}
-                        />
-                      ) : (
-                        <FavoriteAddButton
-                          handleFavorite={handleFavorite}
-                          entry={entry}
-                          editMode={editMode}
-                        />
-                      ))}
-                    {!editMode.isEditing && !entry.isDone && (
-                      <CompleteButton
-                        handleComplete={handleComplete}
+                  {/*FAVORITE*/}
+                  {!editMode.isEditing &&
+                    !entry.isDone &&
+                    (entry.tags.includes("favorite") ? (
+                      <FavoriteRemoveButton
+                        handleFavorite={handleFavorite}
                         entry={entry}
                         editMode={editMode}
                       />
-                    )}
+                    ) : (
+                      <FavoriteAddButton
+                        handleFavorite={handleFavorite}
+                        entry={entry}
+                        editMode={editMode}
+                      />
+                    ))}
+                  {!editMode.isEditing && !entry.isDone && (
+                    <CompleteButton
+                      handleComplete={handleComplete}
+                      entry={entry}
+                      editMode={editMode}
+                    />
+                  )}
 
-                    {/*EDIT CONTROLS*/}
-                    {editMode.isEditing && entry.id === editMode.id && (
-                      <>
-                        <RestoreButton
-                          entry={entry}
-                          handleRestore={handleRestore}
-                          editMode={editMode}
-                        />
-                        <DeleteButton
-                          editMode={editMode}
-                          entry={entry}
-                          handleDelete={handleDelete}
-                        />
-                        <CancelEditButton
-                          editMode={editMode}
-                          handleCancelEdit={handleCancelEdit}
-                          entry={entry}
-                        />
-                      </>
-                    )}
-                  </div>
-                </article>
-              );
-            })
-            .reverse()}
+                  {/*EDIT CONTROLS*/}
+                  {editMode.isEditing && entry.id === editMode.id && (
+                    <>
+                      <RestoreButton
+                        entry={entry}
+                        handleRestore={handleRestore}
+                        editMode={editMode}
+                      />
+                      <DeleteButton
+                        editMode={editMode}
+                        entry={entry}
+                        handleDelete={handleDelete}
+                      />
+                      <CancelEditButton
+                        editMode={editMode}
+                        handleCancelEdit={handleCancelEdit}
+                        entry={entry}
+                      />
+                    </>
+                  )}
+                </div>
+              </article>
+            );
+          })}
       </section>
     </article>
   );

@@ -1,5 +1,7 @@
 import { Task } from "./types";
 
 export const sortTasks = (a: Task, b: Task) => {
-  return a.creationTime > b.creationTime ? 1 : 0;
+  return a.lastUpdateTime || a.creationTime > b.lastUpdateTime || b.creationTime
+    ? 0
+    : 1;
 };
