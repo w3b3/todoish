@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const Clock = () => {
-  const date = new Date();
+  const [locale, setLocale] = useState("pt-br");
+  const [date, setDate] = useState(() => new Date());
+  useEffect(() => {
+    setTimeout(() => setDate(new Date()), 5000);
+  }, [date]);
   /*https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat#using_datetimeformat*/
   const timeOptions = {
     hour12: true,
@@ -45,8 +49,22 @@ const Clock = () => {
             marginRight: "6px",
           }}
         />
-        {new Intl.DateTimeFormat("pt-br", timeOptions).format(date)}
+        {new Intl.DateTimeFormat(locale, timeOptions).format(date)}
       </section>
+      <button
+        style={{
+          position: "absolute",
+          right: 0,
+          top: 0,
+          background: "none",
+          border: "none",
+          color: "gray",
+          fontSize: "0.75em",
+        }}
+        onClick={() => setLocale(locale === "pt-br" ? "en-us" : "pt-br")}
+      >
+        {locale === "pt-br" ? "Locale: pt-br" : "Locale: en-us"}
+      </button>
       <section style={{ color: "#ffffff4f", fontSize: "1.25rem" }}>
         <i
           className="fas fa-calendar-alt"
@@ -56,7 +74,7 @@ const Clock = () => {
             marginRight: "6px",
           }}
         />
-        {new Intl.DateTimeFormat("pt-br", dateOptions).format(date)}
+        {new Intl.DateTimeFormat(locale, dateOptions).format(date)}
       </section>
     </article>
   );
