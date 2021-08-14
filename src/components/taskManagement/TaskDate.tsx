@@ -1,14 +1,14 @@
 import { Task } from "../../types";
 import React from "react";
 
-export function TaskDate(props: { input: Task }) {
-  const { input: entry } = props;
+export function TaskDate({ input }: { input: Task }) {
+  const entry = input;
   return (
     <div style={{ flex: 1, textAlign: "left" }}>
       <i className="fas fa-calendar-alt" />{" "}
       {new Intl.DateTimeFormat("pt-br", {
-        weekday: "short",
-        month: "short",
+        // weekday: "short",
+        month: "numeric",
         day: "numeric",
       }).format(new Date(entry.lastUpdateTime || entry.creationTime))}
     </div>
