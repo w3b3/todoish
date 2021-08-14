@@ -59,6 +59,7 @@ const Clock = () => {
           background: "none",
           border: "none",
           color: "gray",
+          fontSize: "0.75em",
         }}
         onClick={() => setLocale(locale === "pt-br" ? "en-us" : "pt-br")}
       >
