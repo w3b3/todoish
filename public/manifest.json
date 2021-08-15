@@ -1,6 +1,8 @@
 {
   "short_name": "AstraDB TODO",
   "name": "A TODO app with AstraDB from Datastax",
+  "orientation": "portrait",
+  "lang": "pt-br",
   "icons": [
     {
       "src": "icon.ico",
