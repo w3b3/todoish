@@ -12,7 +12,7 @@ import { clientsClaim } from "workbox-core";
 import { ExpirationPlugin } from "workbox-expiration";
 import { precacheAndRoute, createHandlerBoundToURL } from "workbox-precaching";
 import { registerRoute } from "workbox-routing";
-import { StaleWhileRevalidate } from "workbox-strategies";
+import { CacheOnly, StaleWhileRevalidate } from "workbox-strategies";
 
 declare const self: ServiceWorkerGlobalScope;
 
@@ -85,7 +85,7 @@ registerRoute(
   ({ url }) =>
     url.origin === "https://fonts.googleapis.com" ||
     url.origin === "https://fonts.gstatic.com",
-  new StaleWhileRevalidate({
+  new CacheOnly({
     cacheName: "google-fonts",
     plugins: [new ExpirationPlugin({ maxEntries: 20 })],
   })
