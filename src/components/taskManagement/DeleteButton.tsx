@@ -1,4 +1,4 @@
-import { DeleteButtonInterface } from "../../types";
+import { DeleteButtonInterface } from "../../strings/types/types";
 import React from "react";
 
 export function DeleteButton({ handleDelete, entry }: DeleteButtonInterface) {

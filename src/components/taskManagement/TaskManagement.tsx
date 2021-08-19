@@ -2,10 +2,11 @@ import { sortTasks } from "../../utils";
 import React, {
   KeyboardEvent,
   SyntheticEvent,
+  useContext,
   useEffect,
   useState,
 } from "react";
-import { EditMode, Task } from "../../types";
+import { EditMode, Locale, Task } from "../../strings/types/types";
 import { addEntry } from "../../api/addEntry";
 import { getAllEntries } from "../../api/getAllEntries";
 import { deleteEntry } from "../../api/deleteEntry";
@@ -20,8 +21,11 @@ import { CancelEditButton } from "./CancelEditButton";
 import { TaskDate } from "./TaskDate";
 import { TaskDescription } from "./TaskDescription";
 import { TaskInput } from "./TaskInput";
+import AppSettingsContext from "../../context/appSettingsContext";
+import { STRINGS } from "../../strings/strings";
 
 export function TaskManagement() {
+  const { locale } = useContext(AppSettingsContext);
   const [taskName, setTaskName] = useState<string>("");
   const [taskList, setTaskList] = useState<Task[]>([]);
   const [totalNumberOfTasks, setTotalNumberOfTasks] = useState<number>(0);
@@ -194,10 +198,16 @@ export function TaskManagement() {
             margin: "2rem 0 1rem",
           }}
         >
-          <i className="fas fa-tasks" /> Itens salvos ({totalNumberOfTasks})
+          <i className="fas fa-tasks" />
+          &nbsp;
+          {`${
+            locale === Locale.BR ? STRINGS.LIST_TITLE.pt : STRINGS.LIST_TITLE.en
+          } (${totalNumberOfTasks})`}
         </h2>
       ) : (
-        <h2>Ainda sem nenhum lembrete</h2>
+        <h2>
+          {locale === Locale.BR ? STRINGS.EMPTY_LIST.pt : STRINGS.EMPTY_LIST.en}
+        </h2>
       )}
       <section>
         {taskList &&

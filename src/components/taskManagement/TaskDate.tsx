@@ -1,4 +1,4 @@
-import { Task } from "../../types";
+import { Task } from "../../strings/types/types";
 import React from "react";
 
 export function TaskDate({ input }: { input: Task }) {

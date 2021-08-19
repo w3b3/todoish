@@ -1,4 +1,4 @@
-import { Task } from "./types";
+import { Task } from "./strings/types/types";
 
 export const mockApiResponse: Task[] = [
   {

@@ -1,4 +1,4 @@
-import { EditButtonInterface } from "../../types";
+import { EditButtonInterface } from "../../strings/types/types";
 import React from "react";
 
 export function EditButton({

@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import AppSettingsContext from "../../context/appSettingsContext";
 
 const Clock = () => {
-  const [locale, setLocale] = useState("pt-br");
+  const { locale, setLocale } = useContext(AppSettingsContext);
   const [date, setDate] = useState(() => new Date());
   useEffect(() => {
     setTimeout(() => setDate(new Date()), 5000);
@@ -22,6 +23,11 @@ const Clock = () => {
     month: "short",
     day: "numeric",
   } as const;
+
+  const handleLocaleClick = () => {
+    setLocale(locale === "pt-br" ? "en-us" : "pt-br");
+  };
+
   return (
     <article
       style={{
@@ -61,9 +67,9 @@ const Clock = () => {
           color: "gray",
           fontSize: "0.75em",
         }}
-        onClick={() => setLocale(locale === "pt-br" ? "en-us" : "pt-br")}
+        onClick={handleLocaleClick}
       >
-        {locale === "pt-br" ? "Locale: pt-br" : "Locale: en-us"}
+        {locale}
       </button>
       <section style={{ color: "#ffffff4f", fontSize: "1.25rem" }}>
         <i

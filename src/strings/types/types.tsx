@@ -1,3 +1,9 @@
+export const Locale = {
+  BR: "pt-br",
+  CA: "en-ca",
+  US: "en-us",
+};
+
 export interface Task {
   name: string;
   id: string;
