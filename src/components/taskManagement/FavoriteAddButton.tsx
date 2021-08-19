@@ -1,4 +1,4 @@
-import { FavoriteButtonInterface } from "../../types";
+import { FavoriteButtonInterface } from "../../strings/types/types";
 import React from "react";
 
 export function FavoriteAddButton({

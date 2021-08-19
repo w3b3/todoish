@@ -1,4 +1,4 @@
-import { CompleteButtonInterface } from "../../types";
+import { CompleteButtonInterface } from "../../strings/types/types";
 import React from "react";
 
 export function CompleteButton({

@@ -1,5 +1,5 @@
 import { CONSTANTS, headers } from "./_";
-import { Task } from "../types";
+import { Task } from "../strings/types/types";
 import { v4 as uuidv4 } from "uuid";
 
 export const addEntry = async (entry: string) => {

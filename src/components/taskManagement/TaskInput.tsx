@@ -1,5 +1,8 @@
 import { SaveButton } from "./SaveButton";
-import React, { KeyboardEvent, SyntheticEvent } from "react";
+import React, { KeyboardEvent, SyntheticEvent, useContext } from "react";
+import AppSettingsContext from "../../context/appSettingsContext";
+import { STRINGS } from "../../strings/strings";
+import { Locale } from "../../strings/types/types";
 
 export function TaskInput({
   handleTypeTaskName,
@@ -12,6 +15,7 @@ export function TaskInput({
   handleEnter: (event: KeyboardEvent) => void;
   handleAddTask: () => void;
 }) {
+  const { locale } = useContext(AppSettingsContext);
   return (
     <section
       style={{ display: "flex", flexDirection: "column", flexWrap: "wrap" }}
@@ -24,7 +28,11 @@ export function TaskInput({
           type="text"
           id="taskDescription"
           name="taskDescription"
-          placeholder="Digite aqui seu lembrete"
+          placeholder={
+            locale === Locale.BR
+              ? STRINGS.INPUT_TASK_PLACEHOLDER.pt
+              : STRINGS.INPUT_TASK_PLACEHOLDER.en
+          }
           onChange={handleTypeTaskName}
           onKeyPress={handleEnter}
           value={taskName}

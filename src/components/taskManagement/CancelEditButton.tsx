@@ -1,4 +1,4 @@
-import { CancelEditButtonInterface } from "../../types";
+import { CancelEditButtonInterface } from "../../strings/types/types";
 import React from "react";
 
 export function CancelEditButton({
