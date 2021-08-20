@@ -220,7 +220,7 @@ export function TaskManagement() {
               <article key={entry.id} style={generateEntryStyles(entry)}>
                 <div
                   style={{
-                    width: "100%",
+                    maxWidth: "100%",
                     display: "flex",
                     alignItems: "center",
                   }}
