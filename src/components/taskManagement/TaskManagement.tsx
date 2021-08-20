@@ -140,18 +140,22 @@ export function TaskManagement() {
   }, []);
 
   function generateEntryStyles(entry: Task) {
-    return {
-      display: entry.isDone ? "flex" : "inherit",
-      marginBottom: "8px",
-      backgroundColor: entry.isDone ? "inherit" : "#504c4c4a",
-      borderBottom:
-        editMode.isEditing && editMode.id === entry.id
-          ? "3px solid red"
-          : "3px solid transparent",
-      borderLeft: entry.tags.includes("favorite")
-        ? "10px solid rgba(255, 0, 0, 0.25)"
-        : "10px solid transparent",
-    };
+    return entry.isDone
+      ? {
+          marginBottom: "8px",
+          backgroundColor: "rgba(0, 0, 0, 0.3)",
+          borderRadius: "8px",
+          border: "2px solid #00000020",
+          boxShadow: "0 0 4px 4px #00000030",
+          display: "flex",
+        }
+      : {
+          marginBottom: "8px",
+          backgroundColor: "rgba(0, 0, 0, 0.83)",
+          borderRadius: "8px",
+          border: "2px solid #00000045",
+          boxShadow: "0 0 4px 4px #00000045",
+        };
   }
 
   function generateControlsStyles(entry: Task) {
