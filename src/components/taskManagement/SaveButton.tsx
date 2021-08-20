@@ -10,9 +10,12 @@ export function SaveButton({
   return (
     <button
       style={{
-        border: "none",
+        border: "1px solid darkgray",
         padding: "1em",
         backgroundColor: "gray",
+        borderRadius: "8px",
+        marginLeft: "4px",
+        boxShadow: "0 0 4px 4px #00000045",
       }}
       onClick={handleAddTask}
       disabled={!taskName}
@@ -20,7 +23,7 @@ export function SaveButton({
     >
       <i
         className="fas fa-cloud-upload-alt"
-        style={{ textShadow: "0 0 8px white" }}
+        style={{ textShadow: "0 0 8px black", color: "greenyellow" }}
       />
     </button>
   );

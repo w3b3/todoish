@@ -5,17 +5,18 @@ const Clock = () => {
   const { locale, setLocale } = useContext(AppSettingsContext);
   const [date, setDate] = useState(() => new Date());
   useEffect(() => {
-    setTimeout(() => setDate(new Date()), 5000);
+    setTimeout(() => setDate(new Date()), 10000);
   }, [date]);
-  /*https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat#using_datetimeformat*/
+  /* https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat#using_datetimeformat
+   * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat */
   const timeOptions = {
-    hour12: true,
-    hour: "numeric",
-    minute: "numeric",
+    // hour12: true, // TODO: file a bug with Chromium: when this is true, 12:13PM shows as 00:13
+    // dayPeriod: "short", // "narrow", "short", " long" yield the same
+    hour: "2-digit", // 2-digit, numeric
+    minute: "2-digit",
     // second: "numeric",
-    // timeZone: "America/New_York",
     // timeZoneName: "short",
-    dayPeriod: "short",
+    // timeZone: "America/New_York",
   } as const; /*https://stackoverflow.com/questions/66590691/typescript-type-string-is-not-assignable-to-type-numeric-2-digit-in-d*/
   /*    interface DateTimeFormatOptions node_modules/typescript/lib/lib.es5.d.ts */
   const dateOptions = {
@@ -29,7 +30,7 @@ const Clock = () => {
   };
 
   return (
-    <article
+    <section
       style={{
         display: "flex",
         flexDirection: "column",
@@ -45,6 +46,7 @@ const Clock = () => {
         style={{
           padding: "1rem",
           fontSize: "2rem",
+          textShadow: "0 0 6px black",
         }}
       >
         <i
@@ -64,14 +66,25 @@ const Clock = () => {
           top: 0,
           background: "none",
           border: "none",
-          color: "gray",
-          fontSize: "0.75em",
+          color: "black",
+          textShadow: "0 0 6px white",
+          fontSize: "1em",
+          textTransform: "uppercase",
         }}
         onClick={handleLocaleClick}
       >
         {locale}
       </button>
-      <section style={{ color: "#ffffff4f", fontSize: "1.25rem" }}>
+      <section
+        style={{
+          color: "black",
+          textShadow: "0 0 6px white",
+          fontSize: "1em",
+          position: "absolute",
+          top: 0,
+          left: 0,
+        }}
+      >
         <i
           className="fas fa-calendar-alt"
           style={{
@@ -82,7 +95,7 @@ const Clock = () => {
         />
         {new Intl.DateTimeFormat(locale, dateOptions).format(date)}
       </section>
-    </article>
+    </section>
   );
 };
 

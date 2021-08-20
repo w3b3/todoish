@@ -18,10 +18,19 @@ export function TaskInput({
   const { locale } = useContext(AppSettingsContext);
   return (
     <section
-      style={{ display: "flex", flexDirection: "column", flexWrap: "wrap" }}
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        flexWrap: "wrap",
+        width: "100vw",
+        maxWidth: "100%",
+        padding: "0 1em",
+      }}
     >
       <label htmlFor="taskDescription" style={{ visibility: "hidden" }}>
-        Digite aqui seu lembrete
+        {locale === Locale.BR
+          ? STRINGS.INPUT_TASK_PLACEHOLDER.pt
+          : STRINGS.INPUT_TASK_PLACEHOLDER.en}
       </label>
       <div style={{ display: "flex" }}>
         <input
@@ -40,7 +49,11 @@ export function TaskInput({
             flex: 1,
             fontSize: "1.5em",
             padding: "0.5em",
-            border: "none",
+            color: "white",
+            border: "1px solid darkgray",
+            backgroundColor: "gray",
+            borderRadius: "8px",
+            boxShadow: "0 0 4px 4px #00000045",
           }}
         />
         <SaveButton handleAddTask={handleAddTask} taskName={taskName} />
