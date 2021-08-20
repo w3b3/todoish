@@ -142,7 +142,7 @@ export function TaskManagement() {
   function generateEntryStyles(entry: Task) {
     return entry.isDone
       ? {
-          marginBottom: "8px",
+          margin: "0 10px 8px",
           backgroundColor: "rgba(0, 0, 0, 0.3)",
           borderRadius: "8px",
           border: "2px solid #00000020",
@@ -150,8 +150,8 @@ export function TaskManagement() {
           display: "flex",
         }
       : {
-          marginBottom: "8px",
-          backgroundColor: "rgba(0, 0, 0, 0.83)",
+          margin: "0 10px 8px",
+          backgroundColor: "rgb(121 121 121 / 86%)",
           borderRadius: "8px",
           border: "2px solid #00000045",
           boxShadow: "0 0 4px 4px #00000045",
@@ -175,7 +175,7 @@ export function TaskManagement() {
   }
 
   return (
-    <article style={{ flex: 1 }}>
+    <section style={{ width: "100vw", maxWidth: "100%" }}>
       {editMode.isEditing ? (
         <>
           <h1>Edit mode: ON</h1>
@@ -198,7 +198,7 @@ export function TaskManagement() {
           style={{
             padding: "1em 1em 0",
             fontWeight: "bold",
-            color: "cadetblue",
+            textShadow: "0 0 6px black",
             margin: "2rem 0 1rem",
           }}
         >
@@ -220,7 +220,7 @@ export function TaskManagement() {
               <article key={entry.id} style={generateEntryStyles(entry)}>
                 <div
                   style={{
-                    width: "100%",
+                    maxWidth: "100%",
                     display: "flex",
                     alignItems: "center",
                   }}
@@ -302,6 +302,6 @@ export function TaskManagement() {
             );
           })}
       </section>
-    </article>
+    </section>
   );
 }

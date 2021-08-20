@@ -6,12 +6,14 @@ export function TaskDescription(entry: Task) {
     <p
       id={`task${entry.id}`}
       style={{
-        flex: "1",
+        flex: 1,
         padding: "0 1em",
         lineHeight: "2",
         textDecoration: entry.isDone ? "line-through" : "",
         color: entry.isDone ? "gray" : "inherit",
         userSelect: "text",
+        wordWrap: "break-word",
+        overflow: "hidden",
       }}
     >
       {entry.name}
