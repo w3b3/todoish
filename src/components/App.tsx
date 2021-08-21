@@ -1,5 +1,4 @@
 import React from "react";
-import "./App.css";
 import Clock from "./clock/clock";
 import { TaskManagement } from "./taskManagement/TaskManagement";
 import { AppSettingsProvider } from "../context/appSettingsContext";
@@ -10,6 +9,7 @@ function App() {
       <main
         style={{
           margin: "0 auto",
+          width: "100%",
           maxWidth: "500px",
           display: "flex",
           flexDirection: "column",

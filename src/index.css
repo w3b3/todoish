@@ -1,48 +1,44 @@
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:300,400,500,700&display=swap");
 
 * {
-  font-family: "Open Sans", sans-serif;
-  font-size: 16px;
+  font-family: "Roboto", sans-serif;
   box-sizing: border-box;
   user-select: none;
-}
-
-body * {
-  max-width: 100%;
+  color: black;
 }
 
 input {
+  width: 100%;
+}
+input,
+button {
+  max-width: 100%;
   user-select: auto;
 }
 
-input::placeholder {
-  color: white;
-}
-
 #root {
-  flex: 1;
-  display: flex;
 }
 
 body {
   /*P*/
-  display: flex;
+  /*display: flex;*/
   /*B*/
   margin: 0;
-  min-height: 100vh;
-  max-width: 100vw;
+  padding: 0;
+  /*min-height: 100vh;*/
+  /*max-width: 100vw;*/
   /*T*/
-  color: ghostwhite;
+  /*color: ghostwhite;*/
   /*V*/
-  background-color: #738f6e47;
-  background-image: url("../src/assets/images/unsplash.jpg");
-  background-attachment: fixed;
-  background-clip: content-box;
-  background-origin: content-box;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-blend-mode: multiply;
+  background-color: #f0efeb;
+  /*background-image: url("../src/assets/images/unsplash.jpg");*/
+  /*background-attachment: fixed;*/
+  /*background-clip: content-box;*/
+  /*background-origin: content-box;*/
+  /*background-position: center;*/
+  /*background-repeat: no-repeat;*/
+  /*background-size: cover;*/
+  /*background-blend-mode: multiply;*/
   /*Photo by <a href="https://unsplash.com/@willianjusten?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Willian Justen de Vasconcellos</a> on <a href="https://unsplash.com/@willianjusten?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
   */
 }

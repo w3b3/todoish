@@ -1,4 +1,4 @@
-import { RestoreButtonInterface } from "../../strings/types/types";
+import { RestoreButtonInterface } from "../../types/types";
 import React from "react";
 
 export function RestoreButton({

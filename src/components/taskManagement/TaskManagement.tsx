@@ -1,4 +1,4 @@
-import { sortTasks } from "../../utils";
+import { colorPositionInArray, sortTasks } from "../../utils";
 import React, {
   KeyboardEvent,
   SyntheticEvent,
@@ -6,7 +6,7 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { EditMode, Locale, Task } from "../../strings/types/types";
+import { EditMode, Locale, Task } from "../../types/types";
 import { addEntry } from "../../api/addEntry";
 import { getAllEntries } from "../../api/getAllEntries";
 import { deleteEntry } from "../../api/deleteEntry";
@@ -139,26 +139,17 @@ export function TaskManagement() {
     });
   }, []);
 
-  function generateEntryStyles(entry: Task) {
+  function generateEntryStyles(entry: Task, i: number) {
+    const common = { width: "100%", margin: "0 10px 8px" };
     return entry.isDone
-      ? {
-          margin: "0 10px 8px",
-          backgroundColor: "rgba(0, 0, 0, 0.3)",
-          borderRadius: "8px",
-          border: "2px solid #00000020",
-          boxShadow: "0 0 4px 4px #00000030",
-          display: "flex",
-        }
+      ? { ...common, backgroundColor: "lightgray" }
       : {
-          margin: "0 10px 8px",
-          backgroundColor: "rgb(121 121 121 / 86%)",
-          borderRadius: "8px",
-          border: "2px solid #00000045",
-          boxShadow: "0 0 4px 4px #00000045",
+          ...common,
+          backgroundColor: colorPositionInArray(i),
         };
   }
 
-  function generateControlsStyles(entry: Task) {
+  function generateControlsStyles(entry: Task, i: number) {
     return (editMode.isEditing && editMode.id === entry.id) ||
       (!editMode.isEditing && !entry.isDone)
       ? {
@@ -167,7 +158,7 @@ export function TaskManagement() {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          borderBottom: editMode.isEditing ? "1px solid #ffffff4f" : "",
+          backgroundColor: "rgba(255, 255, 255, 0.15)",
         }
       : {
           display: "none",
@@ -177,6 +168,7 @@ export function TaskManagement() {
   return (
     <section style={{ width: "100vw", maxWidth: "100%" }}>
       {editMode.isEditing ? (
+        /*TODO: MOVE TO NEW ROUTED zCOMPONENT*/
         <>
           <h1>Edit mode: ON</h1>
           <h2>{editMode.id}</h2>
@@ -197,8 +189,6 @@ export function TaskManagement() {
         <h2
           style={{
             padding: "1em 1em 0",
-            fontWeight: "bold",
-            textShadow: "0 0 6px black",
             margin: "2rem 0 1rem",
           }}
         >
@@ -213,11 +203,11 @@ export function TaskManagement() {
           {locale === Locale.BR ? STRINGS.EMPTY_LIST.pt : STRINGS.EMPTY_LIST.en}
         </h2>
       )}
-      <section>
+      <section id="tasks" style={{ display: "flex", flexWrap: "wrap" }}>
         {taskList &&
-          taskList.sort(sortTasks).map((entry) => {
+          taskList.sort(sortTasks).map((entry, i) => {
             return (
-              <article key={entry.id} style={generateEntryStyles(entry)}>
+              <article key={entry.id} style={generateEntryStyles(entry, i)}>
                 <div
                   style={{
                     maxWidth: "100%",
@@ -236,21 +226,14 @@ export function TaskManagement() {
                       value={taskName}
                       style={{
                         flex: 1,
-                        fontSize: "1.5em",
                         padding: "0.5em",
-                        border: "none",
                       }}
                     />
                   ) : (
                     <TaskDescription {...entry} />
                   )}
-                  <EditButton
-                    editMode={editMode}
-                    handleEdit={handleEdit}
-                    entry={entry}
-                  />
                 </div>
-                <div key={entry.id} style={generateControlsStyles(entry)}>
+                <div key={entry.id} style={generateControlsStyles(entry, i)}>
                   {!entry.isDone && <TaskDate input={entry} />}
 
                   {/*FAVORITE*/}
@@ -297,6 +280,11 @@ export function TaskManagement() {
                       />
                     </>
                   )}
+                  <EditButton
+                    editMode={editMode}
+                    handleEdit={handleEdit}
+                    entry={entry}
+                  />
                 </div>
               </article>
             );

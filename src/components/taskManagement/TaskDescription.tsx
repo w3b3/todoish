@@ -1,4 +1,4 @@
-import { Task } from "../../strings/types/types";
+import { Task } from "../../types/types";
 import React from "react";
 
 export function TaskDescription(entry: Task) {
@@ -10,7 +10,7 @@ export function TaskDescription(entry: Task) {
         padding: "0 1em",
         lineHeight: "2",
         textDecoration: entry.isDone ? "line-through" : "",
-        color: entry.isDone ? "gray" : "inherit",
+        color: entry.isDone ? "gray" : "black",
         userSelect: "text",
         wordWrap: "break-word",
         overflow: "hidden",

@@ -4,6 +4,16 @@ export const Locale = {
   US: "en-us",
 };
 
+export const Colors = [
+  "cb997e",
+  "eddcd2",
+  "fff1e6",
+  // "f0efeb",
+  "ddbea9",
+  "a5a58d",
+  "b7b7a4",
+];
+
 export interface Task {
   name: string;
   id: string;

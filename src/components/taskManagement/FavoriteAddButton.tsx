@@ -1,4 +1,4 @@
-import { FavoriteButtonInterface } from "../../strings/types/types";
+import { FavoriteButtonInterface } from "../../types/types";
 import React from "react";
 
 export function FavoriteAddButton({
@@ -11,15 +11,10 @@ export function FavoriteAddButton({
       onClick={() => handleFavorite(entry.id)}
       disabled={editMode.isEditing && editMode.id !== entry.id}
       style={{
-        marginRight: "1em",
+        // marginRight: "1em",
         padding: "0.25em 1em",
-        background: "none",
-        color: "white",
-        borderRadius: "0.25em",
-        border: "1px solid white",
-        fontWeight: "bold",
       }}
-      title="Favorito"
+      title="Adicionar Favorito"
     >
       <i className="fas fa-thumbs-up" />
     </button>
