@@ -29,7 +29,6 @@ export interface EditMode {
 }
 
 export interface TaskManagementButton {
-  editMode: EditMode;
   entry: Task;
 }
 

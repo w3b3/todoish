@@ -1,25 +1,20 @@
 import { EditButtonInterface } from "../../types/types";
-import React from "react";
+import React, { useContext } from "react";
+import AppSettingsContext from "../../context/appSettingsContext";
 
-export function EditButton({
-  handleEdit,
-  editMode,
-  entry,
-}: EditButtonInterface) {
-  return !editMode.isEditing ? (
+export function EditButton({ handleEdit, entry }: EditButtonInterface) {
+  const { isEditing } = useContext(AppSettingsContext);
+
+  return isEditing.isEditing ? null : (
     <button
       onClick={() => handleEdit(entry.id)}
       style={{
-        border: "none",
-        background: "none",
-        color: "cadetblue",
         padding: "1em",
       }}
     >
       <i className="fas fa-angle-double-down" />
-      {!entry.isDone && !editMode.isEditing && (
-        <span className="hidden-mobile">Editar</span>
-      )}
+      &nbsp;
+      <span>Editar</span>
     </button>
-  ) : null;
+  );
 }

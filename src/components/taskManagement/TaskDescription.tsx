@@ -1,8 +1,11 @@
 import { Task } from "../../types/types";
-import React from "react";
+import React, { useContext } from "react";
+import AppSettingsContext from "../../context/appSettingsContext";
 
 export function TaskDescription(entry: Task) {
-  return (
+  const { isEditing } = useContext(AppSettingsContext);
+
+  return isEditing.isEditing ? null : (
     <p
       id={`task${entry.id}`}
       style={{

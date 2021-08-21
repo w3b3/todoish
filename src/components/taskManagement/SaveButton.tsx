@@ -18,6 +18,8 @@ export function SaveButton({
       title="Salvar"
     >
       <i className="fas fa-cloud-upload-alt" />
+      &nbsp;
+      <span>Salvar</span>
     </button>
   );
 }

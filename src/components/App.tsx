@@ -9,11 +9,7 @@ function App() {
       <main
         style={{
           margin: "0 auto",
-          width: "100%",
           maxWidth: "500px",
-          display: "flex",
-          flexDirection: "column",
-          flex: 1,
         }}
       >
         <Clock />

@@ -22,8 +22,6 @@ export function TaskInput({
         display: "flex",
         flexDirection: "column",
         flexWrap: "wrap",
-        width: "100vw",
-        maxWidth: "100%",
         padding: "0 1em",
       }}
     >
