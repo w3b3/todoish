@@ -7,10 +7,12 @@ function App() {
   return (
     <AppSettingsProvider>
       <main
-        style={{
-          margin: "0 auto",
-          maxWidth: "500px",
-        }}
+        id="App-Main"
+        style={
+          {
+            /*use index.css*/
+          }
+        }
       >
         <Clock />
         <TaskManagement />

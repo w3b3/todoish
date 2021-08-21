@@ -129,7 +129,7 @@ export function TaskManagement() {
   }, []);
 
   function generateEntryStyles(entry: Task, i: number) {
-    const common = { width: "100%", maxWidth: "100%", margin: "0 10px 8px" };
+    const common = { maxWidth: "100%", margin: "0 10px 8px" };
     return entry.isDone
       ? {
           ...common,
@@ -187,11 +187,18 @@ export function TaskManagement() {
           {locale === Locale.BR ? STRINGS.EMPTY_LIST.pt : STRINGS.EMPTY_LIST.en}
         </h2>
       )}
-      <section id="tasks" style={{ display: "flex", flexWrap: "wrap" }}>
+      <section
+        id="tasks"
+        style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}
+      >
         {taskList &&
           taskList.sort(sortTasks).map((entry, i) => {
             return (
-              <article key={entry.id} style={generateEntryStyles(entry, i)}>
+              <article
+                className="article-media-query"
+                key={entry.id}
+                style={generateEntryStyles(entry, i)}
+              >
                 <TaskDescription {...entry} />
                 {entry.isDone && (
                   <EditButton handleEdit={handleEdit} entry={entry} />

@@ -18,6 +18,7 @@ export function TaskInput({
   const { locale } = useContext(AppSettingsContext);
   return (
     <section
+      id="TaskInput-media-query"
       style={{
         display: "flex",
         flexDirection: "column",
