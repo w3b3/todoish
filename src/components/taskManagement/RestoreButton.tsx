@@ -1,27 +1,21 @@
-import { RestoreButtonInterface } from "../../strings/types/types";
-import React from "react";
+import { RestoreButtonInterface } from "../../types/types";
+import React, { useContext } from "react";
+import AppSettingsContext from "../../context/appSettingsContext";
 
 export function RestoreButton({
   handleRestore,
   entry,
 }: RestoreButtonInterface) {
-  return entry.isDone ? (
+  const { isEditing } = useContext(AppSettingsContext);
+  return isEditing && entry.isDone ? (
     <button
       onClick={() => handleRestore(entry.id)}
-      style={{
-        // marginRight: "1em",
-        padding: "0.25em 1em",
-        // background: "#adff2f4a none repeat scroll 0% 0%",
-        background: "lightyellow",
-        color: "black",
-        borderRadius: "0.25em",
-        border: "1px solid white",
-        fontWeight: "bold",
-      }}
+      style={{}}
       title="Restaurar"
     >
-      <span className="hidden-mobile">Restaurar</span>{" "}
       <i className="fas fa-trash-restore" />
+      &nbsp;
+      <span>Restaurar</span>
     </button>
   ) : null;
 }

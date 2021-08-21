@@ -1,20 +1,17 @@
-import { CancelEditButtonInterface } from "../../strings/types/types";
-import React from "react";
+import { CancelEditButtonInterface } from "../../types/types";
+import React, { useContext } from "react";
+import AppSettingsContext from "../../context/appSettingsContext";
 
 export function CancelEditButton({
   handleCancelEdit,
 }: CancelEditButtonInterface) {
-  return (
-    <button
-      onClick={() => handleCancelEdit()}
-      style={{
-        border: "none",
-        background: "none",
-        color: "cadetblue",
-      }}
-    >
+  const { isEditing } = useContext(AppSettingsContext);
+
+  return isEditing.isEditing ? (
+    <button onClick={() => handleCancelEdit()} style={{}}>
       <i className="fas fa-arrow-alt-circle-left" />
-      <span className="XXXX-hidden-mobile">Cancelar</span>
+      &nbsp;
+      <span>Cancelar</span>
     </button>
-  );
+  ) : null;
 }

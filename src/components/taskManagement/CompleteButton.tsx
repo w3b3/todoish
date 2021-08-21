@@ -1,27 +1,23 @@
-import { CompleteButtonInterface } from "../../strings/types/types";
-import React from "react";
+import { CompleteButtonInterface } from "../../types/types";
+import React, { useContext } from "react";
+import AppSettingsContext from "../../context/appSettingsContext";
 
 export function CompleteButton({
   handleComplete,
   entry,
-  editMode,
 }: CompleteButtonInterface) {
-  return (
+  const { isEditing } = useContext(AppSettingsContext);
+  // !isEditing.isEditing && !entry.isDone
+  return isEditing.isEditing ? null : (
     <button
       onClick={() => handleComplete(entry.id)}
-      disabled={editMode.isEditing && editMode.id !== entry.id}
-      style={{
-        padding: "0.25em 1em",
-        background: "#adff2f4a none repeat scroll 0% 0%",
-        color: "white",
-        borderRadius: "0.25em",
-        border: "1px solid white",
-        fontWeight: "bold",
-      }}
+      disabled={isEditing.isEditing && isEditing.id !== entry.id}
+      style={{}}
       title="Concluido"
     >
       <i className="fas fa-check-circle" />
-      <span className="hidden-mobile">Completar</span>
+      &nbsp;
+      <span>Completar</span>
     </button>
   );
 }

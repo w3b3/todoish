@@ -1,8 +1,7 @@
-import { Task } from "../../strings/types/types";
+import { Task } from "../../types/types";
 import React from "react";
 
-export function TaskDate({ input }: { input: Task }) {
-  const entry = input;
+export function TaskDate({ entry }: { entry: Task }) {
   return (
     <div style={{ flex: 1, textAlign: "left" }}>
       <i className="fas fa-calendar-alt" />{" "}

@@ -1,18 +1,15 @@
-import { DeleteButtonInterface } from "../../strings/types/types";
-import React from "react";
+import { DeleteButtonInterface } from "../../types/types";
+import React, { useContext } from "react";
+import AppSettingsContext from "../../context/appSettingsContext";
 
 export function DeleteButton({ handleDelete, entry }: DeleteButtonInterface) {
-  return (
-    <button
-      onClick={() => handleDelete(entry.id)}
-      style={{
-        border: "none",
-        background: "none",
-        color: "red",
-      }}
-    >
+  const { isEditing } = useContext(AppSettingsContext);
+
+  return isEditing.isEditing ? (
+    <button onClick={() => handleDelete(entry.id)} style={{}}>
       <i className="fas fa-trash-alt" />
-      <span className="hidden-mobile">Apagar</span>
+      &nbsp;
+      <span>Apagar</span>
     </button>
-  );
+  ) : null;
 }

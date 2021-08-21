@@ -1,5 +1,5 @@
 import { CONSTANTS, headers } from "./_";
-import { Task } from "../strings/types/types";
+import { Task } from "../types/types";
 
 export const editEntry = async (task: Task) => {
   try {

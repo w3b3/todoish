@@ -2,7 +2,7 @@ import { SaveButton } from "./SaveButton";
 import React, { KeyboardEvent, SyntheticEvent, useContext } from "react";
 import AppSettingsContext from "../../context/appSettingsContext";
 import { STRINGS } from "../../strings/strings";
-import { Locale } from "../../strings/types/types";
+import { Locale } from "../../types/types";
 
 export function TaskInput({
   handleTypeTaskName,
@@ -22,8 +22,6 @@ export function TaskInput({
         display: "flex",
         flexDirection: "column",
         flexWrap: "wrap",
-        width: "100vw",
-        maxWidth: "100%",
         padding: "0 1em",
       }}
     >
@@ -47,13 +45,8 @@ export function TaskInput({
           value={taskName}
           style={{
             flex: 1,
-            fontSize: "1.5em",
             padding: "0.5em",
-            color: "white",
-            border: "1px solid darkgray",
-            backgroundColor: "gray",
-            borderRadius: "8px",
-            boxShadow: "0 0 4px 4px #00000045",
+            // border: "1px solid darkgray",
           }}
         />
         <SaveButton handleAddTask={handleAddTask} taskName={taskName} />

@@ -1,8 +1,11 @@
-import { Task } from "../../strings/types/types";
-import React from "react";
+import { Task } from "../../types/types";
+import React, { useContext } from "react";
+import AppSettingsContext from "../../context/appSettingsContext";
 
 export function TaskDescription(entry: Task) {
-  return (
+  const { isEditing } = useContext(AppSettingsContext);
+
+  return isEditing.isEditing ? null : (
     <p
       id={`task${entry.id}`}
       style={{
@@ -10,7 +13,7 @@ export function TaskDescription(entry: Task) {
         padding: "0 1em",
         lineHeight: "2",
         textDecoration: entry.isDone ? "line-through" : "",
-        color: entry.isDone ? "gray" : "inherit",
+        color: entry.isDone ? "gray" : "black",
         userSelect: "text",
         wordWrap: "break-word",
         overflow: "hidden",

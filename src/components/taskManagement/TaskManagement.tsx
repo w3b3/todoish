@@ -1,4 +1,4 @@
-import { sortTasks } from "../../utils";
+import { colorPositionInArray, sortTasks } from "../../utils";
 import React, {
   KeyboardEvent,
   SyntheticEvent,
@@ -6,13 +6,12 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { EditMode, Locale, Task } from "../../strings/types/types";
+import { Locale, Task } from "../../types/types";
 import { addEntry } from "../../api/addEntry";
 import { getAllEntries } from "../../api/getAllEntries";
 import { deleteEntry } from "../../api/deleteEntry";
 import { editEntry } from "../../api/editEntry";
-import { FavoriteAddButton } from "./FavoriteAddButton";
-import { FavoriteRemoveButton } from "./FavoriteRemoveButton";
+import FavoriteButton from "./FavoriteButton";
 import { CompleteButton } from "./CompleteButton";
 import { EditButton } from "./EditButton";
 import { RestoreButton } from "./RestoreButton";
@@ -25,15 +24,11 @@ import AppSettingsContext from "../../context/appSettingsContext";
 import { STRINGS } from "../../strings/strings";
 
 export function TaskManagement() {
-  const { locale } = useContext(AppSettingsContext);
+  const { locale, toggleEditing, isEditing } = useContext(AppSettingsContext);
   const [taskName, setTaskName] = useState<string>("");
   const [taskList, setTaskList] = useState<Task[]>([]);
   const [totalNumberOfTasks, setTotalNumberOfTasks] = useState<number>(0);
   // const [apiPagination, setApiPagination] = useState<string>("");
-  const [editMode, setEditMode] = useState<EditMode>({
-    id: "",
-    isEditing: false,
-  });
 
   const handleEnter = (typeEvent: KeyboardEvent) => {
     if (typeEvent.key === "Enter") {
@@ -48,17 +43,14 @@ export function TaskManagement() {
   };
 
   const handleEdit = async (id: string) => {
-    setEditMode({
-      id: id,
-      isEditing: true,
-    });
+    toggleEditing(id);
     setTaskName(
       taskList.find((e) => e.id === id)?.name ?? "N/A"
     ); /*N/A should never occur*/
   };
 
   const handleCancelEdit = () => {
-    setEditMode({ id: "", isEditing: false });
+    toggleEditing();
     setTaskName("");
   };
 
@@ -66,16 +58,13 @@ export function TaskManagement() {
 
   const handleAddTask = async () => {
     if (!taskName) return;
-    if (editMode.isEditing) {
-      const newTask = { ...findTask(editMode.id)! };
+    if (isEditing.isEditing) {
+      const newTask = { ...findTask(isEditing.id)! };
       newTask.name = taskName;
       newTask.lastUpdateTime = new Date().valueOf();
       newTask.tags?.push("updated");
       await editEntry(newTask);
-      setEditMode({
-        id: "",
-        isEditing: false,
-      });
+      toggleEditing();
     } else {
       await addEntry(taskName);
     }
@@ -90,7 +79,7 @@ export function TaskManagement() {
   };
 
   const handleDelete = async (id: string) => {
-    setEditMode({ id: "", isEditing: false });
+    toggleEditing();
     setTaskName("");
     await deleteEntry(id);
     const newList = await getAllEntries();
@@ -123,7 +112,7 @@ export function TaskManagement() {
     newTask.isDone = false;
     newTask.lastUpdateTime = new Date().valueOf();
     await editEntry(newTask);
-    setEditMode({ id: "", isEditing: false });
+    toggleEditing();
     setTaskName("");
     const newList = await getAllEntries();
     setTaskList(newList.tasks);
@@ -139,35 +128,30 @@ export function TaskManagement() {
     });
   }, []);
 
-  function generateEntryStyles(entry: Task) {
+  function generateEntryStyles(entry: Task, i: number) {
+    const common = { width: "100%", maxWidth: "100%", margin: "0 10px 8px" };
     return entry.isDone
       ? {
-          margin: "0 10px 8px",
-          backgroundColor: "rgba(0, 0, 0, 0.3)",
-          borderRadius: "8px",
-          border: "2px solid #00000020",
-          boxShadow: "0 0 4px 4px #00000030",
-          display: "flex",
+          ...common,
+          backgroundColor: "lightgray",
+          display: isEditing.isEditing ? "block" : "flex",
         }
       : {
-          margin: "0 10px 8px",
-          backgroundColor: "rgb(121 121 121 / 86%)",
-          borderRadius: "8px",
-          border: "2px solid #00000045",
-          boxShadow: "0 0 4px 4px #00000045",
+          ...common,
+          backgroundColor: colorPositionInArray(i),
         };
   }
 
-  function generateControlsStyles(entry: Task) {
-    return (editMode.isEditing && editMode.id === entry.id) ||
-      (!editMode.isEditing && !entry.isDone)
+  function generateControlsStyles(entry: Task, i: number) {
+    return (isEditing.isEditing && isEditing.id === entry.id) ||
+      (!isEditing.isEditing && !entry.isDone)
       ? {
           height: "65px",
           padding: "1em",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          borderBottom: editMode.isEditing ? "1px solid #ffffff4f" : "",
+          backgroundColor: "rgba(255, 255, 255, 0.15)",
         }
       : {
           display: "none",
@@ -175,17 +159,8 @@ export function TaskManagement() {
   }
 
   return (
-    <section style={{ width: "100vw", maxWidth: "100%" }}>
-      {editMode.isEditing ? (
-        <>
-          <h1>Edit mode: ON</h1>
-          <h2>{editMode.id}</h2>
-          <h3>
-            {taskList.find((entry) => entry.id === editMode.id)?.name ??
-              "Nao encontrado"}
-          </h3>
-        </>
-      ) : (
+    <section style={{}}>
+      {!isEditing.isEditing && (
         <TaskInput
           handleAddTask={handleAddTask}
           handleTypeTaskName={handleTypeTaskName}
@@ -193,12 +168,11 @@ export function TaskManagement() {
           taskName={taskName}
         />
       )}
+
       {totalNumberOfTasks ? (
         <h2
           style={{
             padding: "1em 1em 0",
-            fontWeight: "bold",
-            textShadow: "0 0 6px black",
             margin: "2rem 0 1rem",
           }}
         >
@@ -213,90 +187,41 @@ export function TaskManagement() {
           {locale === Locale.BR ? STRINGS.EMPTY_LIST.pt : STRINGS.EMPTY_LIST.en}
         </h2>
       )}
-      <section>
+      <section id="tasks" style={{ display: "flex", flexWrap: "wrap" }}>
         {taskList &&
-          taskList.sort(sortTasks).map((entry) => {
+          taskList.sort(sortTasks).map((entry, i) => {
             return (
-              <article key={entry.id} style={generateEntryStyles(entry)}>
-                <div
-                  style={{
-                    maxWidth: "100%",
-                    display: "flex",
-                    alignItems: "center",
-                  }}
-                >
-                  {editMode.isEditing && editMode.id === entry.id ? (
-                    <input
-                      type="text"
-                      id="taskDescription"
-                      name="taskDescription"
-                      placeholder="Digite aqui seu lembrete"
-                      onChange={handleTypeTaskName}
-                      onKeyPress={handleEnter}
-                      value={taskName}
-                      style={{
-                        flex: 1,
-                        fontSize: "1.5em",
-                        padding: "0.5em",
-                        border: "none",
-                      }}
-                    />
-                  ) : (
-                    <TaskDescription {...entry} />
-                  )}
-                  <EditButton
-                    editMode={editMode}
-                    handleEdit={handleEdit}
+              <article key={entry.id} style={generateEntryStyles(entry, i)}>
+                <TaskDescription {...entry} />
+                {entry.isDone && (
+                  <EditButton handleEdit={handleEdit} entry={entry} />
+                )}
+
+                {isEditing.isEditing && isEditing.id === entry.id && (
+                  <TaskInput
+                    handleAddTask={handleAddTask}
+                    handleTypeTaskName={handleTypeTaskName}
+                    handleEnter={handleEnter}
+                    taskName={taskName}
+                  />
+                )}
+                <div key={entry.id} style={generateControlsStyles(entry, i)}>
+                  <TaskDate entry={entry} />
+                  <FavoriteButton
+                    handleFavorite={handleFavorite}
                     entry={entry}
                   />
-                </div>
-                <div key={entry.id} style={generateControlsStyles(entry)}>
-                  {!entry.isDone && <TaskDate input={entry} />}
-
-                  {/*FAVORITE*/}
-                  {!editMode.isEditing &&
-                    !entry.isDone &&
-                    (entry.tags.includes("favorite") ? (
-                      <FavoriteRemoveButton
-                        handleFavorite={handleFavorite}
-                        entry={entry}
-                        editMode={editMode}
-                      />
-                    ) : (
-                      <FavoriteAddButton
-                        handleFavorite={handleFavorite}
-                        entry={entry}
-                        editMode={editMode}
-                      />
-                    ))}
-                  {!editMode.isEditing && !entry.isDone && (
-                    <CompleteButton
-                      handleComplete={handleComplete}
-                      entry={entry}
-                      editMode={editMode}
-                    />
-                  )}
-
-                  {/*EDIT CONTROLS*/}
-                  {editMode.isEditing && entry.id === editMode.id && (
-                    <>
-                      <RestoreButton
-                        entry={entry}
-                        handleRestore={handleRestore}
-                        editMode={editMode}
-                      />
-                      <DeleteButton
-                        editMode={editMode}
-                        entry={entry}
-                        handleDelete={handleDelete}
-                      />
-                      <CancelEditButton
-                        editMode={editMode}
-                        handleCancelEdit={handleCancelEdit}
-                        entry={entry}
-                      />
-                    </>
-                  )}
+                  <CompleteButton
+                    handleComplete={handleComplete}
+                    entry={entry}
+                  />
+                  <RestoreButton entry={entry} handleRestore={handleRestore} />
+                  <DeleteButton entry={entry} handleDelete={handleDelete} />
+                  <CancelEditButton
+                    handleCancelEdit={handleCancelEdit}
+                    entry={entry}
+                  />
+                  <EditButton handleEdit={handleEdit} entry={entry} />
                 </div>
               </article>
             );

@@ -38,7 +38,6 @@ const Clock = () => {
         alignItems: "center",
         minHeight: "3em",
         height: "20vh",
-        marginTop: "2em",
         textAlign: "center",
       }}
     >
@@ -52,7 +51,6 @@ const Clock = () => {
         <i
           className="fas fa-clock"
           style={{
-            fontSize: "1em",
             display: "inline-block",
             marginRight: "6px",
           }}
@@ -64,11 +62,6 @@ const Clock = () => {
           position: "absolute",
           right: 0,
           top: 0,
-          background: "none",
-          border: "none",
-          color: "black",
-          textShadow: "0 0 6px white",
-          fontSize: "1em",
           textTransform: "uppercase",
         }}
         onClick={handleLocaleClick}
@@ -77,9 +70,6 @@ const Clock = () => {
       </button>
       <section
         style={{
-          color: "black",
-          textShadow: "0 0 6px white",
-          fontSize: "1em",
           position: "absolute",
           top: 0,
           left: 0,
