@@ -8,6 +8,7 @@
 }
 
 input {
+  user-select: auto;
   width: 100%;
 }
 button {
@@ -19,6 +20,7 @@ button {
 
 #root {
 }
+
 #App-Main {
   margin: 0 auto;
   max-width: 500px;
