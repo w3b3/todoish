@@ -133,8 +133,8 @@ export function TaskManagement() {
   function generateEntryStyles(entry: Task, i: number) {
     const common = {
       maxWidth: "100%",
-      margin: "0 10px 8px",
-      padding: "1em",
+      margin: "0.5rem",
+      padding: "0.25em",
       display: "flex",
       flexDirection: "column",
     } as React.CSSProperties;
@@ -157,20 +157,22 @@ export function TaskManagement() {
 
   function generateControlsStyles(entry: Task, i: number) {
     const common = {
-      height: "65px",
+      padding: "1em",
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
     };
-    return (isEditing.isEditing && isEditing.id === entry.id) ||
-      (!isEditing.isEditing && !entry.isDone)
-      ? {
+    return isEditing.isEditing && isEditing.id === entry.id
+      ? ({
           ...common,
-        }
-      : {
+        } as any)
+      : ({
           ...common,
-          // display: "none",
-        };
+          "@media all and (max-width: 640px)": {
+            position: "absolute",
+            right: "5%",
+          },
+        } as any);
   }
   const handleLocaleClick = () => {
     setLocale(locale === "pt-br" ? "en-us" : "pt-br");
