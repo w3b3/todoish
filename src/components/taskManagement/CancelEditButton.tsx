@@ -9,9 +9,12 @@ export function CancelEditButton({
   const { locale, isEditing } = useContext(AppSettingsContext);
 
   return isEditing.isEditing ? (
-    <button onClick={() => handleCancelEdit()} style={{}}>
+    <button
+      onClick={() => handleCancelEdit()}
+      style={{ backgroundColor: "white", color: "gray" }}
+    >
       <i className="fas fa-arrow-alt-circle-left" />
-      &nbsp;
+      <span className="hidden-mobile">&nbsp;</span>
       <span>
         {locale === Locale.BR ? STRINGS.CANCEL.pt : STRINGS.CANCEL.en}
       </span>

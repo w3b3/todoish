@@ -6,10 +6,13 @@ import { STRINGS } from "../../strings/strings";
 export function EditButton({ handleEdit, entry }: EditButtonInterface) {
   const { locale, isEditing } = useContext(AppSettingsContext);
 
-  return isEditing.isEditing ? null : (
-    <button onClick={() => handleEdit(entry.id)} style={{}}>
+  return isEditing.isEditing || entry.isDone ? null : (
+    <button
+      onClick={() => handleEdit(entry.id)}
+      style={{ backgroundColor: "white", color: "gray" }}
+    >
       <i className="fas fa-angle-double-down" />
-      &nbsp;
+      <span className="hidden-mobile">&nbsp;</span>
       <span>
         {locale === Locale.BR ? STRINGS.EDIT_TASK.pt : STRINGS.EDIT_TASK.en}
       </span>

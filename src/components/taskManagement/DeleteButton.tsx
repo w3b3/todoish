@@ -4,12 +4,15 @@ import AppSettingsContext from "../../context/appSettingsContext";
 import { STRINGS } from "../../strings/strings";
 
 export function DeleteButton({ handleDelete, entry }: DeleteButtonInterface) {
-  const { locale, isEditing } = useContext(AppSettingsContext);
+  const { locale } = useContext(AppSettingsContext);
 
-  return isEditing.isEditing ? (
-    <button onClick={() => handleDelete(entry.id)} style={{}}>
+  return entry.isDone ? (
+    <button
+      onClick={() => handleDelete(entry.id)}
+      style={{ backgroundColor: "crimson", color: "white" }}
+    >
       <i className="fas fa-trash-alt" />
-      &nbsp;
+      <span className="hidden-mobile">&nbsp;</span>
       <span> {locale === Locale.BR ? STRINGS.ERASE.pt : STRINGS.ERASE.en}</span>
     </button>
   ) : null;

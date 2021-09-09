@@ -24,14 +24,14 @@ export function TaskInput({
         display: "flex",
         flexDirection: "column",
         flexWrap: "wrap",
-        padding: "0 0.5em",
+        padding: "1em",
       }}
     >
-      <label htmlFor="taskDescription" style={{ visibility: "hidden" }}>
+      {/*<label htmlFor="taskDescription" style={{ visibility: "hidden" }}>
         {locale === Locale.BR
           ? STRINGS.INPUT_TASK_PLACEHOLDER.pt
           : STRINGS.INPUT_TASK_PLACEHOLDER.en}
-      </label>
+      </label>*/}
       <div style={{ display: "flex" }}>
         <input
           type="text"

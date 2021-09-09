@@ -26,11 +26,11 @@ function FavoriteAddButton({ handleFavorite, entry }: FavoriteButtonInterface) {
     <button
       onClick={() => handleFavorite(entry.id)}
       disabled={isEditing.isEditing && isEditing.id !== entry.id}
-      style={{}}
+      style={{ backgroundColor: "hotpink", color: "white" }}
       title="Adicionar Favorito"
     >
       <i className="fas fa-thumbs-up" />
-      &nbsp;
+      <span className="hidden-mobile">&nbsp;</span>
       <span>
         {locale === Locale.BR ? STRINGS.PIN_TASK.pt : STRINGS.PIN_TASK.en}
       </span>
@@ -48,11 +48,11 @@ export function FavoriteRemoveButton({
     <button
       onClick={() => handleFavorite(entry.id)}
       disabled={isEditing.isEditing && isEditing.id !== entry.id}
-      style={{}}
+      style={{ backgroundColor: "lightgoldenrodyellow", color: "black" }}
       title="Remover Favorito"
     >
       <i className="fas fa-exclamation-circle" />
-      &nbsp;
+      <span className="hidden-mobile">&nbsp;</span>
       <span>
         {locale === Locale.BR ? STRINGS.UNPIN_TASK.pt : STRINGS.UNPIN_TASK.en}
       </span>

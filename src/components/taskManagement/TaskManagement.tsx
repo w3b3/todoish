@@ -95,6 +95,7 @@ export function TaskManagement() {
       ? newTask.tags.filter((tag) => tag !== "favorite")
       : newTask.tags.concat("favorite");
     await editEntry(newTask);
+    toggleEditing();
     const newList = await getAllEntries();
     setTaskList(newList.tasks);
   };
@@ -102,6 +103,7 @@ export function TaskManagement() {
   const handleComplete = async (id: string) => {
     const newTask = { ...findTask(id)! };
     newTask.isDone = true;
+    newTask.tags = newTask.tags.filter((tag) => tag !== "favorite");
     newTask.lastUpdateTime = new Date().valueOf();
     await editEntry(newTask);
     const newList = await getAllEntries();
@@ -132,8 +134,8 @@ export function TaskManagement() {
   function generateEntryStyles(entry: Task, i: number) {
     const common = {
       maxWidth: "100%",
-      margin: "0 10px 8px",
-      padding: "1em",
+      margin: "0.5rem",
+      padding: "0.25em",
       display: "flex",
       flexDirection: "column",
     } as React.CSSProperties;
@@ -156,21 +158,18 @@ export function TaskManagement() {
 
   function generateControlsStyles(entry: Task, i: number) {
     const common = {
-      // borderTop: "1px solid #444",
+      padding: "1em",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
     };
-    return (isEditing.isEditing && isEditing.id === entry.id) ||
-      (!isEditing.isEditing && !entry.isDone)
-      ? {
+    return isEditing.isEditing && isEditing.id === entry.id
+      ? ({
           ...common,
-          height: "65px",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }
-      : {
+        } as any)
+      : ({
           ...common,
-          display: "none",
-        };
+        } as any);
   }
   const handleLocaleClick = () => {
     setLocale(locale === "pt-br" ? "en-us" : "pt-br");
@@ -203,7 +202,7 @@ export function TaskManagement() {
         <h2
           style={{
             padding: "1em 1em 0",
-            margin: "2rem 0 1rem",
+            margin: "1rem 0",
           }}
         >
           <i className="fas fa-tasks" />
@@ -213,13 +212,23 @@ export function TaskManagement() {
           } (${totalNumberOfTasks})`}
         </h2>
       ) : (
-        <h2>
+        <h2
+          style={{
+            padding: "1em 1em 0",
+            margin: "1rem 0",
+          }}
+        >
           {locale === Locale.BR ? STRINGS.EMPTY_LIST.pt : STRINGS.EMPTY_LIST.en}
         </h2>
       )}
       <section
         id="tasks"
-        style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "center",
+          padding: "0 4px",
+        }}
       >
         {taskList &&
           taskList.map((entry, i) => {
@@ -238,7 +247,6 @@ export function TaskManagement() {
                     <EditButton handleEdit={handleEdit} entry={entry} />
                   </Grid>
                 )*/}
-
                 {isEditing.isEditing && isEditing.id === entry.id && (
                   <TaskInput
                     handleAddTask={handleAddTask}
@@ -247,8 +255,13 @@ export function TaskManagement() {
                     taskName={taskName}
                   />
                 )}
-                <div key={entry.id} style={generateControlsStyles(entry, i)}>
-                  {!isEditing.isEditing && <TaskDate entry={entry} />}
+                <div
+                  className={"task-controls-wrapper"}
+                  style={generateControlsStyles(entry, i)}
+                >
+                  <TaskDate entry={entry} />
+                  <DeleteButton entry={entry} handleDelete={handleDelete} />
+                  <RestoreButton entry={entry} handleRestore={handleRestore} />
                   <FavoriteButton
                     handleFavorite={handleFavorite}
                     entry={entry}
@@ -257,8 +270,7 @@ export function TaskManagement() {
                     handleComplete={handleComplete}
                     entry={entry}
                   />
-                  <RestoreButton entry={entry} handleRestore={handleRestore} />
-                  <DeleteButton entry={entry} handleDelete={handleDelete} />
+
                   <CancelEditButton
                     handleCancelEdit={handleCancelEdit}
                     entry={entry}
