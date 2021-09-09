@@ -1,6 +1,7 @@
-import { FavoriteButtonInterface } from "../../types/types";
+import { FavoriteButtonInterface, Locale } from "../../types/types";
 import React, { useContext } from "react";
 import AppSettingsContext from "../../context/appSettingsContext";
+import { STRINGS } from "../../strings/strings";
 
 export const FavoriteButton = ({
   handleFavorite,
@@ -19,6 +20,7 @@ export const FavoriteButton = ({
 
 function FavoriteAddButton({ handleFavorite, entry }: FavoriteButtonInterface) {
   const { isEditing } = useContext(AppSettingsContext);
+  const { locale } = useContext(AppSettingsContext);
 
   return (
     <button
@@ -29,7 +31,9 @@ function FavoriteAddButton({ handleFavorite, entry }: FavoriteButtonInterface) {
     >
       <i className="fas fa-thumbs-up" />
       &nbsp;
-      <span>Pin</span>
+      <span>
+        {locale === Locale.BR ? STRINGS.PIN_TASK.pt : STRINGS.PIN_TASK.en}
+      </span>
     </button>
   );
 }
@@ -38,7 +42,7 @@ export function FavoriteRemoveButton({
   handleFavorite,
   entry,
 }: FavoriteButtonInterface) {
-  const { isEditing } = useContext(AppSettingsContext);
+  const { locale, isEditing } = useContext(AppSettingsContext);
 
   return (
     <button
@@ -49,7 +53,9 @@ export function FavoriteRemoveButton({
     >
       <i className="fas fa-exclamation-circle" />
       &nbsp;
-      <span>Unpin</span>
+      <span>
+        {locale === Locale.BR ? STRINGS.UNPIN_TASK.pt : STRINGS.UNPIN_TASK.en}
+      </span>
     </button>
   );
 }

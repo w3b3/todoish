@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import AppSettingsContext from "../../context/appSettingsContext";
 
 const Clock = () => {
-  const { locale, setLocale } = useContext(AppSettingsContext);
+  const { locale } = useContext(AppSettingsContext);
   const [date, setDate] = useState(() => new Date());
   useEffect(() => {
     setTimeout(() => setDate(new Date()), 10000);
@@ -25,10 +25,6 @@ const Clock = () => {
     day: "numeric",
   } as const;
 
-  const handleLocaleClick = () => {
-    setLocale(locale === "pt-br" ? "en-us" : "pt-br");
-  };
-
   return (
     <section
       style={{
@@ -45,45 +41,32 @@ const Clock = () => {
         style={{
           padding: "1rem",
           fontSize: "2rem",
-          textShadow: "0 0 6px black",
+          display: "flex",
+          flexWrap: "wrap",
         }}
       >
-        <i
-          className="fas fa-clock"
-          style={{
-            display: "inline-block",
-            marginRight: "6px",
-          }}
-        />
-        {new Intl.DateTimeFormat(locale, timeOptions).format(date)}
-      </section>
-      <button
-        style={{
-          position: "absolute",
-          right: 0,
-          top: 0,
-          textTransform: "uppercase",
-        }}
-        onClick={handleLocaleClick}
-      >
-        {locale}
-      </button>
-      <section
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-        }}
-      >
-        <i
-          className="fas fa-calendar-alt"
-          style={{
-            fontSize: "1em",
-            display: "inline-block",
-            marginRight: "6px",
-          }}
-        />
-        {new Intl.DateTimeFormat(locale, dateOptions).format(date)}
+        <span style={{ whiteSpace: "nowrap" }}>
+          <i
+            className="fas fa-clock"
+            style={{
+              display: "inline-block",
+              marginRight: "6px",
+            }}
+          />
+          {new Intl.DateTimeFormat(locale, timeOptions).format(date)}
+        </span>
+        &nbsp;
+        <span style={{ whiteSpace: "nowrap" }}>
+          <i
+            className="fas fa-calendar-alt"
+            style={{
+              fontSize: "1em",
+              display: "inline-block",
+              marginRight: "6px",
+            }}
+          />
+          {new Intl.DateTimeFormat(locale, dateOptions).format(date)}
+        </span>
       </section>
     </section>
   );

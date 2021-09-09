@@ -8,6 +8,7 @@ export function TaskDescription(entry: Task) {
   return isEditing.isEditing ? null : (
     <p
       id={`task${entry.id}`}
+      className={"TaskDescription"}
       style={{
         flex: 1,
         padding: "0 1em",
@@ -17,6 +18,9 @@ export function TaskDescription(entry: Task) {
         userSelect: "text",
         wordWrap: "break-word",
         overflow: "hidden",
+        maxWidth: "72ch",
+        textOverflow: "ellipsis",
+        whiteSpace: "nowrap",
       }}
     >
       {entry.name}

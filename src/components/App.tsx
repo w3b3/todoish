@@ -6,14 +6,7 @@ import { AppSettingsProvider } from "../context/appSettingsContext";
 function App() {
   return (
     <AppSettingsProvider>
-      <main
-        id="App-Main"
-        style={
-          {
-            /*use index.css*/
-          }
-        }
-      >
+      <main id="App-Main">
         <Clock />
         <TaskManagement />
       </main>

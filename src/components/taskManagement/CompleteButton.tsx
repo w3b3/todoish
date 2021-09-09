@@ -1,12 +1,13 @@
-import { CompleteButtonInterface } from "../../types/types";
+import { CompleteButtonInterface, Locale } from "../../types/types";
 import React, { useContext } from "react";
 import AppSettingsContext from "../../context/appSettingsContext";
+import { STRINGS } from "../../strings/strings";
 
 export function CompleteButton({
   handleComplete,
   entry,
 }: CompleteButtonInterface) {
-  const { isEditing } = useContext(AppSettingsContext);
+  const { locale, isEditing } = useContext(AppSettingsContext);
   // !isEditing.isEditing && !entry.isDone
   return isEditing.isEditing ? null : (
     <button
@@ -17,7 +18,11 @@ export function CompleteButton({
     >
       <i className="fas fa-check-circle" />
       &nbsp;
-      <span>Completar</span>
+      <span>
+        {locale === Locale.BR
+          ? STRINGS.COMPLETE_TASK.pt
+          : STRINGS.COMPLETE_TASK.en}
+      </span>
     </button>
   );
 }

@@ -1,4 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
+import { Locale } from "../../types/types";
+import { STRINGS } from "../../strings/strings";
+import AppSettingsContext from "../../context/appSettingsContext";
 
 export function SaveButton({
   handleAddTask,
@@ -7,6 +10,8 @@ export function SaveButton({
   handleAddTask: () => void;
   taskName: string;
 }) {
+  const { locale } = useContext(AppSettingsContext);
+
   return (
     <button
       style={{
@@ -19,7 +24,9 @@ export function SaveButton({
     >
       <i className="fas fa-cloud-upload-alt" />
       &nbsp;
-      <span>Salvar</span>
+      <span>
+        {locale === Locale.BR ? STRINGS.SAVE_TASK.pt : STRINGS.SAVE_TASK.en}
+      </span>
     </button>
   );
 }
