@@ -1,8 +1,9 @@
-import { SaveButton } from "./SaveButton";
 import React, { KeyboardEvent, SyntheticEvent, useContext } from "react";
 import AppSettingsContext from "../../context/appSettingsContext";
 import { STRINGS } from "../../strings/strings";
 import { Locale } from "../../types/types";
+import { SaveButton } from "./SaveButton";
+// import { cleanAllEntries } from "../../api/cleanAllEntries";
 
 export function TaskInput({
   handleTypeTaskName,
@@ -23,7 +24,7 @@ export function TaskInput({
         display: "flex",
         flexDirection: "column",
         flexWrap: "wrap",
-        padding: "0 1em",
+        padding: "0 0.5em",
       }}
     >
       <label htmlFor="taskDescription" style={{ visibility: "hidden" }}>
@@ -47,10 +48,10 @@ export function TaskInput({
           style={{
             flex: 1,
             padding: "0.5em",
-            // border: "1px solid darkgray",
           }}
         />
         <SaveButton handleAddTask={handleAddTask} taskName={taskName} />
+        {/*<button onClick={cleanAllEntries}>Clean all entries</button>*/}
       </div>
     </section>
   );

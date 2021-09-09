@@ -1,4 +1,4 @@
-import { colorPositionInArray, sortTasks } from "../../utils";
+import { colorPositionInArray } from "../../utils";
 import React, {
   KeyboardEvent,
   SyntheticEvent,
@@ -22,9 +22,11 @@ import { TaskDescription } from "./TaskDescription";
 import { TaskInput } from "./TaskInput";
 import AppSettingsContext from "../../context/appSettingsContext";
 import { STRINGS } from "../../strings/strings";
+import { Grid } from "@material-ui/core";
 
 export function TaskManagement() {
-  const { locale, toggleEditing, isEditing } = useContext(AppSettingsContext);
+  const { locale, setLocale, toggleEditing, isEditing } =
+    useContext(AppSettingsContext);
   const [taskName, setTaskName] = useState<string>("");
   const [taskList, setTaskList] = useState<Task[]>([]);
   const [totalNumberOfTasks, setTotalNumberOfTasks] = useState<number>(0);
@@ -129,7 +131,18 @@ export function TaskManagement() {
   }, []);
 
   function generateEntryStyles(entry: Task, i: number) {
-    const common = { maxWidth: "100%", margin: "0 10px 8px" };
+    const common = {
+      maxWidth: "100%",
+      margin: "0 10px 8px",
+      padding: "1em",
+      display: "flex",
+      flexDirection: "column",
+    } as React.CSSProperties;
+
+    if (isEditing.isEditing && isEditing.id !== entry.id) {
+      return { display: "none" };
+    }
+
     return entry.isDone
       ? {
           ...common,
@@ -143,23 +156,41 @@ export function TaskManagement() {
   }
 
   function generateControlsStyles(entry: Task, i: number) {
+    const common = {
+      // borderTop: "1px solid #444",
+    };
     return (isEditing.isEditing && isEditing.id === entry.id) ||
       (!isEditing.isEditing && !entry.isDone)
       ? {
+          ...common,
           height: "65px",
-          padding: "1em",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          backgroundColor: "rgba(255, 255, 255, 0.15)",
         }
       : {
+          ...common,
           display: "none",
         };
   }
-
+  const handleLocaleClick = () => {
+    setLocale(locale === "pt-br" ? "en-us" : "pt-br");
+  };
   return (
     <section style={{}}>
+      <p style={{ textAlign: "center", padding: "0 1em" }}>
+        {locale === Locale.BR
+          ? STRINGS.LANGUAGE_SWITCHER.pt
+          : STRINGS.LANGUAGE_SWITCHER.en}{" "}
+        <button
+          style={{
+            textTransform: "uppercase",
+          }}
+          onClick={handleLocaleClick}
+        >
+          {locale}
+        </button>
+      </p>
       {!isEditing.isEditing && (
         <TaskInput
           handleAddTask={handleAddTask}
@@ -192,17 +223,22 @@ export function TaskManagement() {
         style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}
       >
         {taskList &&
-          taskList.sort(sortTasks).map((entry, i) => {
+          taskList.map((entry, i) => {
             return (
               <article
-                className="article-media-query"
+                className={`article-media-query ${
+                  entry.tags.includes("favorite") ? "isFavoriteArticle" : ""
+                }`}
                 key={entry.id}
                 style={generateEntryStyles(entry, i)}
               >
                 <TaskDescription {...entry} />
-                {entry.isDone && (
-                  <EditButton handleEdit={handleEdit} entry={entry} />
-                )}
+                {/*entry.isDone && (
+                  <Grid container alignItems={"center"}>
+                    <TaskDate entry={entry} />
+                    <EditButton handleEdit={handleEdit} entry={entry} />
+                  </Grid>
+                )*/}
 
                 {isEditing.isEditing && isEditing.id === entry.id && (
                   <TaskInput
@@ -213,7 +249,7 @@ export function TaskManagement() {
                   />
                 )}
                 <div key={entry.id} style={generateControlsStyles(entry, i)}>
-                  <TaskDate entry={entry} />
+                  {!isEditing.isEditing && <TaskDate entry={entry} />}
                   <FavoriteButton
                     handleFavorite={handleFavorite}
                     entry={entry}
