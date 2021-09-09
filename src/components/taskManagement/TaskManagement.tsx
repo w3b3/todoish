@@ -95,6 +95,7 @@ export function TaskManagement() {
       ? newTask.tags.filter((tag) => tag !== "favorite")
       : newTask.tags.concat("favorite");
     await editEntry(newTask);
+    toggleEditing();
     const newList = await getAllEntries();
     setTaskList(newList.tasks);
   };
@@ -156,20 +157,19 @@ export function TaskManagement() {
 
   function generateControlsStyles(entry: Task, i: number) {
     const common = {
-      // borderTop: "1px solid #444",
+      height: "65px",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
     };
     return (isEditing.isEditing && isEditing.id === entry.id) ||
       (!isEditing.isEditing && !entry.isDone)
       ? {
           ...common,
-          height: "65px",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
         }
       : {
           ...common,
-          display: "none",
+          // display: "none",
         };
   }
   const handleLocaleClick = () => {
@@ -219,7 +219,12 @@ export function TaskManagement() {
       )}
       <section
         id="tasks"
-        style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "center",
+          padding: "0 4px",
+        }}
       >
         {taskList &&
           taskList.map((entry, i) => {
@@ -238,7 +243,6 @@ export function TaskManagement() {
                     <EditButton handleEdit={handleEdit} entry={entry} />
                   </Grid>
                 )*/}
-
                 {isEditing.isEditing && isEditing.id === entry.id && (
                   <TaskInput
                     handleAddTask={handleAddTask}
@@ -247,8 +251,10 @@ export function TaskManagement() {
                     taskName={taskName}
                   />
                 )}
-                <div key={entry.id} style={generateControlsStyles(entry, i)}>
-                  {!isEditing.isEditing && <TaskDate entry={entry} />}
+                <div style={generateControlsStyles(entry, i)}>
+                  <TaskDate entry={entry} />
+                  <DeleteButton entry={entry} handleDelete={handleDelete} />
+                  <RestoreButton entry={entry} handleRestore={handleRestore} />
                   <FavoriteButton
                     handleFavorite={handleFavorite}
                     entry={entry}
@@ -257,8 +263,7 @@ export function TaskManagement() {
                     handleComplete={handleComplete}
                     entry={entry}
                   />
-                  <RestoreButton entry={entry} handleRestore={handleRestore} />
-                  <DeleteButton entry={entry} handleDelete={handleDelete} />
+
                   <CancelEditButton
                     handleCancelEdit={handleCancelEdit}
                     entry={entry}

@@ -14,16 +14,13 @@ export function SaveButton({
 
   return (
     <button
-      style={{
-        padding: "1em",
-        marginLeft: "4px",
-      }}
+      style={{ backgroundColor: "springgreen", color: "black" }}
       onClick={handleAddTask}
       disabled={!taskName}
       title="Salvar"
     >
       <i className="fas fa-cloud-upload-alt" />
-      &nbsp;
+      <span className="hidden-mobile">&nbsp;</span>
       <span>
         {locale === Locale.BR ? STRINGS.SAVE_TASK.pt : STRINGS.SAVE_TASK.en}
       </span>
