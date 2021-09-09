@@ -103,6 +103,7 @@ export function TaskManagement() {
   const handleComplete = async (id: string) => {
     const newTask = { ...findTask(id)! };
     newTask.isDone = true;
+    newTask.tags = newTask.tags.filter((tag) => tag !== "favorite");
     newTask.lastUpdateTime = new Date().valueOf();
     await editEntry(newTask);
     const newList = await getAllEntries();
@@ -168,10 +169,6 @@ export function TaskManagement() {
         } as any)
       : ({
           ...common,
-          "@media all and (max-width: 640px)": {
-            position: "absolute",
-            right: "5%",
-          },
         } as any);
   }
   const handleLocaleClick = () => {
@@ -205,7 +202,7 @@ export function TaskManagement() {
         <h2
           style={{
             padding: "1em 1em 0",
-            margin: "2rem 0 1rem",
+            margin: "1rem 0",
           }}
         >
           <i className="fas fa-tasks" />
@@ -215,7 +212,12 @@ export function TaskManagement() {
           } (${totalNumberOfTasks})`}
         </h2>
       ) : (
-        <h2>
+        <h2
+          style={{
+            padding: "1em 1em 0",
+            margin: "1rem 0",
+          }}
+        >
           {locale === Locale.BR ? STRINGS.EMPTY_LIST.pt : STRINGS.EMPTY_LIST.en}
         </h2>
       )}
@@ -253,7 +255,10 @@ export function TaskManagement() {
                     taskName={taskName}
                   />
                 )}
-                <div style={generateControlsStyles(entry, i)}>
+                <div
+                  className={"task-controls-wrapper"}
+                  style={generateControlsStyles(entry, i)}
+                >
                   <TaskDate entry={entry} />
                   <DeleteButton entry={entry} handleDelete={handleDelete} />
                   <RestoreButton entry={entry} handleRestore={handleRestore} />

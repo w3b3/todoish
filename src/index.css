@@ -94,6 +94,10 @@ body {
   button > span {
     display: none;
   }
+  .task-controls-wrapper {
+    position: absolute;
+    right: 5%;
+  }
 }
 
 @media all and (min-width: 960px) {
