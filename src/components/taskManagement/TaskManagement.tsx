@@ -22,7 +22,6 @@ import { TaskDescription } from "./TaskDescription";
 import { TaskInput } from "./TaskInput";
 import AppSettingsContext from "../../context/appSettingsContext";
 import { STRINGS } from "../../strings/strings";
-import { Grid } from "@material-ui/core";
 
 export function TaskManagement() {
   const { locale, setLocale, toggleEditing, isEditing } =

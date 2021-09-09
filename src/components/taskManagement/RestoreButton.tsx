@@ -6,7 +6,7 @@ export function RestoreButton({
   handleRestore,
   entry,
 }: RestoreButtonInterface) {
-  const { locale, isEditing } = useContext(AppSettingsContext);
+  const { isEditing } = useContext(AppSettingsContext);
   return isEditing && entry.isDone ? (
     <button
       onClick={() => handleRestore(entry.id)}
