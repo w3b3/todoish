@@ -27,19 +27,28 @@ const Clock = () => {
 
   return (
     <section
+      id="clock-root-wrapper"
       style={{
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
         minHeight: "3em",
-        height: "20vh",
+        width: "100%",
+        height: "auto",
         textAlign: "center",
+        position: "sticky",
+        left: 0,
+        top: 0,
+        backgroundColor: "#f0efeb",
+        borderBottom: "1px solid rgb(51 51 51 / 28%)",
+        boxShadow: "0 -15px 25px rgb(51 51 51)",
+        zIndex: 100,
       }}
     >
       <section
         style={{
-          padding: "1rem",
+          padding: "0.5rem",
           fontSize: "2rem",
           display: "flex",
           flexWrap: "wrap",

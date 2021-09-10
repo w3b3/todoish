@@ -48,7 +48,6 @@ button * {
 
 #App-Main {
   margin: 0 auto;
-  max-width: 500px;
 }
 
 article.isFavoriteArticle {
@@ -101,9 +100,6 @@ body {
 }
 
 @media all and (min-width: 960px) {
-  #App-Main {
-    max-width: 80vw;
-  }
   .article-media-query {
     margin: auto;
   }
@@ -111,12 +107,13 @@ body {
     max-width: 50vw;
     margin: auto;
   }
+
+  #clock-root-wrapper {
+    /*position: absolute !important;*/
+  }
 }
 
 @media all and (min-width: 1280px) {
-  #App-Main {
-    max-width: 80vw;
-  }
   .article-media-query {
     width: 30%;
     margin: auto;
