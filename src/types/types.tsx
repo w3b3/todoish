@@ -5,13 +5,9 @@ export const Locale = {
 };
 
 export const Colors = [
-  "cb997e",
-  "eddcd2",
-  "fff1e6",
-  // "f0efeb",
-  "ddbea9",
-  "a5a58d",
-  "b7b7a4",
+  "rgba(253, 212, 1, 0.95)",
+  "rgba(253, 212, 1, 0.85)",
+  "rgba(253, 212, 1, 0.75)",
 ];
 
 export interface Task {

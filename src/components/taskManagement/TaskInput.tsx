@@ -2,7 +2,6 @@ import React, { KeyboardEvent, SyntheticEvent, useContext } from "react";
 import AppSettingsContext from "../../context/appSettingsContext";
 import { STRINGS } from "../../strings/strings";
 import { Locale } from "../../types/types";
-import { SaveButton } from "./SaveButton";
 // import { cleanAllEntries } from "../../api/cleanAllEntries";
 
 export function TaskInput({
@@ -50,7 +49,7 @@ export function TaskInput({
             padding: "0.5em",
           }}
         />
-        <SaveButton handleAddTask={handleAddTask} taskName={taskName} />
+        {/*<SaveButton handleAddTask={handleAddTask} taskName={taskName} />*/}
         {/*<button onClick={cleanAllEntries}>Clean all entries</button>*/}
       </div>
     </section>

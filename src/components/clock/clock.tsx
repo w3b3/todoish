@@ -1,6 +1,23 @@
 import React, { useContext, useEffect, useState } from "react";
 import AppSettingsContext from "../../context/appSettingsContext";
 
+const clockWrapper = {
+  display: "flex",
+  justifyContent: "space-between" /*TODO: center in mobile*/,
+  alignItems: "center",
+  flexWrap: "wrap",
+  width: "100%",
+  height: "clamp(50px, 10vh, 15vh)",
+  textAlign: "center",
+  position: "sticky",
+  left: 0,
+  top: 0,
+  backgroundColor: "#FDD401",
+  borderBottom: "1px solid rgb(51 51 51 / 28%)",
+  boxShadow: "0 -15px 25px rgb(51 51 51)",
+  zIndex: 100,
+} as React.CSSProperties;
+
 const Clock = () => {
   const { locale } = useContext(AppSettingsContext);
   const [date, setDate] = useState(() => new Date());
@@ -26,31 +43,17 @@ const Clock = () => {
   } as const;
 
   return (
-    <section
-      id="clock-root-wrapper"
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        minHeight: "3em",
-        width: "100%",
-        height: "auto",
-        textAlign: "center",
-        position: "sticky",
-        left: 0,
-        top: 0,
-        backgroundColor: "#f0efeb",
-        borderBottom: "1px solid rgb(51 51 51 / 28%)",
-        boxShadow: "0 -15px 25px rgb(51 51 51)",
-        zIndex: 100,
-      }}
-    >
+    <section id="clock-root-wrapper" style={clockWrapper}>
+      <img
+        style={{ height: "50%" }}
+        src="todoish-logos_transparent.png"
+        alt="kind of a TODO app"
+      />
       <section
         style={{
-          padding: "0.5rem",
-          fontSize: "2rem",
           display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
           flexWrap: "wrap",
         }}
       >
@@ -58,7 +61,6 @@ const Clock = () => {
           <i
             className="fas fa-clock"
             style={{
-              display: "inline-block",
               marginRight: "6px",
             }}
           />
@@ -69,8 +71,6 @@ const Clock = () => {
           <i
             className="fas fa-calendar-alt"
             style={{
-              fontSize: "1em",
-              display: "inline-block",
               marginRight: "6px",
             }}
           />

@@ -1,27 +1,28 @@
 {
-  "short_name": "AstraDB TODO",
-  "name": "A TODO app with AstraDB from Datastax",
+  "short_name": "todoish",
+  "name": "todoish (TO-DO app)",
+  "description": "kind of a TODO app",
   "orientation": "portrait",
   "lang": "pt-br",
   "icons": [
     {
-      "src": "icon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
+      "src": "todoish-logos-64-png.ico",
+      "sizes": "64x64",
       "type": "image/x-icon"
     },
     {
-      "src": "logo192.png",
+      "src": "todoish-logos-192.jpeg",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "logo512.png",
+      "src": "todoish-logos-512.jpeg",
       "type": "image/png",
       "sizes": "512x512"
     }
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#ff0000",
-  "background_color": "#00ff00"
+  "theme_color": "#FDD401",
+  "background_color": "#000000"
 }

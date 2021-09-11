@@ -1,125 +1,81 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:300,400,500,700&display=swap");
-
 * {
-  font-family: "Roboto", sans-serif;
+  font-family: "Raleway", sans-serif;
+  font-size: 16px;
   box-sizing: border-box;
   user-select: none;
-  color: black;
-  transition-duration: 100ms;
+  transition-duration: 50ms;
   transition-property: all;
   transition-timing-function: ease-in-out;
 }
 
-input,
-button {
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #555;
+  min-height: 100vh;
+  /*Photo by <a href="https://unsplash.com/@willianjusten?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Willian Justen de Vasconcellos</a> on <a href="https://unsplash.com/@willianjusten?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+  */
+}
+
+button,
+input {
   user-select: auto;
   padding: 6px;
+  min-width: 120px;
   margin: 0 3px;
-}
-
-input:last-of-type,
-button:last-of-type {
-  margin: 0 0 0 3px;
-}
-
-button {
+  cursor: pointer;
   font-size: 1rem;
-  font-weight: bold;
   background: none;
+  background-color: white;
   border-radius: 8px;
-  border: 4px solid rgba(40, 44, 52, 0.1);
-  box-shadow: 0 0 0 2px rgba(40, 44, 52, 0.3);
+  border: 4px solid whitesmoke;
 }
 
 button:hover,
+input:hover,
 button:active,
-button:focus {
-  border: 4px solid rgba(40, 44, 52, 0.5);
-  box-shadow: 0 0 2px 2px rgba(40, 44, 52, 0.5);
+input:active,
+button:focus,
+input:focus {
+  border: 4px solid crimson;
 }
 
 button * {
   color: inherit;
 }
 
-#root {
-  /*empty*/
-}
-
 #App-Main {
-  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
+article.isFavoriteArticle:hover,
 article.isFavoriteArticle {
-  border: 4px solid hotpink;
-}
-
-article.isFavoriteArticle:hover {
-  border: 4px solid hotpink;
+  border: 10px solid whitesmoke;
 }
 
 .article-media-query {
-  width: 100%;
-  cursor: pointer;
-  border: 1px solid rgba(51, 51, 51, 0.1);
+  width: 45%;
+  margin: 1em;
+  display: flex;
+  flex-wrap: wrap;
+  max-height: 300px;
 }
 
-.article-media-query:hover {
-  border: 1px solid rgba(51, 51, 51, 0.3);
-  /*box-shadow: 0 0 10px 0 rgba(51, 51, 51, 0.3);*/
-}
-
-.TaskDescription:hover {
-  opacity: 0.5;
-}
-
-body {
-  margin: 0;
-  padding: 0;
-  background-color: #f0efeb;
-  /*Photo by <a href="https://unsplash.com/@willianjusten?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Willian Justen de Vasconcellos</a> on <a href="https://unsplash.com/@willianjusten?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
-  */
+#task-management-root {
+  width: clamp(50%, 90vw, 95vw);
+  margin: auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 @media all and (max-width: 640px) {
-  .hidden-mobile {
-    display: none;
+  #task-management-root {
+    width: clamp(100%, 90vw, 95vw);
   }
-  button {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-  }
-  button > span {
-    display: none;
-  }
-  .task-controls-wrapper {
-    position: absolute;
-    right: 5%;
-  }
-}
-
-@media all and (min-width: 960px) {
   .article-media-query {
-    margin: auto;
-  }
-  #TaskInput-media-query {
-    max-width: 50vw;
-    margin: auto;
-  }
-
-  #clock-root-wrapper {
-    /*position: absolute !important;*/
-  }
-}
-
-@media all and (min-width: 1280px) {
-  .article-media-query {
-    width: 30%;
-    margin: auto;
-  }
-  #TaskInput-media-query {
-    max-width: 50vw;
-    margin: auto;
+    width: 100%;
   }
 }
