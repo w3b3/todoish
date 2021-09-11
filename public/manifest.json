@@ -1,12 +1,13 @@
 {
   "short_name": "todoish",
-  "name": "kind of a TODO app",
+  "name": "todoish (TO-DO app)",
+  "description": "kind of a TODO app",
   "orientation": "portrait",
   "lang": "pt-br",
   "icons": [
     {
       "src": "todoish-logos-64-png.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
+      "sizes": "64x64",
       "type": "image/x-icon"
     },
     {
@@ -15,7 +16,7 @@
       "sizes": "192x192"
     },
     {
-      "src": "todoish-logos-192.jpeg",
+      "src": "todoish-logos-512.jpeg",
       "type": "image/png",
       "sizes": "512x512"
     }
