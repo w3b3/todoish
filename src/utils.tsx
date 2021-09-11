@@ -9,12 +9,12 @@ export const sortTasks = (a: Task, b: Task) => {
 export const colorPositionInArray = (i: number, type?: string) => {
   switch (type) {
     case "primary": {
-      return `#${Colors[(i + 1) % Colors.length]}`;
+      return Colors[i % Colors.length];
     }
     case "secondary": {
-      return `#${Colors[(i + 2) % Colors.length]}`;
+      return Colors[i % Colors.length];
     }
     default:
-      return `#${Colors[i % Colors.length]}`;
+      return Colors[i % Colors.length];
   }
 };
