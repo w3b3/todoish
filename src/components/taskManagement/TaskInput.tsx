@@ -50,7 +50,7 @@ export function TaskInput({
             padding: "0.5em",
           }}
         />
-        <SaveButton handleAddTask={handleAddTask} taskName={taskName} />
+        {/*<SaveButton handleAddTask={handleAddTask} taskName={taskName} />*/}
         {/*<button onClick={cleanAllEntries}>Clean all entries</button>*/}
       </div>
     </section>

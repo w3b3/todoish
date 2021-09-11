@@ -12,6 +12,7 @@ body {
   margin: 0;
   padding: 0;
   background-color: #555;
+  min-height: 100vh;
   /*Photo by <a href="https://unsplash.com/@willianjusten?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Willian Justen de Vasconcellos</a> on <a href="https://unsplash.com/@willianjusten?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
   */
 }
@@ -20,6 +21,7 @@ button,
 input {
   user-select: auto;
   padding: 6px;
+  min-width: 120px;
   margin: 0 3px;
   cursor: pointer;
   font-size: 1rem;
@@ -42,14 +44,38 @@ button * {
   color: inherit;
 }
 
+#App-Main {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 article.isFavoriteArticle:hover,
 article.isFavoriteArticle {
   border: 10px solid whitesmoke;
 }
 
 .article-media-query {
-  width: 100%;
+  width: 45%;
+  margin: 1em;
+  display: flex;
+  flex-wrap: wrap;
+  max-height: 300px;
+}
+
+#task-management-root {
+  width: clamp(50%, 90vw, 95vw);
+  margin: auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 @media all and (max-width: 640px) {
+  #task-management-root {
+    width: clamp(100%, 90vw, 95vw);
+  }
+  .article-media-query {
+    width: 100%;
+  }
 }

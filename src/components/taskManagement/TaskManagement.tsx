@@ -132,13 +132,8 @@ export function TaskManagement() {
   }, []);
 
   function generateEntryStyles(entry: Task, i: number) {
-    const common = {
-      maxWidth: "100%",
-      margin: "0.5rem",
-      padding: "0.25em",
-      display: "flex",
-      flexDirection: "column",
-    } as React.CSSProperties;
+    // const common = {
+    // } as React.CSSProperties;
 
     if (isEditing.isEditing && isEditing.id !== entry.id) {
       return { display: "none" };
@@ -146,49 +141,37 @@ export function TaskManagement() {
 
     return entry.isDone
       ? {
-          ...common,
           backgroundColor: "lightgray",
           display: isEditing.isEditing ? "block" : "flex",
         }
       : {
-          ...common,
           backgroundColor: colorPositionInArray(i),
         };
   }
 
   function generateControlsStyles(entry: Task, i: number) {
     const common = {
-      padding: "1em",
+      backgroundColor: "rgba(255, 255, 255, 0.25)",
+      width: "100%",
+      padding: "0 1em 0.5em",
       display: "flex",
-      justifyContent: "center",
+      justifyContent: "space-between",
       alignItems: "center",
+      // color: "whitesmoke",
     };
     return isEditing.isEditing && isEditing.id === entry.id
       ? ({
           ...common,
-        } as any)
+        } as React.CSSProperties)
       : ({
           ...common,
-        } as any);
+        } as React.CSSProperties);
   }
   const handleLocaleClick = () => {
     setLocale(locale === "pt-br" ? "en-us" : "pt-br");
   };
   return (
-    <section style={{}}>
-      <p style={{ textAlign: "center", padding: "0 1em" }}>
-        {locale === Locale.BR
-          ? STRINGS.LANGUAGE_SWITCHER.pt
-          : STRINGS.LANGUAGE_SWITCHER.en}{" "}
-        <button
-          style={{
-            textTransform: "uppercase",
-          }}
-          onClick={handleLocaleClick}
-        >
-          {locale}
-        </button>
-      </p>
+    <section id={"task-management-root"}>
       {!isEditing.isEditing && (
         <TaskInput
           handleAddTask={handleAddTask}
@@ -201,8 +184,8 @@ export function TaskManagement() {
       {totalNumberOfTasks ? (
         <h2
           style={{
-            padding: "1em 1em 0",
-            margin: "1rem 0",
+            color: "whitesmoke",
+            padding: "0 1em",
           }}
         >
           <i className="fas fa-tasks" />
@@ -224,6 +207,7 @@ export function TaskManagement() {
       <section
         id="tasks"
         style={{
+          flex: 1,
           display: "flex",
           flexWrap: "wrap",
           justifyContent: "center",
@@ -241,12 +225,6 @@ export function TaskManagement() {
                 style={generateEntryStyles(entry, i)}
               >
                 <TaskDescription {...entry} />
-                {/*entry.isDone && (
-                  <Grid container alignItems={"center"}>
-                    <TaskDate entry={entry} />
-                    <EditButton handleEdit={handleEdit} entry={entry} />
-                  </Grid>
-                )*/}
                 {isEditing.isEditing && isEditing.id === entry.id && (
                   <TaskInput
                     handleAddTask={handleAddTask}
@@ -280,6 +258,24 @@ export function TaskManagement() {
               </article>
             );
           })}
+      </section>
+      <section style={{ display: "flex", alignItems: "center" }}>
+        <p style={{ padding: "0 1em", color: "whitesmoke" }}>
+          {locale === Locale.BR
+            ? STRINGS.LANGUAGE_SWITCHER.pt
+            : STRINGS.LANGUAGE_SWITCHER.en}
+        </p>
+
+        <button
+          style={{
+            textTransform: "uppercase",
+            whiteSpace: "nowrap",
+            maxWidth: "clamp(50px, auto, 200px)",
+          }}
+          onClick={handleLocaleClick}
+        >
+          {locale}
+        </button>
       </section>
     </section>
   );

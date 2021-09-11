@@ -3,10 +3,10 @@ import React, { useContext } from "react";
 import AppSettingsContext from "../../context/appSettingsContext";
 
 export function TaskDate({ entry }: { entry: Task }) {
-  const { locale, isEditing } = useContext(AppSettingsContext);
+  const { locale } = useContext(AppSettingsContext);
 
-  return isEditing ? null : (
-    <div style={{ flex: 1, textAlign: "left" }}>
+  return (
+    <div style={{ flex: 1 }}>
       <i className="fas fa-calendar-alt" />{" "}
       {new Intl.DateTimeFormat(locale, {
         // weekday: "short",
