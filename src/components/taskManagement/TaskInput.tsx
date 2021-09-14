@@ -2,30 +2,41 @@ import React, { KeyboardEvent, SyntheticEvent, useContext } from "react";
 import AppSettingsContext from "../../context/appSettingsContext";
 import { STRINGS } from "../../strings/strings";
 import { Locale } from "../../types/types";
+import { createStyles, makeStyles, Theme } from "@material-ui/core";
 // import { cleanAllEntries } from "../../api/cleanAllEntries";
+
+const TaskInputStyles = makeStyles(({ breakpoints, spacing }: Theme) =>
+  createStyles({
+    root: {
+      display: "flex",
+      flexDirection: "column",
+      flexWrap: "wrap",
+      padding: "1em",
+      [breakpoints.down("sm")]: {
+        backgroundColor: "#555555b0",
+        position: "sticky",
+        top: "10vh",
+        left: 0,
+        // border: `${spacing(1)}px solid tomato`,
+        // padding: spacing(1),
+      },
+    },
+  })
+);
 
 export function TaskInput({
   handleTypeTaskName,
   taskName,
   handleEnter,
-  handleAddTask,
 }: {
   handleTypeTaskName: (event: SyntheticEvent<HTMLInputElement>) => void;
   taskName: string;
   handleEnter: (event: KeyboardEvent) => void;
-  handleAddTask: () => void;
 }) {
+  const taskInputStyles = TaskInputStyles();
   const { locale } = useContext(AppSettingsContext);
   return (
-    <section
-      id="TaskInput-media-query"
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        flexWrap: "wrap",
-        padding: "1em",
-      }}
-    >
+    <section id="TaskInput-media-query" className={taskInputStyles.root}>
       {/*<label htmlFor="taskDescription" style={{ visibility: "hidden" }}>
         {locale === Locale.BR
           ? STRINGS.INPUT_TASK_PLACEHOLDER.pt
