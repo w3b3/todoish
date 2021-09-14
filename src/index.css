@@ -54,28 +54,3 @@ article.isFavoriteArticle:hover,
 article.isFavoriteArticle {
   border: 10px solid whitesmoke;
 }
-
-.article-media-query {
-  width: 45%;
-  margin: 1em;
-  display: flex;
-  flex-wrap: wrap;
-  max-height: 300px;
-}
-
-#task-management-root {
-  width: clamp(50%, 90vw, 95vw);
-  margin: auto;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-@media all and (max-width: 640px) {
-  #task-management-root {
-    width: clamp(100%, 90vw, 95vw);
-  }
-  .article-media-query {
-    width: 100%;
-  }
-}

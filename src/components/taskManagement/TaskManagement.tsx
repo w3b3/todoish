@@ -22,8 +22,41 @@ import { TaskDescription } from "./TaskDescription";
 import { TaskInput } from "./TaskInput";
 import AppSettingsContext from "../../context/appSettingsContext";
 import { STRINGS } from "../../strings/strings";
+import { createStyles, makeStyles, Theme } from "@material-ui/core";
+
+const TaskManagementStyles = makeStyles(({ breakpoints, spacing }: Theme) =>
+  createStyles({
+    root: {
+      padding: spacing(2),
+      [breakpoints.down("sm")]: {
+        // border: `${spacing(1)}px solid tomato`,
+        padding: spacing(1),
+      },
+    },
+    articlesWrapper: {
+      flex: 1,
+      display: "flex",
+      flexWrap: "wrap",
+      padding: spacing(1),
+    },
+    article: {
+      display: "flex",
+      flexDirection: "column",
+      margin: "0.5em auto",
+      width: "calc(30% - 2em)",
+
+      [breakpoints.down("md")]: {
+        width: "calc(50% - 2em)",
+      },
+      [breakpoints.down("sm")]: {
+        width: `calc(100% - 10vw)`,
+      },
+    },
+  })
+);
 
 export function TaskManagement() {
+  const taskManagementStyles = TaskManagementStyles();
   const { locale, setLocale, toggleEditing, isEditing } =
     useContext(AppSettingsContext);
   const [taskName, setTaskName] = useState<string>("");
@@ -174,7 +207,7 @@ export function TaskManagement() {
     <section id={"task-management-root"}>
       {!isEditing.isEditing && (
         <TaskInput
-          handleAddTask={handleAddTask}
+          // handleAddTask={handleAddTask}
           handleTypeTaskName={handleTypeTaskName}
           handleEnter={handleEnter}
           taskName={taskName}
@@ -204,21 +237,12 @@ export function TaskManagement() {
           {locale === Locale.BR ? STRINGS.EMPTY_LIST.pt : STRINGS.EMPTY_LIST.en}
         </h2>
       )}
-      <section
-        id="tasks"
-        style={{
-          flex: 1,
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "center",
-          padding: "0 4px",
-        }}
-      >
+      <section id="tasks" className={taskManagementStyles.articlesWrapper}>
         {taskList &&
           taskList.map((entry, i) => {
             return (
               <article
-                className={`article-media-query ${
+                className={`${taskManagementStyles.article} ${
                   entry.tags.includes("favorite") ? "isFavoriteArticle" : ""
                 }`}
                 key={entry.id}
@@ -227,7 +251,7 @@ export function TaskManagement() {
                 <TaskDescription {...entry} />
                 {isEditing.isEditing && isEditing.id === entry.id && (
                   <TaskInput
-                    handleAddTask={handleAddTask}
+                    // handleAddTask={handleAddTask}
                     handleTypeTaskName={handleTypeTaskName}
                     handleEnter={handleEnter}
                     taskName={taskName}
