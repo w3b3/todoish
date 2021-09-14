@@ -7,6 +7,7 @@ import {
   makeStyles,
   Theme,
   LinearProgress,
+  Typography,
 } from "@material-ui/core";
 import React, {
   PropsWithChildren,
@@ -61,7 +62,7 @@ const HeaderStyles = makeStyles(({ breakpoints, spacing }: Theme) =>
       },
     },
     paperOverride: {
-      backgroundColor: "rgba(0, 0, 0, 0.85)",
+      backgroundColor: "rgba(0, 0, 0, 0.9)",
       color: "white",
     },
     dialogContentOverride: {
@@ -76,29 +77,47 @@ const HeaderStyles = makeStyles(({ breakpoints, spacing }: Theme) =>
     },
   })
 );
+
 export const Header = ({ children }: PropsWithChildren<any>) => {
   const headerStyles = HeaderStyles();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [timer, setTimer] = useState(0);
+  const [startTime, setStartTime] = useState(0);
 
-  const [timer, setTimer] = useState(100);
+  const getN60SecBlocks = (n: number) => 60 * 1000 * n;
+  const formatTimeCountdown = () => {
+    return new Date(Math.round(timer))
+      .toUTCString()
+      .split(" ")[4]
+      .split(":")
+      .slice(1)
+      .join(":");
+  };
   const openModal = () => {
     setIsModalOpen(true);
-    setTimer(100);
+    const _s = getN60SecBlocks(15);
+    setStartTime(_s);
+    setTimer(_s);
   };
   const closeModal = useCallback(() => {
     if (isModalOpen) {
       setIsModalOpen(false);
+      setStartTime(0);
       setTimer(0);
     }
   }, [isModalOpen]);
 
   useEffect(() => {
     if (isModalOpen && timer > 0) {
-      setTimeout(() => setTimer(timer - 0.1), 100);
+      setTimeout(() => setTimer(timer - 1000), 1000);
     } else {
       closeModal();
     }
   }, [timer, closeModal, isModalOpen]);
+
+  const getProgressPercentage = () => {
+    return Math.trunc((timer / startTime) * 100) / 100;
+  };
 
   return (
     <header className={headerStyles.root}>
@@ -118,13 +137,13 @@ export const Header = ({ children }: PropsWithChildren<any>) => {
         classes={{ paper: headerStyles.paperOverride }}
       >
         <DialogContent classes={{ root: headerStyles.dialogContentOverride }}>
-          <div>{Math.round(timer)}</div>
+          <Typography variant={"h1"}>{formatTimeCountdown()}</Typography>
           <LinearProgress
             classes={{
               root: headerStyles.progressBar,
             }}
             variant="determinate"
-            value={timer}
+            value={getProgressPercentage() * 100}
           />
         </DialogContent>
         <DialogActions>
