@@ -11,14 +11,18 @@ const ClockStyles = makeStyles(({ breakpoints, spacing }: Theme) =>
       justifyContent: "space-around",
       // border: `${spacing(1)}px solid crimson`,
       [breakpoints.down("sm")]: {
-        flexDirection: "column-reverse",
+        flexDirection: "row-reverse",
         lineHeight: 1,
         marginRight: spacing(1),
+        width: "100%",
       },
     },
     time: {
       whiteSpace: "nowrap",
       fontSize: "2rem",
+      [breakpoints.down("sm")]: {
+        fontSize: "1em",
+      },
     },
     date: {
       whiteSpace: "nowrap",

@@ -44,12 +44,6 @@ button * {
   color: inherit;
 }
 
-#App-Main {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
 article.isFavoriteArticle:hover,
 article.isFavoriteArticle {
   border: 10px solid whitesmoke;
