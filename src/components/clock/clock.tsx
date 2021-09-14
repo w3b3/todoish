@@ -1,24 +1,40 @@
 import React, { useContext, useEffect, useState } from "react";
 import AppSettingsContext from "../../context/appSettingsContext";
+import { createStyles, makeStyles, Theme } from "@material-ui/core";
 
-const clockWrapper = {
-  display: "flex",
-  justifyContent: "space-between" /*TODO: center in mobile*/,
-  alignItems: "center",
-  flexWrap: "wrap",
-  width: "100%",
-  height: "clamp(50px, 10vh, 15vh)",
-  textAlign: "center",
-  position: "sticky",
-  left: 0,
-  top: 0,
-  backgroundColor: "#FDD401",
-  borderBottom: "1px solid rgb(51 51 51 / 28%)",
-  boxShadow: "0 -15px 25px rgb(51 51 51)",
-  zIndex: 100,
-} as React.CSSProperties;
+const ClockStyles = makeStyles(({ breakpoints, spacing }: Theme) =>
+  createStyles({
+    root: {
+      width: "clamp(auto, 35%,350px)",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-around",
+      // border: `${spacing(1)}px solid crimson`,
+      [breakpoints.down("sm")]: {
+        flexDirection: "column-reverse",
+        lineHeight: 1,
+        marginRight: spacing(1),
+      },
+    },
+    time: {
+      whiteSpace: "nowrap",
+      fontSize: "2rem",
+    },
+    date: {
+      whiteSpace: "nowrap",
+      fontSize: "1.5rem",
+      [breakpoints.down("sm")]: {
+        fontSize: "1rem",
+      },
+    },
+    icon: {
+      marginRight: "6px",
+    },
+  })
+);
 
 const Clock = () => {
+  const clockStyles = ClockStyles();
   const { locale } = useContext(AppSettingsContext);
   const [date, setDate] = useState(() => new Date());
   useEffect(() => {
@@ -43,40 +59,16 @@ const Clock = () => {
   } as const;
 
   return (
-    <section id="clock-root-wrapper" style={clockWrapper}>
-      <img
-        style={{ height: "50%" }}
-        src="todoish-logos_transparent.png"
-        alt="kind of a TODO app"
-      />
-      <section
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          flexWrap: "wrap",
-        }}
-      >
-        <span style={{ whiteSpace: "nowrap" }}>
-          <i
-            className="fas fa-clock"
-            style={{
-              marginRight: "6px",
-            }}
-          />
-          {new Intl.DateTimeFormat(locale, timeOptions).format(date)}
-        </span>
-        &nbsp;
-        <span style={{ whiteSpace: "nowrap" }}>
-          <i
-            className="fas fa-calendar-alt"
-            style={{
-              marginRight: "6px",
-            }}
-          />
-          {new Intl.DateTimeFormat(locale, dateOptions).format(date)}
-        </span>
-      </section>
+    <section id="clock-root-wrapper" className={clockStyles.root}>
+      <span className={clockStyles.time}>
+        <i className={`fas fa-clock ${clockStyles.icon}`} />
+        {new Intl.DateTimeFormat(locale, timeOptions).format(date)}
+      </span>
+      &nbsp;
+      <span className={clockStyles.date}>
+        <i className={`fas fa-calendar-alt ${clockStyles.icon}`} />
+        {new Intl.DateTimeFormat(locale, dateOptions).format(date)}
+      </span>
     </section>
   );
 };
