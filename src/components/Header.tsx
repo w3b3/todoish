@@ -8,7 +8,12 @@ import {
   Theme,
   LinearProgress,
 } from "@material-ui/core";
-import React, { PropsWithChildren, useEffect, useState } from "react";
+import React, {
+  PropsWithChildren,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 
 const HeaderStyles = makeStyles(({ breakpoints, spacing }: Theme) =>
   createStyles({
@@ -80,12 +85,12 @@ export const Header = ({ children }: PropsWithChildren<any>) => {
     setIsModalOpen(true);
     setTimer(100);
   };
-  const closeModal = () => {
+  const closeModal = useCallback(() => {
     if (isModalOpen) {
       setIsModalOpen(false);
       setTimer(0);
     }
-  };
+  }, [isModalOpen]);
 
   useEffect(() => {
     if (isModalOpen && timer > 0) {
@@ -112,7 +117,6 @@ export const Header = ({ children }: PropsWithChildren<any>) => {
         className={headerStyles.dialog}
         classes={{ paper: headerStyles.paperOverride }}
       >
-        {/*<DialogTitle>Timer dialog</DialogTitle>*/}
         <DialogContent classes={{ root: headerStyles.dialogContentOverride }}>
           <div>{Math.round(timer)}</div>
           <LinearProgress
