@@ -9,7 +9,7 @@ export function DeleteButton({ handleDelete, entry }: DeleteButtonInterface) {
   return entry.isDone ? (
     <button
       onClick={() => handleDelete(entry.id)}
-      style={{ backgroundColor: "crimson", color: "white" }}
+      style={{ backgroundColor: "tomato", color: "white" }}
     >
       <i className="fas fa-trash-alt" />
       <span className="hidden-mobile">&nbsp;</span>
