@@ -15,10 +15,8 @@ const TaskInputStyles = makeStyles(({ breakpoints, spacing }: Theme) =>
       [breakpoints.down("sm")]: {
         backgroundColor: "#555555b0",
         position: "sticky",
-        top: "10vh",
+        top: "12vh",
         left: 0,
-        // border: `${spacing(1)}px solid tomato`,
-        // padding: spacing(1),
       },
     },
   })

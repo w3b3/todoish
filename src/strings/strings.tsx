@@ -31,6 +31,10 @@ export const STRINGS = {
     en: "Complete",
     pt: "Completar",
   },
+  RESTORE: {
+    en: "Restore",
+    pt: "Restaurar",
+  },
   EDIT_TASK: {
     en: "Edit",
     pt: "Editar",
