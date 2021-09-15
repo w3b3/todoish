@@ -6,30 +6,21 @@ const ClockStyles = makeStyles(({ breakpoints, spacing }: Theme) =>
   createStyles({
     root: {
       width: "clamp(auto, 35%,350px)",
+      lineHeight: 1,
       display: "flex",
-      alignItems: "center",
-      justifyContent: "space-around",
-      // border: `${spacing(1)}px solid crimson`,
+      flexDirection: "column-reverse",
+      alignItems: "start",
       [breakpoints.down("sm")]: {
-        flexDirection: "row-reverse",
-        lineHeight: 1,
-        marginRight: spacing(1),
-        width: "100%",
+        display: "none",
       },
     },
     time: {
       whiteSpace: "nowrap",
-      fontSize: "2rem",
-      [breakpoints.down("sm")]: {
-        fontSize: "1em",
-      },
+      [breakpoints.down("sm")]: {},
     },
     date: {
       whiteSpace: "nowrap",
-      fontSize: "1.5rem",
-      [breakpoints.down("sm")]: {
-        fontSize: "1rem",
-      },
+      [breakpoints.down("sm")]: {},
     },
     icon: {
       marginRight: "6px",

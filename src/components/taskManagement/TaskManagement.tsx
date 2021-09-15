@@ -22,7 +22,7 @@ import { TaskDescription } from "./TaskDescription";
 import { TaskInput } from "./TaskInput";
 import AppSettingsContext from "../../context/appSettingsContext";
 import { STRINGS } from "../../strings/strings";
-import { createStyles, makeStyles, Theme } from "@material-ui/core";
+import { Container, createStyles, makeStyles, Theme } from "@material-ui/core";
 
 const TaskManagementStyles = makeStyles(({ breakpoints, spacing }: Theme) =>
   createStyles({
@@ -38,6 +38,9 @@ const TaskManagementStyles = makeStyles(({ breakpoints, spacing }: Theme) =>
       display: "flex",
       flexWrap: "wrap",
       padding: spacing(1),
+      [breakpoints.down("sm")]: {
+        padding: 0,
+      },
     },
     article: {
       display: "flex",
@@ -49,8 +52,22 @@ const TaskManagementStyles = makeStyles(({ breakpoints, spacing }: Theme) =>
         width: "calc(50% - 2em)",
       },
       [breakpoints.down("sm")]: {
-        width: `calc(100% - 10vw)`,
+        width: `calc(100% - 5vw)`,
       },
+    },
+    containerRootOverride: {
+      [breakpoints.down("sm")]: {
+        padding: 0,
+      },
+    },
+
+    tasksControlsWrapper: {
+      backgroundColor: "rgba(255, 255, 255, 0.25)",
+      width: "100%",
+      padding: spacing(1),
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
     },
   })
 );
@@ -182,29 +199,11 @@ export function TaskManagement() {
         };
   }
 
-  function generateControlsStyles(entry: Task, i: number) {
-    const common = {
-      backgroundColor: "rgba(255, 255, 255, 0.25)",
-      width: "100%",
-      padding: "0 1em 0.5em",
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "center",
-      // color: "whitesmoke",
-    };
-    return isEditing.isEditing && isEditing.id === entry.id
-      ? ({
-          ...common,
-        } as React.CSSProperties)
-      : ({
-          ...common,
-        } as React.CSSProperties);
-  }
   const handleLocaleClick = () => {
     setLocale(locale === "pt-br" ? "en-us" : "pt-br");
   };
   return (
-    <section id={"task-management-root"}>
+    <Container classes={{ root: taskManagementStyles.containerRootOverride }}>
       {!isEditing.isEditing && (
         <TaskInput
           // handleAddTask={handleAddTask}
@@ -257,10 +256,7 @@ export function TaskManagement() {
                     taskName={taskName}
                   />
                 )}
-                <div
-                  className={"task-controls-wrapper"}
-                  style={generateControlsStyles(entry, i)}
-                >
+                <div className={taskManagementStyles.tasksControlsWrapper}>
                   <TaskDate entry={entry} />
                   <DeleteButton entry={entry} handleDelete={handleDelete} />
                   <RestoreButton entry={entry} handleRestore={handleRestore} />
@@ -301,6 +297,6 @@ export function TaskManagement() {
           {locale}
         </button>
       </section>
-    </section>
+    </Container>
   );
 }
