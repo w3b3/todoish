@@ -1,10 +1,14 @@
-import { RestoreButtonInterface } from "../../types/types";
-import React from "react";
+import { Locale, RestoreButtonInterface } from "../../types/types";
+import React, { useContext } from "react";
+import { STRINGS } from "../../strings/strings";
+import AppSettingsContext from "../../context/appSettingsContext";
 
 export function RestoreButton({
   handleRestore,
   entry,
 }: RestoreButtonInterface) {
+  const { locale } = useContext(AppSettingsContext);
+
   return entry.isDone ? (
     <button
       onClick={() => handleRestore(entry.id)}
@@ -13,7 +17,9 @@ export function RestoreButton({
     >
       <i className="fas fa-trash-restore" />
       <span className="hidden-mobile">&nbsp;</span>
-      <span>Restaurar</span>
+      <span>
+        {locale === Locale.BR ? STRINGS.RESTORE.pt : STRINGS.RESTORE.en}
+      </span>
     </button>
   ) : null;
 }
