@@ -1,19 +1,12 @@
-/// <reference lib="webworker" />
-/* eslint-disable no-restricted-globals */
-
-// This service worker can be customized!
 // See https://developers.google.com/web/tools/workbox/modules
-// for the list of available Workbox modules, or add any other
-// code you'd like.
-// You can also remove this file if you'd prefer not to use a
-// service worker, and the Workbox build step will be skipped.
 
 import { clientsClaim } from "workbox-core";
 import { ExpirationPlugin } from "workbox-expiration";
 import { precacheAndRoute, createHandlerBoundToURL } from "workbox-precaching";
 import { registerRoute } from "workbox-routing";
-import { CacheOnly, StaleWhileRevalidate } from "workbox-strategies";
+import { StaleWhileRevalidate, CacheFirst } from "workbox-strategies";
 
+// @ts-ignore
 declare const self: ServiceWorkerGlobalScope;
 
 clientsClaim();
@@ -58,7 +51,8 @@ registerRoute(
 registerRoute(
   // Add in any other file extensions or routing criteria as needed.
   ({ url }) =>
-    url.origin === self.location.origin && url.pathname.endsWith(".png"),
+    url.origin === self.location.origin &&
+    (url.pathname.endsWith(".png") || url.pathname.endsWith(".jpg")),
   // Customize this strategy as needed, e.g., by changing to CacheFirst.
   new StaleWhileRevalidate({
     cacheName: "images",
@@ -72,7 +66,7 @@ registerRoute(
 
 // This allows the web app to trigger skipWaiting via
 // registration.waiting.postMessage({type: 'SKIP_WAITING'})
-self.addEventListener("message", (event) => {
+self.addEventListener("message", (event: { data: { type: string } }) => {
   if (event.data && event.data.type === "SKIP_WAITING") {
     self.skipWaiting();
   }
@@ -83,10 +77,11 @@ self.addEventListener("message", (event) => {
 // a maximum number of entries.
 registerRoute(
   ({ url }) =>
+    url.origin === "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/" ||
     url.origin === "https://fonts.googleapis.com" ||
     url.origin === "https://fonts.gstatic.com",
-  new CacheOnly({
-    cacheName: "google-fonts",
+  new CacheFirst({
+    cacheName: "fonts",
     plugins: [new ExpirationPlugin({ maxEntries: 20 })],
   })
 );
