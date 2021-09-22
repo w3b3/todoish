@@ -37,7 +37,6 @@ const TaskManagementStyles = makeStyles(({ breakpoints, spacing }: Theme) =>
       minHeight: "70vh",
       display: "flex",
       alignItems: "flex-start",
-      justifyContent: "space-between",
       flexWrap: "wrap",
       padding: spacing(1),
       [breakpoints.down("sm")]: {
