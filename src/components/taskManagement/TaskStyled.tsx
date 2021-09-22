@@ -52,23 +52,8 @@ export const TaskStyled = ({
 }: PropsWithChildren<TaskProps>) => {
   const { isEditing } = useContext(AppSettingsContext);
   const classes = TaskStyle({ task, isEditing, order });
-  /*function generateEntryStyles(entry: Task, i: number) {
-      return entry.isDone
-          ? {
-            backgroundColor: entry.isDone ? "#333" : "initial",
-            display: isEditing.isEditing ? "block" : "flex",
-          }
-          : {
-            backgroundColor: colorPositionInArray(i),
-          };
-    }*/
   return (
-    <article
-      className={classes.article}
-      // entry.tags.includes("favorite") ? "isFavoriteArticle" : ""
-      key={task.id}
-      // style={generateEntryStyles(entry, i)}
-    >
+    <article className={classes.article} key={task.id}>
       {children}
     </article>
   );
