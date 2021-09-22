@@ -22,7 +22,7 @@ export function TaskCountdown({
   countdownAutoDelete: () => void;
 }) {
   const countdownModalStyles = CountdownModalStyles();
-  const [remaining, setRemaining] = useState(3);
+  const [remaining, setRemaining] = useState(100);
   useEffect(() => {
     if (remaining === 0) {
       countdownAutoDelete();
