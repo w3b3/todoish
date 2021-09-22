@@ -23,6 +23,7 @@ import AppSettingsContext from "../../context/appSettingsContext";
 import { STRINGS } from "../../strings/strings";
 import { Container, createStyles, makeStyles, Theme } from "@material-ui/core";
 import { TaskStyled } from "./TaskStyled";
+import { TaskCountdown } from "./TaskCountdown";
 
 const TaskManagementStyles = makeStyles(({ breakpoints, spacing }: Theme) =>
   createStyles({
@@ -241,6 +242,11 @@ export function TaskManagement() {
                   />
                   <EditButton handleEdit={handleEdit} entry={entry} />
                 </div>
+                {entry.isDone && (
+                  <TaskCountdown
+                    countdownAutoDelete={() => handleDelete(entry.id)}
+                  />
+                )}
               </TaskStyled>
             );
           })}
