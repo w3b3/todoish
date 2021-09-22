@@ -11,7 +11,7 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: #555;
+  background-color: #222;
   min-height: 100vh;
   /*Photo by <a href="https://unsplash.com/@willianjusten?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Willian Justen de Vasconcellos</a> on <a href="https://unsplash.com/@willianjusten?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
   */
@@ -36,7 +36,7 @@ button:active,
 input:active,
 button:focus,
 input:focus {
-  border: 4px solid crimson;
+  border: 4px solid #fdd401;
 }
 
 button * {
@@ -46,5 +46,5 @@ button * {
 
 article.isFavoriteArticle:hover,
 article.isFavoriteArticle {
-  border: 10px solid whitesmoke;
+  border: 10px solid crimson;
 }

@@ -6,24 +6,20 @@ export function TaskDescription(entry: Task) {
   const { isEditing } = useContext(AppSettingsContext);
 
   return isEditing.isEditing ? null : (
-    <p
+    <section
       id={`task${entry.id}`}
       className={"TaskDescription"}
       style={{
         flex: 1,
         padding: "0 1em",
         lineHeight: "2",
-        textDecoration: entry.isDone ? "line-through" : "",
+        textDecorationLine: entry.isDone ? "line-through" : "none",
+        textDecorationColor: "crimson",
         color: entry.isDone ? "gray" : "black",
         userSelect: "text",
-        wordWrap: "break-word",
-        overflow: "hidden",
-        maxWidth: "72ch",
-        textOverflow: "ellipsis",
-        whiteSpace: "nowrap",
       }}
     >
       {entry.name}
-    </p>
+    </section>
   );
 }

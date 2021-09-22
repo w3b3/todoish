@@ -6,7 +6,7 @@ export function TaskDate({ entry }: { entry: Task }) {
   const { locale } = useContext(AppSettingsContext);
 
   return (
-    <div style={{ flex: 1 }}>
+    <div style={{ flex: 1, whiteSpace: "nowrap" }}>
       <i className="fas fa-calendar-alt" />{" "}
       {new Intl.DateTimeFormat(locale, {
         // weekday: "short",

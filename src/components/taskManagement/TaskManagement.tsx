@@ -1,4 +1,3 @@
-import { colorPositionInArray } from "../../utils";
 import React, {
   KeyboardEvent,
   SyntheticEvent,
@@ -23,38 +22,29 @@ import { TaskInput } from "./TaskInput";
 import AppSettingsContext from "../../context/appSettingsContext";
 import { STRINGS } from "../../strings/strings";
 import { Container, createStyles, makeStyles, Theme } from "@material-ui/core";
+import { TaskStyled } from "./TaskStyled";
 
 const TaskManagementStyles = makeStyles(({ breakpoints, spacing }: Theme) =>
   createStyles({
     root: {
       padding: spacing(2),
       [breakpoints.down("sm")]: {
-        // border: `${spacing(1)}px solid tomato`,
         padding: spacing(1),
       },
     },
     articlesWrapper: {
-      flex: 1,
+      minHeight: "70vh",
       display: "flex",
+      alignItems: "flex-start",
+      justifyContent: "space-between",
       flexWrap: "wrap",
       padding: spacing(1),
       [breakpoints.down("sm")]: {
         padding: 0,
+        justifyContent: "center",
       },
     },
-    article: {
-      display: "flex",
-      flexDirection: "column",
-      margin: "0.5em auto",
-      width: "calc(30% - 2em)",
 
-      [breakpoints.down("md")]: {
-        width: "calc(50% - 2em)",
-      },
-      [breakpoints.down("sm")]: {
-        width: `calc(100% - 5vw)`,
-      },
-    },
     containerRootOverride: {
       [breakpoints.down("sm")]: {
         padding: 0,
@@ -181,24 +171,6 @@ export function TaskManagement() {
     });
   }, []);
 
-  function generateEntryStyles(entry: Task, i: number) {
-    // const common = {
-    // } as React.CSSProperties;
-
-    if (isEditing.isEditing && isEditing.id !== entry.id) {
-      return { display: "none" };
-    }
-
-    return entry.isDone
-      ? {
-          backgroundColor: "lightgray",
-          display: isEditing.isEditing ? "block" : "flex",
-        }
-      : {
-          backgroundColor: colorPositionInArray(i),
-        };
-  }
-
   const handleLocaleClick = () => {
     setLocale(locale === "pt-br" ? "en-us" : "pt-br");
   };
@@ -240,13 +212,7 @@ export function TaskManagement() {
         {taskList &&
           taskList.map((entry, i) => {
             return (
-              <article
-                className={`${taskManagementStyles.article} ${
-                  entry.tags.includes("favorite") ? "isFavoriteArticle" : ""
-                }`}
-                key={entry.id}
-                style={generateEntryStyles(entry, i)}
-              >
+              <TaskStyled key={entry.id} task={entry} order={i}>
                 <TaskDescription {...entry} />
                 {isEditing.isEditing && isEditing.id === entry.id && (
                   <TaskInput
@@ -275,7 +241,7 @@ export function TaskManagement() {
                   />
                   <EditButton handleEdit={handleEdit} entry={entry} />
                 </div>
-              </article>
+              </TaskStyled>
             );
           })}
       </section>
