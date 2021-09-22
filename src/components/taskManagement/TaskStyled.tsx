@@ -31,7 +31,7 @@ const TaskStyle = makeStyles(({ breakpoints, spacing }: Theme) =>
         minHeight: "50vh",
         padding: spacing(1),
       },
-      [breakpoints.down("sm")]: {
+      [breakpoints.down("xs")]: {
         width: `calc(100% - 5vw)`,
         minHeight: "65vh",
         padding: spacing(0),
