@@ -29,6 +29,7 @@ export function TaskCountdown({
     } else {
       setTimeout(() => setRemaining(remaining - 1), 1000);
     }
+    // eslint-disable-next-line
   }, [remaining]);
   return (
     <Grid container>
