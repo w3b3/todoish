@@ -17,6 +17,7 @@ export function TaskDescription(entry: Task) {
         textDecorationColor: "crimson",
         color: entry.isDone ? "gray" : "black",
         userSelect: "text",
+        wordBreak: "break-word",
       }}
     >
       {entry.name}
