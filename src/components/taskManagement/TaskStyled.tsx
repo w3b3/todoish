@@ -16,9 +16,10 @@ const TaskStyle = makeStyles(({ breakpoints, spacing }: Theme) =>
       display: ({ task, isEditing }: TaskStyleProps) =>
         isEditing.isEditing && task.id !== isEditing.id ? "none" : "flex",
       flexDirection: "column",
-      margin: spacing(1),
-      width: "calc(30% - 2em)",
-      minHeight: ({ task }: TaskStyleProps) => (task.isDone ? "unset" : "35vh"),
+      margin: spacing(1, "auto"),
+      width: "calc(33% - 1%)",
+      minHeight: ({ task }: TaskStyleProps) =>
+        task.isDone ? "unset" : "min(35vh, 400px)",
       padding: spacing(2),
       backgroundColor: ({ task, order }: TaskStyleProps) =>
         task.isDone ? "#444" : colorPositionInArray(order),
@@ -27,12 +28,12 @@ const TaskStyle = makeStyles(({ breakpoints, spacing }: Theme) =>
           ? "10px solid crimson"
           : "10px solid transparent",
       [breakpoints.down("md")]: {
-        width: "calc(50% - 2em)",
+        width: "calc(50% - 1%)",
         minHeight: "50vh",
         padding: spacing(1),
       },
       [breakpoints.down("xs")]: {
-        width: `calc(100% - 5vw)`,
+        width: `calc(100% - 1%)`,
         minHeight: "65vh",
         padding: spacing(0),
       },
