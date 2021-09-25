@@ -2,6 +2,7 @@ import { CancelEditButtonInterface, Locale } from "../../types/types";
 import React, { useContext } from "react";
 import AppSettingsContext from "../../context/appSettingsContext";
 import { STRINGS } from "../../strings/strings";
+import { Button } from "@material-ui/core";
 
 export function CancelEditButton({
   handleCancelEdit,
@@ -9,7 +10,7 @@ export function CancelEditButton({
   const { locale, isEditing } = useContext(AppSettingsContext);
 
   return isEditing.isEditing ? (
-    <button
+    <Button
       onClick={() => handleCancelEdit()}
       style={{ backgroundColor: "white", color: "gray" }}
     >
@@ -18,6 +19,6 @@ export function CancelEditButton({
       <span>
         {locale === Locale.BR ? STRINGS.CANCEL.pt : STRINGS.CANCEL.en}
       </span>
-    </button>
+    </Button>
   ) : null;
 }

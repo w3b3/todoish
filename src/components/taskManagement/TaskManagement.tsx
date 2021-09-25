@@ -21,7 +21,13 @@ import { TaskDescription } from "./TaskDescription";
 import { TaskInput } from "./TaskInput";
 import AppSettingsContext from "../../context/appSettingsContext";
 import { STRINGS } from "../../strings/strings";
-import { Container, createStyles, makeStyles, Theme } from "@material-ui/core";
+import {
+  Button,
+  Container,
+  createStyles,
+  makeStyles,
+  Theme,
+} from "@material-ui/core";
 import { TaskStyled } from "./TaskStyled";
 import { TaskCountdown } from "./TaskCountdown";
 
@@ -257,7 +263,7 @@ export function TaskManagement() {
             : STRINGS.LANGUAGE_SWITCHER.en}
         </p>
 
-        <button
+        <Button
           style={{
             textTransform: "uppercase",
             whiteSpace: "nowrap",
@@ -266,7 +272,7 @@ export function TaskManagement() {
           onClick={handleLocaleClick}
         >
           {locale}
-        </button>
+        </Button>
       </section>
     </Container>
   );

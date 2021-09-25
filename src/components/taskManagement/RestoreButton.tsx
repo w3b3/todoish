@@ -2,6 +2,7 @@ import { Locale, RestoreButtonInterface } from "../../types/types";
 import React, { useContext } from "react";
 import { STRINGS } from "../../strings/strings";
 import AppSettingsContext from "../../context/appSettingsContext";
+import { Button } from "@material-ui/core";
 
 export function RestoreButton({
   handleRestore,
@@ -10,7 +11,7 @@ export function RestoreButton({
   const { locale } = useContext(AppSettingsContext);
 
   return entry.isDone ? (
-    <button
+    <Button
       onClick={() => handleRestore(entry.id)}
       style={{ backgroundColor: "cornflowerblue", color: "white" }}
       title="Restaurar"
@@ -20,6 +21,6 @@ export function RestoreButton({
       <span>
         {locale === Locale.BR ? STRINGS.RESTORE.pt : STRINGS.RESTORE.en}
       </span>
-    </button>
+    </Button>
   ) : null;
 }

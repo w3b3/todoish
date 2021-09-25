@@ -14,13 +14,13 @@ import React, { useCallback, useEffect, useState } from "react";
 const CountdownModalStyles = makeStyles(({ breakpoints, spacing }: Theme) =>
   createStyles({
     dialog: {
-      "& button": {
-        border: "4px solid transparent",
-        color: "gray",
-      },
-      "& button:hover": {
-        border: "4px solid crimson",
-      },
+      // "& button": {
+      //   border: "4px solid transparent",
+      //   color: "gray",
+      // },
+      // "& button:hover": {
+      //   border: "4px solid crimson",
+      // },
     },
 
     dialogContentOverride: {
@@ -37,14 +37,35 @@ const CountdownModalStyles = makeStyles(({ breakpoints, spacing }: Theme) =>
       backgroundColor: "rgba(0, 0, 0, 0.9)",
       color: "white",
     },
+    primaryButton: {
+      backgroundColor: "#fdd401",
+      fontWeight: "bold",
+      // "&:hover": {
+      //   backgroundColor: "#fdd401",
+      // },
+    },
+    primaryButtonLabel: {
+      color: "#000",
+    },
+    secondaryButton: {
+      backgroundColor: "#333",
+      fontWeight: "normal",
+      // "&:hover": {
+      //   backgroundColor: "#fdd401",
+      // },
+    },
+    secondaryButtonLabel: {
+      color: "ghostwhite",
+    },
     timer: {
       backgroundColor: "tomato",
       color: "whitesmoke",
-      border: "3px solid whitesmoke",
+      border: "4px solid whitesmoke",
       fontWeight: "bold",
       "&:hover, &:active, &:focus": {
         backgroundColor: "black",
         color: "tomato",
+        borderColor: "tomato",
       },
     },
   })
@@ -53,6 +74,8 @@ const CountdownModalStyles = makeStyles(({ breakpoints, spacing }: Theme) =>
 export function CountdownModal() {
   const countdownModalStyles = CountdownModalStyles();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [openConfigurationSettings, setOpenConfigurationSettings] =
+    useState(false);
   const [timer, setTimer] = useState(0);
   const [startTime, setStartTime] = useState(0);
   const getN60SecBlocks = (n: number) => 60 * 1000 * n;
@@ -89,10 +112,27 @@ export function CountdownModal() {
   const getProgressPercentage = () => {
     return Math.trunc((timer / startTime) * 100) / 100;
   };
+
+  const openConfiguration = () => {
+    setOpenConfigurationSettings(!openConfigurationSettings);
+    // setTimer(0);
+  };
+  const decideStyle = (isPrimary: boolean) => {
+    return isPrimary
+      ? {
+          root: countdownModalStyles.primaryButton,
+          label: countdownModalStyles.primaryButtonLabel,
+        }
+      : {
+          root: countdownModalStyles.secondaryButton,
+          label: countdownModalStyles.secondaryButtonLabel,
+        };
+  };
   return (
     <>
       <Button className={countdownModalStyles.timer} onClick={openModal}>
-        <i className="fas fa-pizza-slice" /> Pizza timer
+        <i className="fas fa-stopwatch" />
+        &nbsp;Timer
       </Button>
       <Dialog
         open={isModalOpen}
@@ -104,21 +144,36 @@ export function CountdownModal() {
         <DialogContent
           classes={{ root: countdownModalStyles.dialogContentOverride }}
         >
-          <Typography variant={"h1"}>{formatTimeCountdown()}</Typography>
-          <LinearProgress
-            classes={{
-              root: countdownModalStyles.progressBar,
-            }}
-            variant="determinate"
-            value={getProgressPercentage() * 100}
-          />
+          {openConfigurationSettings ? (
+            <section>Configurations open</section>
+          ) : (
+            <>
+              <Typography variant={"h1"}>{formatTimeCountdown()}</Typography>
+              <LinearProgress
+                classes={{
+                  root: countdownModalStyles.progressBar,
+                }}
+                variant="determinate"
+                value={getProgressPercentage() * 100}
+              />
+            </>
+          )}
         </DialogContent>
         <DialogActions>
-          <Button variant={"contained"} onClick={closeModal}>
-            Task completed
-          </Button>
-          <Button variant={"outlined"} onClick={closeModal}>
-            Cancel
+          {!openConfigurationSettings && (
+            <Button
+              classes={decideStyle(!openConfigurationSettings)}
+              onClick={closeModal}
+            >
+              Task completed
+            </Button>
+          )}
+          <Button
+            classes={decideStyle(openConfigurationSettings)}
+            // variant={openConfigurationSettings ? "contained" : "outlined"}
+            onClick={openConfiguration}
+          >
+            {openConfigurationSettings ? "Save config" : "Config timer"}
           </Button>
         </DialogActions>
       </Dialog>

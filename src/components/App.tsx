@@ -5,16 +5,20 @@ import { AppSettingsProvider } from "../context/appSettingsContext";
 import { Header } from "./Header";
 import { CountdownModal } from "./CountdownModal";
 import { Logo } from "./Logo";
+import { ThemeProvider } from "@material-ui/core";
+import { theme } from "../theme/theme";
 
 function App() {
   return (
     <AppSettingsProvider>
-      <Header>
-        <Clock />
-        <Logo />
-        <CountdownModal />
-      </Header>
-      <TaskManagement />
+      <ThemeProvider theme={theme}>
+        <Header>
+          <Clock />
+          <Logo />
+          <CountdownModal />
+        </Header>
+        <TaskManagement />
+      </ThemeProvider>
     </AppSettingsProvider>
   );
 }

@@ -2,6 +2,7 @@ import { FavoriteButtonInterface, Locale } from "../../types/types";
 import React, { useContext } from "react";
 import AppSettingsContext from "../../context/appSettingsContext";
 import { STRINGS } from "../../strings/strings";
+import { Button } from "@material-ui/core";
 
 export const FavoriteButton = ({
   handleFavorite,
@@ -23,7 +24,7 @@ function FavoriteAddButton({ handleFavorite, entry }: FavoriteButtonInterface) {
   const { locale } = useContext(AppSettingsContext);
 
   return (
-    <button
+    <Button
       onClick={() => handleFavorite(entry.id)}
       disabled={isEditing.isEditing && isEditing.id !== entry.id}
       style={{ backgroundColor: "hotpink", color: "white" }}
@@ -34,7 +35,7 @@ function FavoriteAddButton({ handleFavorite, entry }: FavoriteButtonInterface) {
       <span>
         {locale === Locale.BR ? STRINGS.PIN_TASK.pt : STRINGS.PIN_TASK.en}
       </span>
-    </button>
+    </Button>
   );
 }
 
@@ -45,7 +46,7 @@ export function FavoriteRemoveButton({
   const { locale, isEditing } = useContext(AppSettingsContext);
 
   return (
-    <button
+    <Button
       onClick={() => handleFavorite(entry.id)}
       disabled={isEditing.isEditing && isEditing.id !== entry.id}
       style={{ backgroundColor: "lightgoldenrodyellow", color: "black" }}
@@ -56,7 +57,7 @@ export function FavoriteRemoveButton({
       <span>
         {locale === Locale.BR ? STRINGS.UNPIN_TASK.pt : STRINGS.UNPIN_TASK.en}
       </span>
-    </button>
+    </Button>
   );
 }
 
