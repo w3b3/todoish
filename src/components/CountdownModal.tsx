@@ -38,35 +38,35 @@ const CountdownModalStyles = makeStyles(({ breakpoints, spacing }: Theme) =>
       color: "white",
     },
     primaryButton: {
-      backgroundColor: "#fdd401",
-      fontWeight: "bold",
+      // backgroundColor: "#fdd401",
+      // fontWeight: "bold",
       // "&:hover": {
       //   backgroundColor: "#fdd401",
       // },
     },
     primaryButtonLabel: {
-      color: "#000",
+      // color: "#000",
     },
     secondaryButton: {
-      backgroundColor: "#333",
-      fontWeight: "normal",
+      // backgroundColor: "#333",
+      // fontWeight: "normal",
       // "&:hover": {
       //   backgroundColor: "#fdd401",
       // },
     },
     secondaryButtonLabel: {
-      color: "ghostwhite",
+      // color: "ghostwhite",
     },
     timer: {
-      backgroundColor: "tomato",
-      color: "whitesmoke",
-      border: "4px solid whitesmoke",
-      fontWeight: "bold",
-      "&:hover, &:active, &:focus": {
-        backgroundColor: "black",
-        color: "tomato",
-        borderColor: "tomato",
-      },
+      // backgroundColor: "tomato",
+      // color: "whitesmoke",
+      // border: "4px solid whitesmoke",
+      // fontWeight: "bold",
+      // "&:hover, &:active, &:focus": {
+      //   backgroundColor: "black",
+      //   color: "tomato",
+      //   borderColor: "tomato",
+      // },
     },
   })
 );
@@ -117,20 +117,10 @@ export function CountdownModal() {
     setOpenConfigurationSettings(!openConfigurationSettings);
     // setTimer(0);
   };
-  const decideStyle = (isPrimary: boolean) => {
-    return isPrimary
-      ? {
-          root: countdownModalStyles.primaryButton,
-          label: countdownModalStyles.primaryButtonLabel,
-        }
-      : {
-          root: countdownModalStyles.secondaryButton,
-          label: countdownModalStyles.secondaryButtonLabel,
-        };
-  };
+
   return (
     <>
-      <Button className={countdownModalStyles.timer} onClick={openModal}>
+      <Button color={"primary"} variant={"contained"} onClick={openModal}>
         <i className="fas fa-stopwatch" />
         &nbsp;Timer
       </Button>
@@ -162,15 +152,16 @@ export function CountdownModal() {
         <DialogActions>
           {!openConfigurationSettings && (
             <Button
-              classes={decideStyle(!openConfigurationSettings)}
+              color={!openConfigurationSettings ? "primary" : "secondary"}
+              variant={"contained"}
               onClick={closeModal}
             >
               Task completed
             </Button>
           )}
           <Button
-            classes={decideStyle(openConfigurationSettings)}
-            // variant={openConfigurationSettings ? "contained" : "outlined"}
+            color={openConfigurationSettings ? "primary" : "secondary"}
+            variant={"contained"}
             onClick={openConfiguration}
           >
             {openConfigurationSettings ? "Save config" : "Config timer"}

@@ -9,11 +9,12 @@ export function DeleteButton({ handleDelete, entry }: DeleteButtonInterface) {
 
   return entry.isDone ? (
     <Button
+      variant={"contained"}
+      color={"primary"}
       onClick={() => handleDelete(entry.id)}
-      style={{ backgroundColor: "tomato", color: "white" }}
+      startIcon={<i className="fas fa-trash-alt" />}
+      // style={{ backgroundColor: "tomato", color: "white" }}
     >
-      <i className="fas fa-trash-alt" />
-      <span className="hidden-mobile">&nbsp;</span>
       <span> {locale === Locale.BR ? STRINGS.ERASE.pt : STRINGS.ERASE.en}</span>
     </Button>
   ) : null;

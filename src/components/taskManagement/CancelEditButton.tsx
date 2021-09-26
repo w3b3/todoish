@@ -11,11 +11,12 @@ export function CancelEditButton({
 
   return isEditing.isEditing ? (
     <Button
+      variant={"outlined"}
+      color={"secondary"}
       onClick={() => handleCancelEdit()}
-      style={{ backgroundColor: "white", color: "gray" }}
+      // style={{ backgroundColor: "white", color: "gray" }}
+      startIcon={<i className="fas fa-arrow-alt-circle-left" />}
     >
-      <i className="fas fa-arrow-alt-circle-left" />
-      <span className="hidden-mobile">&nbsp;</span>
       <span>
         {locale === Locale.BR ? STRINGS.CANCEL.pt : STRINGS.CANCEL.en}
       </span>

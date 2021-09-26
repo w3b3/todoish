@@ -10,6 +10,9 @@ const HeaderStyles = makeStyles(({ breakpoints, spacing }: Theme) =>
       left: 0,
       top: 0,
       backgroundColor: "#FDD401",
+      backgroundImage:
+        "linear-gradient(43deg, #FFCC70 0%, #C850C0 46%,#4158D0 100%)",
+
       borderBottom: "1px solid rgb(51 51 51 / 28%)",
       boxShadow: "0 -15px 25px rgb(51 51 51)",
       zIndex: 100,

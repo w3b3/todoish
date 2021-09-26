@@ -25,13 +25,14 @@ function FavoriteAddButton({ handleFavorite, entry }: FavoriteButtonInterface) {
 
   return (
     <Button
+      color={"primary"}
+      variant={"contained"}
       onClick={() => handleFavorite(entry.id)}
       disabled={isEditing.isEditing && isEditing.id !== entry.id}
-      style={{ backgroundColor: "hotpink", color: "white" }}
+      // style={{ backgroundColor: "hotpink", color: "white" }}
       title="Adicionar Favorito"
+      startIcon={<i className="fas fa-thumbs-up" />}
     >
-      <i className="fas fa-thumbs-up" />
-      <span className="hidden-mobile">&nbsp;</span>
       <span>
         {locale === Locale.BR ? STRINGS.PIN_TASK.pt : STRINGS.PIN_TASK.en}
       </span>
@@ -49,11 +50,12 @@ export function FavoriteRemoveButton({
     <Button
       onClick={() => handleFavorite(entry.id)}
       disabled={isEditing.isEditing && isEditing.id !== entry.id}
-      style={{ backgroundColor: "lightgoldenrodyellow", color: "black" }}
+      color={"primary"}
+      variant={"contained"}
+      // style={{ backgroundColor: "lightgoldenrodyellow", color: "black" }}
       title="Remover Favorito"
+      startIcon={<i className="fas fa-exclamation-circle" />}
     >
-      <i className="fas fa-exclamation-circle" />
-      <span className="hidden-mobile">&nbsp;</span>
       <span>
         {locale === Locale.BR ? STRINGS.UNPIN_TASK.pt : STRINGS.UNPIN_TASK.en}
       </span>

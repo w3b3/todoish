@@ -13,11 +13,12 @@ export function RestoreButton({
   return entry.isDone ? (
     <Button
       onClick={() => handleRestore(entry.id)}
-      style={{ backgroundColor: "cornflowerblue", color: "white" }}
+      // style={{ backgroundColor: "cornflowerblue", color: "white" }}
+      variant={"contained"}
+      color={"secondary"}
       title="Restaurar"
+      startIcon={<i className="fas fa-trash-restore" />}
     >
-      <i className="fas fa-trash-restore" />
-      <span className="hidden-mobile">&nbsp;</span>
       <span>
         {locale === Locale.BR ? STRINGS.RESTORE.pt : STRINGS.RESTORE.en}
       </span>
