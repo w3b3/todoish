@@ -12,6 +12,7 @@ const TaskInputStyles = makeStyles(({ breakpoints, spacing }: Theme) =>
       flexDirection: "column",
       flexWrap: "wrap",
       padding: "1em",
+      width: "100%",
       // [breakpoints.down("sm")]: {
       //   backgroundColor: "#555555b0",
       // position: "sticky",

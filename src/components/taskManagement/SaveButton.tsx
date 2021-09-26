@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { Locale } from "../../types/types";
 import { STRINGS } from "../../strings/strings";
 import AppSettingsContext from "../../context/appSettingsContext";
+import { Button } from "@material-ui/core";
 
 export function SaveButton({
   handleAddTask,
@@ -13,7 +14,7 @@ export function SaveButton({
   const { locale } = useContext(AppSettingsContext);
 
   return (
-    <button
+    <Button
       style={{ backgroundColor: "springgreen", color: "black" }}
       onClick={handleAddTask}
       disabled={!taskName}
@@ -24,6 +25,6 @@ export function SaveButton({
       <span>
         {locale === Locale.BR ? STRINGS.SAVE_TASK.pt : STRINGS.SAVE_TASK.en}
       </span>
-    </button>
+    </Button>
   );
 }

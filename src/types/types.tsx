@@ -4,10 +4,31 @@ export const Locale = {
   US: "en-us",
 };
 
+// background-color:#0093E9 ;
+// background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
+// background-color: #8EC5FC;
+// background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
+// background-color: #8BC6EC;
+// background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%);
+
+// export const Colors = [
+//   "rgba(253, 212, 1, 0.95)",
+//   "rgba(253, 212, 1, 0.85)",
+//   "rgba(253, 212, 1, 0.75)",
+// ];
 export const Colors = [
-  "rgba(253, 212, 1, 0.95)",
-  "rgba(253, 212, 1, 0.85)",
-  "rgba(253, 212, 1, 0.75)",
+  {
+    base: "#0093E9",
+    gradient: "linear-gradient(160deg, #0093E9 0%, #80D0C7 100%)",
+  },
+  {
+    base: "#8EC5FC",
+    gradient: "linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%)",
+  },
+  {
+    base: "#8BC6EC",
+    gradient: "linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%)",
+  },
 ];
 
 export interface Task {

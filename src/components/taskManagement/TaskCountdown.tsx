@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 const CountdownModalStyles = makeStyles(({ breakpoints, spacing }: Theme) =>
   createStyles({
     progressBar: {
-      height: spacing(1),
+      height: "2px",
       width: "100%",
     },
   })

@@ -22,7 +22,9 @@ const TaskStyle = makeStyles(({ breakpoints, spacing }: Theme) =>
         task.isDone ? "unset" : "min(35vh, 400px)",
       padding: spacing(2),
       backgroundColor: ({ task, order }: TaskStyleProps) =>
-        task.isDone ? "#444" : colorPositionInArray(order),
+        task.isDone ? "#444" : colorPositionInArray(order).base,
+      backgroundImage: ({ task, order }: TaskStyleProps) =>
+        task.isDone ? "#444" : colorPositionInArray(order).gradient,
       border: ({ task }: TaskStyleProps) =>
         task.tags.includes("favorite")
           ? "10px solid crimson"
