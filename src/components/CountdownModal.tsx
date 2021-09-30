@@ -135,7 +135,7 @@ export function CountdownModal() {
           classes={{ root: countdownModalStyles.dialogContentOverride }}
         >
           {openConfigurationSettings ? (
-            <section>Configurations open</section>
+            <Typography variant={"h1"}>Configurations open</Typography>
           ) : (
             <>
               <Typography variant={"h1"}>{formatTimeCountdown()}</Typography>

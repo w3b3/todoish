@@ -1,8 +1,8 @@
-import React, { KeyboardEvent, SyntheticEvent, useContext } from "react";
+import React, { ChangeEvent, KeyboardEvent, useContext } from "react";
 import AppSettingsContext from "../../context/appSettingsContext";
 import { STRINGS } from "../../strings/strings";
 import { Locale } from "../../types/types";
-import { createStyles, makeStyles, Theme } from "@material-ui/core";
+import { createStyles, Input, makeStyles, Theme } from "@material-ui/core";
 // import { cleanAllEntries } from "../../api/cleanAllEntries";
 
 const TaskInputStyles = makeStyles(({ breakpoints, spacing }: Theme) =>
@@ -12,7 +12,7 @@ const TaskInputStyles = makeStyles(({ breakpoints, spacing }: Theme) =>
       flexDirection: "column",
       flexWrap: "wrap",
       padding: "1em",
-      width: "100%",
+      // width: "100%",
       // [breakpoints.down("sm")]: {
       //   backgroundColor: "#555555b0",
       // position: "sticky",
@@ -28,21 +28,27 @@ export function TaskInput({
   taskName,
   handleEnter,
 }: {
-  handleTypeTaskName: (event: SyntheticEvent<HTMLInputElement>) => void;
+  // handleTypeTaskName: (event: SyntheticEvent<HTMLInputElement>) => void;
+  handleTypeTaskName: (event: ChangeEvent<HTMLInputElement>) => void;
   taskName: string;
   handleEnter: (event: KeyboardEvent) => void;
 }) {
   const taskInputStyles = TaskInputStyles();
   const { locale } = useContext(AppSettingsContext);
+  // if (isEditing.isEditing) {
+  //   return null;
+  // }
   return (
-    <section id="TaskInput-media-query" className={taskInputStyles.root}>
+    <section className={taskInputStyles.root}>
       {/*<label htmlFor="taskDescription" style={{ visibility: "hidden" }}>
         {locale === Locale.BR
           ? STRINGS.INPUT_TASK_PLACEHOLDER.pt
           : STRINGS.INPUT_TASK_PLACEHOLDER.en}
       </label>*/}
       <div style={{ display: "flex" }}>
-        <input
+        <Input
+          autoFocus
+          fullWidth
           type="text"
           id="taskDescription"
           name="taskDescription"
