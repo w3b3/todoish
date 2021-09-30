@@ -6,7 +6,6 @@ import {
   Theme,
 } from "@material-ui/core";
 import { useEffect, useState } from "react";
-import { Task } from "../../types/types";
 
 const CountdownModalStyles = makeStyles(({ breakpoints, spacing }: Theme) =>
   createStyles({
