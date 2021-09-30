@@ -43,7 +43,6 @@ export const TaskManagementStyles = makeStyles(
         alignItems: "center",
       },
       articlesWrapper: {
-        border: "5px solid red",
         minHeight: "70vh",
         display: "flex",
         alignItems: "flex-start",

@@ -34,7 +34,8 @@ const TaskStyle = makeStyles(({ breakpoints, spacing }: Theme) =>
         padding: spacing(1),
       },
       [breakpoints.down("xs")]: {
-        width: `calc(100% - 1%)`,
+        width: "100%",
+        maxWidth: "100%",
         minHeight: "65vh",
         padding: spacing(0),
       },
