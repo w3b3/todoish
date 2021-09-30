@@ -17,7 +17,7 @@ const TaskStyle = makeStyles(({ breakpoints, spacing }: Theme) =>
         isEditing.isEditing && task.id !== isEditing.id ? "none" : "flex",
       flexDirection: "column",
       margin: spacing(1, "auto"),
-      width: "calc(33% - 1%)",
+      width: `25%`,
       minHeight: ({ task }: TaskStyleProps) => "min(35vh, 400px)",
       padding: spacing(2),
       backgroundColor: ({ task, order }: TaskStyleProps) =>

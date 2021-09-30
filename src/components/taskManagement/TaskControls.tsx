@@ -9,7 +9,7 @@ import { EditButton } from "./EditButton";
 import React from "react";
 import { TaskManagementStyles } from "./TaskManagement";
 
-export function TaskControls(props: {
+function TaskControls(props: {
   entry: Task;
   handleDelete: (id: string) => Promise<void>;
   handleRestore: (id: string) => Promise<void>;
@@ -42,3 +42,5 @@ export function TaskControls(props: {
     </section>
   );
 }
+
+export { TaskControls };
