@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import AppSettingsContext from "../../context/appSettingsContext";
-import { createStyles, makeStyles, Theme } from "@material-ui/core";
+import { createStyles, makeStyles, Theme, Typography } from "@material-ui/core";
 
 const ClockStyles = makeStyles(({ breakpoints, spacing }: Theme) =>
   createStyles({
@@ -55,15 +55,15 @@ const Clock = () => {
 
   return (
     <section id="clock-root-wrapper" className={clockStyles.root}>
-      <span className={clockStyles.time}>
+      <Typography className={clockStyles.time}>
         <i className={`fas fa-clock ${clockStyles.icon}`} />
         {new Intl.DateTimeFormat(locale, timeOptions).format(date)}
-      </span>
+      </Typography>
       &nbsp;
-      <span className={clockStyles.date}>
+      <Typography className={clockStyles.date}>
         <i className={`fas fa-calendar-alt ${clockStyles.icon}`} />
         {new Intl.DateTimeFormat(locale, dateOptions).format(date)}
-      </span>
+      </Typography>
     </section>
   );
 };

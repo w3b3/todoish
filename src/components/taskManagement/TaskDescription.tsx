@@ -1,26 +1,51 @@
 import { Task } from "../../types/types";
 import React, { useContext } from "react";
 import AppSettingsContext from "../../context/appSettingsContext";
+import { CircularProgress, Typography } from "@material-ui/core";
+import { ExclusionMessages } from "./ExclusionMessages";
 
 export function TaskDescription(entry: Task) {
   const { isEditing } = useContext(AppSettingsContext);
 
-  return isEditing.isEditing ? null : (
-    <section
+  if (entry.isDone) {
+    return (
+      <section
+        style={{
+          flex: 1,
+          whiteSpace: "pre-wrap",
+        }}
+      >
+        <CircularProgress
+          variant={"indeterminate"}
+          thickness={5}
+          size={"2em"}
+        />
+        <Typography
+          display={"inline"}
+          color={"primary"}
+          style={{ fontSize: "2em" }}
+        >
+          <ExclusionMessages />
+        </Typography>
+      </section>
+    );
+  }
+
+  if (isEditing.isEditing) {
+    return null;
+  }
+
+  return (
+    <Typography
       id={`task${entry.id}`}
-      className={"TaskDescription"}
       style={{
         flex: 1,
-        padding: "0 1em",
-        lineHeight: "2",
-        textDecorationLine: entry.isDone ? "line-through" : "none",
-        textDecorationColor: "crimson",
-        color: entry.isDone ? "gray" : "black",
         userSelect: "text",
         wordBreak: "break-word",
+        fontSize: "2em",
       }}
     >
       {entry.name}
-    </section>
+    </Typography>
   );
 }

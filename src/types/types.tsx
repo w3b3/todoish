@@ -19,16 +19,24 @@ export const Locale = {
 export const Colors = [
   {
     base: "#0093E9",
-    gradient: "linear-gradient(160deg, #0093E9 0%, #80D0C7 100%)",
+    gradient: "linear-gradient(300deg, #0093E9 0%, #80D0C7 100%)",
   },
   {
-    base: "#8EC5FC",
-    gradient: "linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%)",
+    base: "#ff000",
+    gradient: "linear-gradient(300deg, #d53369 0%, #daae51 100%)",
   },
   {
-    base: "#8BC6EC",
-    gradient: "linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%)",
+    base: "#0000ff",
+    gradient: "linear-gradient(150deg, #FDBB2D 0%, #3A1C71 100%)",
   },
+  // {
+  //   base: "#8EC5FC",
+  //   gradient: "linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%)",
+  // },
+  // {
+  //   base: "#8BC6EC",
+  //   gradient: "linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%)",
+  // },
 ];
 
 export interface Task {

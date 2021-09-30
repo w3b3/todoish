@@ -10,20 +10,13 @@ import { addEntry } from "../../api/addEntry";
 import { getAllEntries } from "../../api/getAllEntries";
 import { deleteEntry } from "../../api/deleteEntry";
 import { editEntry } from "../../api/editEntry";
-import FavoriteButton from "./FavoriteButton";
-import { CompleteButton } from "./CompleteButton";
-import { EditButton } from "./EditButton";
-import { RestoreButton } from "./RestoreButton";
-import { DeleteButton } from "./DeleteButton";
-import { CancelEditButton } from "./CancelEditButton";
-import { TaskDate } from "./TaskDate";
 import { TaskDescription } from "./TaskDescription";
 import { TaskInput } from "./TaskInput";
 import AppSettingsContext from "../../context/appSettingsContext";
 import { STRINGS } from "../../strings/strings";
 import {
   Box,
-  CircularProgress,
+  Button,
   Container,
   createStyles,
   makeStyles,
@@ -32,59 +25,75 @@ import {
 } from "@material-ui/core";
 import { TaskStyled } from "./TaskStyled";
 import { TaskCountdown } from "./TaskCountdown";
+import { TaskControls } from "./TaskControls";
 
-const TaskManagementStyles = makeStyles(({ breakpoints, spacing }: Theme) =>
-  createStyles({
-    root: {
-      padding: spacing(2),
-      [breakpoints.down("sm")]: {
-        padding: spacing(1),
+export const TaskManagementStyles = makeStyles(
+  ({ breakpoints, spacing }: Theme) =>
+    createStyles({
+      root: {
+        padding: spacing(2),
+        [breakpoints.down("sm")]: {
+          padding: spacing(1),
+        },
       },
-    },
-    emptyWrapper: {
-      flex: 1,
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-    },
-    articlesWrapper: {
-      minHeight: "70vh",
-      display: "flex",
-      alignItems: "flex-start",
-      flexWrap: "wrap",
-      padding: spacing(1),
-      [breakpoints.down("sm")]: {
-        padding: 0,
+      emptyWrapper: {
+        flex: 1,
+        display: "flex",
         justifyContent: "center",
+        alignItems: "center",
       },
-    },
-
-    containerRootOverride: {
-      // width: "100%",
-      flex: 1,
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "center",
-      alignItems: "center",
-      [breakpoints.down("sm")]: {
-        // padding: 0,
+      articlesWrapper: {
+        minHeight: "70vh",
+        display: "flex",
+        alignItems: "flex-start",
+        flexWrap: "wrap",
+        padding: spacing(1),
+        [breakpoints.down("sm")]: {
+          padding: 0,
+          justifyContent: "center",
+        },
       },
-    },
 
-    tasksControlsWrapper: {
-      backgroundColor: "rgba(255, 255, 255, 0.25)",
-      width: "100%",
-      padding: spacing(1),
-      display: "flex",
-      justifyContent: "flex-end",
-      alignItems: "center",
-    },
-  })
+      containerRootOverride: {
+        // width: "100%",
+        flex: 1,
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        [breakpoints.down("sm")]: {
+          // padding: 0,
+        },
+      },
+
+      tasksControlsWrapper: {
+        marginTop: "auto",
+        backgroundColor: "rgba(255, 255, 255, 0.25)",
+        padding: spacing(1),
+        display: "flex",
+        justifyContent: "flex-end",
+        alignItems: "center",
+      },
+    })
 );
+
+function ArticlesList(props: {
+  tasks: Task[];
+  callbackfn: (entry: Task, i: number) => JSX.Element;
+}) {
+  const taskManagementStyles = TaskManagementStyles();
+
+  return (
+    <section className={taskManagementStyles.articlesWrapper}>
+      {props.tasks && props.tasks.map(props.callbackfn)}
+    </section>
+  );
+}
 
 export function TaskManagement() {
   const taskManagementStyles = TaskManagementStyles();
-  const { locale, toggleEditing, isEditing } = useContext(AppSettingsContext);
+  const { locale, setLocale, toggleEditing, isEditing } =
+    useContext(AppSettingsContext);
   const [taskName, setTaskName] = useState<string>("");
   const [taskList, setTaskList] = useState<Task[]>([]);
   const [totalNumberOfTasks, setTotalNumberOfTasks] = useState<number>(0);
@@ -190,9 +199,9 @@ export function TaskManagement() {
     });
   }, []);
 
-  /*const handleLocaleClick = () => {
+  const handleLocaleClick = () => {
     setLocale(locale === "pt-br" ? "en-us" : "pt-br");
-  };*/
+  };
   if (totalNumberOfTasks === 0) {
     return (
       <Container classes={{ root: taskManagementStyles.containerRootOverride }}>
@@ -216,21 +225,14 @@ export function TaskManagement() {
   }
   return (
     <Container>
-      {!isEditing.isEditing && (
-        <TaskInput
-          // handleAddTask={handleAddTask}
-          handleTypeTaskName={handleTypeTaskName}
-          handleEnter={handleEnter}
-          taskName={taskName}
-        />
-      )}
-      <Typography
-        variant={"subtitle1"}
-        // style={{
-        //   color: "whitesmoke",
-        //   padding: "0 1em",
-        // }}
-      >
+      <TaskInput
+        // handleAddTask={handleAddTask}
+        handleTypeTaskName={handleTypeTaskName}
+        handleEnter={handleEnter}
+        taskName={taskName}
+      />
+
+      <Typography>
         <i className="fas fa-tasks" />
         &nbsp;
         {`${
@@ -238,65 +240,40 @@ export function TaskManagement() {
         } (${totalNumberOfTasks})`}
       </Typography>
 
-      <section id="tasks" className={taskManagementStyles.articlesWrapper}>
-        {taskList &&
-          taskList.map((entry, i) => {
-            return (
-              <TaskStyled key={entry.id} task={entry} order={i}>
-                {entry.isDone ? (
-                  <span>
-                    <CircularProgress
-                      variant={"indeterminate"}
-                      color={"secondary"}
-                      thickness={5}
-                      size={"1em"}
-                    />
-                    <Typography display={"inline"} color={"secondary"}>
-                      Conteudo sendo excluido...
-                    </Typography>
-                  </span>
-                ) : (
-                  <TaskDescription {...entry} />
-                )}
-                {isEditing.isEditing && isEditing.id === entry.id && (
-                  <TaskInput
-                    // handleAddTask={handleAddTask}
-                    handleTypeTaskName={handleTypeTaskName}
-                    handleEnter={handleEnter}
-                    taskName={taskName}
-                  />
-                )}
-                <section className={taskManagementStyles.tasksControlsWrapper}>
-                  {!entry.isDone && <TaskDate entry={entry} />}
-                  {/*<div>*/}
-                  <DeleteButton entry={entry} handleDelete={handleDelete} />
-                  <RestoreButton entry={entry} handleRestore={handleRestore} />
-                  <FavoriteButton
-                    handleFavorite={handleFavorite}
-                    entry={entry}
-                  />
-                  <CompleteButton
-                    handleComplete={handleComplete}
-                    entry={entry}
-                  />
+      <ArticlesList
+        tasks={taskList}
+        callbackfn={(entry, i) => {
+          return (
+            <TaskStyled key={entry.id} task={entry} order={i}>
+              <TaskDescription {...entry} />
 
-                  <CancelEditButton
-                    handleCancelEdit={handleCancelEdit}
-                    entry={entry}
-                  />
-                  <EditButton handleEdit={handleEdit} entry={entry} />
-                  {/*</div>*/}
-                </section>
-                {entry.isDone && (
-                  <TaskCountdown
-                    countdownAutoDelete={() => handleDelete(entry.id)}
-                  />
-                )}
-              </TaskStyled>
-            );
-          })}
-      </section>
-      {/*<section style={{ display: "flex", alignItems: "center" }}>
+              {isEditing.isEditing && isEditing.id === entry.id && (
+                <TaskInput
+                  // handleAddTask={handleAddTask}
+                  handleTypeTaskName={handleTypeTaskName}
+                  handleEnter={handleEnter}
+                  taskName={taskName}
+                />
+              )}
+              <TaskControls
+                entry={entry}
+                handleDelete={handleDelete}
+                handleRestore={handleRestore}
+                handleFavorite={handleFavorite}
+                handleComplete={handleComplete}
+                handleCancelEdit={handleCancelEdit}
+                handleEdit={handleEdit}
+              />
+              {entry.isDone && (
+                <TaskCountdown
+                  countdownAutoDelete={() => handleDelete(entry.id)}
+                />
+              )}
+            </TaskStyled>
+          );
+        }}
+      />
+      <section style={{ display: "flex", alignItems: "center" }}>
         <Typography
           variant={"body1"}
           // style={{ padding: "0 1em", color: "whitesmoke" }}
@@ -306,14 +283,10 @@ export function TaskManagement() {
             : STRINGS.LANGUAGE_SWITCHER.en}
         </Typography>
 
-        <Button
-          color={"secondary"}
-          variant={"text"}
-          onClick={handleLocaleClick}
-        >
+        <Button variant={"contained"} onClick={handleLocaleClick}>
           {locale}
         </Button>
-      </section>*/}
+      </section>
     </Container>
   );
 }
