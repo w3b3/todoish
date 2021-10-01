@@ -19,6 +19,7 @@ import {
   Button,
   Container,
   createStyles,
+  Grid,
   Link,
   makeStyles,
   Theme,
@@ -233,36 +234,37 @@ export function TaskManagement() {
         handleEnter={handleEnter}
         taskName={taskName}
       />
-      <Typography>
-        <Box display={"flex"}>
-          <i className="fas fa-tasks" />
-          &nbsp;
-          {`${
-            locale === Locale.BR ? STRINGS.LIST_TITLE.pt : STRINGS.LIST_TITLE.en
-          } (${totalNumberOfTasks})`}
+      <Grid container>
+        <Typography display={"inline"}>
+          <Box display={"flex"} whiteSpace={"nowrap"}>
+            <i className="fas fa-tasks" />
+            &nbsp;
+            {`${
+              locale === Locale.BR
+                ? STRINGS.LIST_TITLE.pt
+                : STRINGS.LIST_TITLE.en
+            } (${totalNumberOfTasks})`}
+          </Box>
+        </Typography>
+        <Box style={{ display: "flex", flexWrap: "wrap" }}>
+          {keywords.size > 0
+            ? Array.from(keywords.values()).map((e, i) => (
+                <Box
+                  marginLeft={1}
+                  marginRight={1}
+                  fontWeight={"bold"}
+                  display={"inline"}
+                  key={`${e}${i}`}
+                  style={{ cursor: "pointer" }}
+                >
+                  <Link variant={"subtitle1"} color={"secondary"}>
+                    {e.toUpperCase()}
+                  </Link>
+                </Box>
+              ))
+            : "No filter yet"}
         </Box>
-      </Typography>
-      <Box
-        marginLeft={"auto"}
-        padding={1}
-        style={{ backgroundColor: "#ffffff5e" }}
-      >
-        {keywords.size > 0
-          ? Array.from(keywords.values()).map((e, i) => (
-              <Box
-                margin={1}
-                fontWeight={"bold"}
-                display={"inline"}
-                key={`${e}${i}`}
-                style={{ cursor: "pointer" }}
-              >
-                <Link variant={"subtitle1"} color={"secondary"}>
-                  {e.toUpperCase()}
-                </Link>
-              </Box>
-            ))
-          : "No filter yet"}
-      </Box>
+      </Grid>
       <ArticlesList
         tasks={taskList}
         callbackfn={(entry, i) => {
