@@ -95,6 +95,7 @@ export function TaskManagement() {
   const taskManagementStyles = TaskManagementStyles();
   const { locale, setLocale, toggleEditing, isEditing, keywords } =
     useContext(AppSettingsContext);
+  // const [internalKeywords, setInternalKeywords] = useState(keywords);
   const [taskName, setTaskName] = useState<string>("");
   const [taskList, setTaskList] = useState<Task[]>([]);
   const [totalNumberOfTasks, setTotalNumberOfTasks] = useState<number>(0);
@@ -239,14 +240,15 @@ export function TaskManagement() {
           {`${
             locale === Locale.BR ? STRINGS.LIST_TITLE.pt : STRINGS.LIST_TITLE.en
           } (${totalNumberOfTasks})`}
-          <Box
-            marginLeft={"auto"}
-            display={"inline"}
-            padding={1}
-            style={{ backgroundColor: "#ffffff0f" }}
-          >
-            Filter:{" "}
-            {Array.from(keywords.values()).map((e, i) => (
+        </Box>
+      </Typography>
+      <Box
+        marginLeft={"auto"}
+        padding={1}
+        style={{ backgroundColor: "#ffffff5e" }}
+      >
+        {keywords.size > 0
+          ? Array.from(keywords.values()).map((e, i) => (
               <Box
                 margin={1}
                 fontWeight={"bold"}
@@ -258,10 +260,9 @@ export function TaskManagement() {
                   {e.toUpperCase()}
                 </Link>
               </Box>
-            ))}
-          </Box>
-        </Box>
-      </Typography>
+            ))
+          : "No filter yet"}
+      </Box>
       <ArticlesList
         tasks={taskList}
         callbackfn={(entry, i) => {

@@ -28,7 +28,7 @@ export function TaskDescription({ entry }: { entry: Task }) {
 
   useEffect(() => {
     if (cardKeyword) addKeyword(cardKeyword);
-  }, [cardKeyword]);
+  }, [cardKeyword, addKeyword]);
 
   if (entry.isDone) {
     return (
