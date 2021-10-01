@@ -9,7 +9,7 @@ export interface IAppSettingsContext {
   toggleEditing: (id?: string) => void;
   locale: string;
   setLocale: (locale: string) => void;
-  keywords: string[];
+  keywords: Set<string>;
   addKeyword: (keyword: string) => void;
 }
 
@@ -22,7 +22,7 @@ export const AppSettingsContext = createContext<IAppSettingsContext>({
   toggleEditing: (id?: string) => ({}),
   locale: "pt-br",
   setLocale: (language) => ({}),
-  keywords: [],
+  keywords: new Set(),
   addKeyword: (keyword) => ({}),
 });
 
@@ -34,7 +34,7 @@ export const AppSettingsProvider = (props: any) => {
     id: "",
   });
   const [locale, setLocale] = useState("pt-br");
-  const [_keywords, setKeywords] = useState<string[]>([]);
+  const [keywords, setKeywords] = useState<Set<string>>(new Set());
   return (
     <AppSettingsContext.Provider
       value={{
@@ -46,10 +46,10 @@ export const AppSettingsProvider = (props: any) => {
         toggleEditing: (id: string = "") => setEditing({ isEditing: !!id, id }),
         locale,
         setLocale,
-        keywords: _keywords,
+        keywords,
         addKeyword: (keyword) => {
-          const _ = [..._keywords];
-          _.push(keyword);
+          // debugger;
+          const _ = keywords.add(keyword);
           setKeywords(_);
         },
       }}

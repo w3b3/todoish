@@ -5,7 +5,7 @@ import { CircularProgress, Grid, Typography } from "@material-ui/core";
 import { ExclusionMessages } from "./ExclusionMessages";
 
 export function TaskDescription({ entry }: { entry: Task }) {
-  const { isEditing } = useContext(AppSettingsContext);
+  const { isEditing, addKeyword } = useContext(AppSettingsContext);
   const [parts, setParts] = useState<string[] | null>(null);
   const [cardBody, setCardBody] = useState<string | null>(null);
   const [cardKeyword, setCardKeyword] = useState<string | null>(null);
@@ -17,20 +17,18 @@ export function TaskDescription({ entry }: { entry: Task }) {
     if (parts) {
       setCardBody(
         parts
-          .slice(1, parts.length - 1)
+          .slice(1, parts.length)
           .filter((_, i) => i < 20)
           .join(" ")
           .concat(parts.length >= 20 ? " {✂}️" : "")
       );
-      setCardKeyword(parts[0]);
+      setCardKeyword(parts[0].split(":")[0]);
     }
   }, [parts]);
 
-  // useEffect(() => {
-  // setCard({
-  //     keyword:
-  // })
-  // }, [keywords]);
+  useEffect(() => {
+    if (cardKeyword) addKeyword(cardKeyword);
+  }, [cardKeyword, addKeyword]);
 
   if (entry.isDone) {
     return (
@@ -65,21 +63,15 @@ export function TaskDescription({ entry }: { entry: Task }) {
     <Grid style={{ padding: "8px" }}>
       <Typography
         variant={"subtitle1"}
-        // color={"secondary"}
         style={{
           cursor: "pointer",
-          fontWeight: 900,
-          color: "rgba(255,255,255, 0.95)",
+          fontWeight: 100,
+          color: "rgba(0,0,0, 0.15)",
           textTransform: "uppercase",
           backgroundColor: "rgba(250,30,99,0.25)",
           padding: "0 0.5em 0 0.25em",
           borderLeft: "5px solid red",
           display: "inline-flex",
-          // justifyContent: "center",
-          // alignItems: "center",
-          // boxShadow: "0 0 10px 1px black",
-          // borderRadius: "8px",
-          textDecoration: "underline",
           textShadow:
             "-0.0075em 0.0075em 0 rgba(58,30,99, 0.94),\n" +
             "  0.005em 0.005em 0 rgba(58,30,99, 0.6),\n" +
@@ -95,7 +87,6 @@ export function TaskDescription({ entry }: { entry: Task }) {
       </Typography>
       <Typography
         id={`task${entry.id}`}
-        // color={"primary"}
         style={{
           flex: 1,
           userSelect: "text",

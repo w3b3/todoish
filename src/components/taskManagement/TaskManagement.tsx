@@ -19,7 +19,7 @@ import {
   Button,
   Container,
   createStyles,
-  Grid,
+  Link,
   makeStyles,
   Theme,
   Typography,
@@ -95,6 +95,7 @@ export function TaskManagement() {
   const taskManagementStyles = TaskManagementStyles();
   const { locale, setLocale, toggleEditing, isEditing, keywords } =
     useContext(AppSettingsContext);
+  // const [internalKeywords, setInternalKeywords] = useState(keywords);
   const [taskName, setTaskName] = useState<string>("");
   const [taskList, setTaskList] = useState<Task[]>([]);
   const [totalNumberOfTasks, setTotalNumberOfTasks] = useState<number>(0);
@@ -232,19 +233,36 @@ export function TaskManagement() {
         handleEnter={handleEnter}
         taskName={taskName}
       />
-
       <Typography>
-        <i className="fas fa-tasks" />
-        &nbsp;
-        {`${
-          locale === Locale.BR ? STRINGS.LIST_TITLE.pt : STRINGS.LIST_TITLE.en
-        } (${totalNumberOfTasks})`}
+        <Box display={"flex"}>
+          <i className="fas fa-tasks" />
+          &nbsp;
+          {`${
+            locale === Locale.BR ? STRINGS.LIST_TITLE.pt : STRINGS.LIST_TITLE.en
+          } (${totalNumberOfTasks})`}
+        </Box>
       </Typography>
-      <Grid>
-        {keywords.map((e) => (
-          <span key={e}>{e}</span>
-        ))}
-      </Grid>
+      <Box
+        marginLeft={"auto"}
+        padding={1}
+        style={{ backgroundColor: "#ffffff5e" }}
+      >
+        {keywords.size > 0
+          ? Array.from(keywords.values()).map((e, i) => (
+              <Box
+                margin={1}
+                fontWeight={"bold"}
+                display={"inline"}
+                key={`${e}${i}`}
+                style={{ cursor: "pointer" }}
+              >
+                <Link variant={"subtitle1"} color={"secondary"}>
+                  {e.toUpperCase()}
+                </Link>
+              </Box>
+            ))
+          : "No filter yet"}
+      </Box>
       <ArticlesList
         tasks={taskList}
         callbackfn={(entry, i) => {
