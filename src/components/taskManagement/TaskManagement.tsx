@@ -19,6 +19,7 @@ import {
   Button,
   Container,
   createStyles,
+  Grid,
   makeStyles,
   Theme,
   Typography,
@@ -92,7 +93,7 @@ function ArticlesList(props: {
 
 export function TaskManagement() {
   const taskManagementStyles = TaskManagementStyles();
-  const { locale, setLocale, toggleEditing, isEditing } =
+  const { locale, setLocale, toggleEditing, isEditing, keywords } =
     useContext(AppSettingsContext);
   const [taskName, setTaskName] = useState<string>("");
   const [taskList, setTaskList] = useState<Task[]>([]);
@@ -239,13 +240,17 @@ export function TaskManagement() {
           locale === Locale.BR ? STRINGS.LIST_TITLE.pt : STRINGS.LIST_TITLE.en
         } (${totalNumberOfTasks})`}
       </Typography>
-
+      <Grid>
+        {keywords.map((e) => (
+          <span key={e}>{e}</span>
+        ))}
+      </Grid>
       <ArticlesList
         tasks={taskList}
         callbackfn={(entry, i) => {
           return (
             <TaskStyled key={entry.id} task={entry} order={i}>
-              <TaskDescription {...entry} />
+              <TaskDescription entry={entry} />
 
               {isEditing.isEditing && isEditing.id === entry.id && (
                 <TaskInput
@@ -274,10 +279,7 @@ export function TaskManagement() {
         }}
       />
       <section style={{ display: "flex", alignItems: "center" }}>
-        <Typography
-          variant={"body1"}
-          // style={{ padding: "0 1em", color: "whitesmoke" }}
-        >
+        <Typography variant={"body1"}>
           {locale === Locale.BR
             ? STRINGS.LANGUAGE_SWITCHER.pt
             : STRINGS.LANGUAGE_SWITCHER.en}

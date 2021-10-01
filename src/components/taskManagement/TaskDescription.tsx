@@ -1,11 +1,36 @@
 import { Task } from "../../types/types";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import AppSettingsContext from "../../context/appSettingsContext";
 import { CircularProgress, Grid, Typography } from "@material-ui/core";
 import { ExclusionMessages } from "./ExclusionMessages";
 
-export function TaskDescription(entry: Task) {
+export function TaskDescription({ entry }: { entry: Task }) {
   const { isEditing } = useContext(AppSettingsContext);
+  const [parts, setParts] = useState<string[] | null>(null);
+  const [cardBody, setCardBody] = useState<string | null>(null);
+  const [cardKeyword, setCardKeyword] = useState<string | null>(null);
+  useEffect(() => {
+    setParts(entry.name.split(" "));
+  }, [entry]);
+
+  useEffect(() => {
+    if (parts) {
+      setCardBody(
+        parts
+          .slice(1, parts.length - 1)
+          .filter((_, i) => i < 20)
+          .join(" ")
+          .concat(parts.length >= 20 ? " {✂}️" : "")
+      );
+      setCardKeyword(parts[0]);
+    }
+  }, [parts]);
+
+  // useEffect(() => {
+  // setCard({
+  //     keyword:
+  // })
+  // }, [keywords]);
 
   if (entry.isDone) {
     return (
@@ -37,20 +62,40 @@ export function TaskDescription(entry: Task) {
   }
 
   return (
-    <Grid>
+    <Grid style={{ padding: "8px" }}>
       <Typography
         variant={"subtitle1"}
+        // color={"secondary"}
         style={{
-          fontWeight: "bold",
-          borderBottom: "3px solid white",
-          color: "white",
-          textShadow: "0 0 6px black",
+          cursor: "pointer",
+          fontWeight: 900,
+          color: "rgba(255,255,255, 0.95)",
+          textTransform: "uppercase",
+          backgroundColor: "rgba(250,30,99,0.25)",
+          padding: "0 0.5em 0 0.25em",
+          borderLeft: "5px solid red",
+          display: "inline-flex",
+          // justifyContent: "center",
+          // alignItems: "center",
+          // boxShadow: "0 0 10px 1px black",
+          // borderRadius: "8px",
+          textDecoration: "underline",
+          textShadow:
+            "-0.0075em 0.0075em 0 rgba(58,30,99, 0.94),\n" +
+            "  0.005em 0.005em 0 rgba(58,30,99, 0.6),\n" +
+            "  0.01em 0.01em 0 rgba(58,30,99, 0.62),\n" +
+            "  0.015em 0.015em rgba(58,30,99, 0.64),\n" +
+            "  0.02em 0.02em 0 rgba(58,30,99, 0.66),\n" +
+            "  0.025em 0.025em 0 rgba(58,30,99, 0.68),\n" +
+            "  0.03em 0.03em 0 rgba(58,30,99, 0.70),\n" +
+            "  0.035em 0.035em 0 rgba(58,30,99, 0.72)",
         }}
       >
-        {entry.name.split(" ")[0]}
+        {cardKeyword ?? "None"}
       </Typography>
       <Typography
         id={`task${entry.id}`}
+        // color={"primary"}
         style={{
           flex: 1,
           userSelect: "text",
@@ -58,7 +103,7 @@ export function TaskDescription(entry: Task) {
           fontSize: "2em",
         }}
       >
-        {entry.name}
+        {cardBody ?? "None"}
       </Typography>
     </Grid>
   );
