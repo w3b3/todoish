@@ -5,7 +5,7 @@ import { CircularProgress, Grid, Typography } from "@material-ui/core";
 import { ExclusionMessages } from "./ExclusionMessages";
 
 export function TaskDescription({ entry }: { entry: Task }) {
-  const { isEditing } = useContext(AppSettingsContext);
+  const { isEditing, addKeyword } = useContext(AppSettingsContext);
   const [parts, setParts] = useState<string[] | null>(null);
   const [cardBody, setCardBody] = useState<string | null>(null);
   const [cardKeyword, setCardKeyword] = useState<string | null>(null);
@@ -25,6 +25,10 @@ export function TaskDescription({ entry }: { entry: Task }) {
       setCardKeyword(parts[0].split(":")[0]);
     }
   }, [parts]);
+
+  useEffect(() => {
+    if (cardKeyword) addKeyword(cardKeyword);
+  }, [cardKeyword]);
 
   if (entry.isDone) {
     return (
