@@ -16,6 +16,7 @@ export function Logo() {
       className={logoStyles.logo}
       src="todoish-logos_transparent.png"
       alt="kind of a TODO app"
+      onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
     />
   );
 }
