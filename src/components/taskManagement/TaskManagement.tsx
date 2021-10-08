@@ -247,22 +247,24 @@ export function TaskManagement() {
           </Box>
         </Typography>
         <Box style={{ display: "flex", flexWrap: "wrap" }}>
-          {keywords.size > 0
-            ? Array.from(keywords.values()).map((e, i) => (
-                <Box
-                  marginLeft={1}
-                  marginRight={1}
-                  fontWeight={"bold"}
-                  display={"inline"}
-                  key={`${e}${i}`}
-                  style={{ cursor: "pointer" }}
-                >
-                  <Link variant={"subtitle1"} color={"secondary"}>
-                    {e.toUpperCase()}
-                  </Link>
-                </Box>
-              ))
-            : "No filter yet"}
+          {keywords.size > 0 ? (
+            Array.from(keywords.values()).map((e, i) => (
+              <Box
+                marginLeft={1}
+                marginRight={1}
+                fontWeight={"bold"}
+                display={"inline"}
+                key={`${e}${i}`}
+                style={{ cursor: "pointer" }}
+              >
+                <Link variant={"subtitle1"} color={"secondary"}>
+                  {e.toUpperCase()}
+                </Link>
+              </Box>
+            ))
+          ) : (
+            <Typography>No filter yet</Typography>
+          )}
         </Box>
       </Grid>
       <ArticlesList
