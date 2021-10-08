@@ -58,14 +58,14 @@ export const TaskManagementStyles = makeStyles(
 
       containerRootOverride: {
         // width: "100%",
-        flex: 1,
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        [breakpoints.down("sm")]: {
-          // padding: 0,
-        },
+        // flex: 1,
+        // display: "flex",
+        // flexDirection: "column",
+        // justifyContent: "center",
+        // alignItems: "center",
+        // [breakpoints.down("sm")]: {
+        // padding: 0,
+        // },
       },
 
       tasksControlsWrapper: {
