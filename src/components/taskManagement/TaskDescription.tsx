@@ -18,9 +18,9 @@ export function TaskDescription({ entry }: { entry: Task }) {
       setCardBody(
         parts
           .slice(1, parts.length)
-          .filter((_, i) => i < 20)
+          .filter((_, i) => i < 10)
           .join(" ")
-          .concat(parts.length >= 20 ? " {✂}️" : "")
+          .concat(parts.length >= 10 ? " {✂}️" : "")
       );
       setCardKeyword(parts[0].split(":")[0]);
     }
@@ -41,13 +41,13 @@ export function TaskDescription({ entry }: { entry: Task }) {
         <CircularProgress
           variant={"indeterminate"}
           thickness={5}
-          size={"2em"}
+          size={"1em"}
           color={"secondary"}
         />
         <Typography
           display={"inline"}
           color={"secondary"}
-          style={{ fontSize: "2em" }}
+          style={{ fontSize: "1em" }}
         >
           <ExclusionMessages />
         </Typography>
@@ -91,7 +91,7 @@ export function TaskDescription({ entry }: { entry: Task }) {
           flex: 1,
           userSelect: "text",
           wordBreak: "break-word",
-          fontSize: "2em",
+          fontSize: "1em",
         }}
       >
         {cardBody ?? "None"}

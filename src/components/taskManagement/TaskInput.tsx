@@ -1,8 +1,9 @@
-import React, { ChangeEvent, KeyboardEvent, useContext } from "react";
+import React, { ChangeEvent, KeyboardEvent, useContext, useState } from "react";
 import AppSettingsContext from "../../context/appSettingsContext";
 import { STRINGS } from "../../strings/strings";
 import { Locale } from "../../types/types";
-import { createStyles, Input, makeStyles, Theme } from "@material-ui/core";
+import { createStyles, makeStyles, TextField, Theme } from "@material-ui/core";
+import { theme } from "../../theme/theme";
 // import { cleanAllEntries } from "../../api/cleanAllEntries";
 
 const TaskInputStyles = makeStyles(({ breakpoints, spacing }: Theme) =>
@@ -20,6 +21,10 @@ const TaskInputStyles = makeStyles(({ breakpoints, spacing }: Theme) =>
       // left: 0,
       // },
     },
+    textField: {
+      flex: 1,
+      fontSize: "1em",
+    },
   })
 );
 
@@ -35,6 +40,7 @@ export function TaskInput({
 }) {
   const taskInputStyles = TaskInputStyles();
   const { locale } = useContext(AppSettingsContext);
+  const [isFocused, setIsFocused] = useState(false);
   // if (isEditing.isEditing) {
   //   return null;
   // }
@@ -45,25 +51,38 @@ export function TaskInput({
           ? STRINGS.INPUT_TASK_PLACEHOLDER.pt
           : STRINGS.INPUT_TASK_PLACEHOLDER.en}
       </label>*/}
-      <div style={{ display: "flex" }}>
-        <Input
-          autoFocus
-          fullWidth
-          type="text"
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          fontSize: "3em",
+        }}
+      >
+        <i
+          className="fas fa-arrow-circle-right"
+          style={{
+            marginRight: "4px",
+            color: isFocused
+              ? theme.palette.primary.main
+              : "rgba(50,50,50,0.25)",
+          }}
+        />
+        <TextField
           id="taskDescription"
           name="taskDescription"
-          placeholder={
+          className={taskInputStyles.textField}
+          variant={"filled"}
+          label={
             locale === Locale.BR
               ? STRINGS.INPUT_TASK_PLACEHOLDER.pt
               : STRINGS.INPUT_TASK_PLACEHOLDER.en
           }
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
           onChange={handleTypeTaskName}
           onKeyPress={handleEnter}
           value={taskName}
-          style={{
-            flex: 1,
-            padding: "0.5em",
-          }}
         />
         {/*<SaveButton handleAddTask={handleAddTask} taskName={taskName} />*/}
         {/*<button onClick={cleanAllEntries}>Clean all entries</button>*/}
