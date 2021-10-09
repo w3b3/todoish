@@ -146,12 +146,19 @@ export function CountdownModal({ options }: CountdownModalInput) {
           ) : (
             <>
               {options?.cardKeyword && (
-                <Typography variant={"subtitle1"} color={"primary"}>
+                <Typography
+                  color={"primary"}
+                  style={{ textTransform: "uppercase" }}
+                >
                   {options?.cardKeyword}
                 </Typography>
               )}
               {options?.cardBody && (
-                <Typography variant={"h1"} color={"secondary"}>
+                <Typography
+                  variant={"body1"}
+                  color={"secondary"}
+                  style={{ fontSize: "1.5em" }}
+                >
                   {options?.cardBody}
                 </Typography>
               )}
