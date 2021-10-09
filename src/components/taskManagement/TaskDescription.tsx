@@ -91,7 +91,7 @@ export function TaskDescription({ entry }: { entry: Task }) {
           flex: 1,
           userSelect: "text",
           wordBreak: "break-word",
-          fontSize: "1em",
+          fontSize: "1.5rem",
         }}
       >
         {cardBody ?? "None"}
