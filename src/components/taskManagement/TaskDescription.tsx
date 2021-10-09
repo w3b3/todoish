@@ -3,12 +3,13 @@ import React, { useContext, useEffect, useState } from "react";
 import AppSettingsContext from "../../context/appSettingsContext";
 import { CircularProgress, Grid, Typography } from "@material-ui/core";
 import { ExclusionMessages } from "./ExclusionMessages";
+import { CountdownModal } from "../CountdownModal";
 
 export function TaskDescription({ entry }: { entry: Task }) {
   const { isEditing, addKeyword } = useContext(AppSettingsContext);
   const [parts, setParts] = useState<string[] | null>(null);
-  const [cardBody, setCardBody] = useState<string | null>(null);
-  const [cardKeyword, setCardKeyword] = useState<string | null>(null);
+  const [cardBody, setCardBody] = useState<string>("");
+  const [cardKeyword, setCardKeyword] = useState<string>("");
   useEffect(() => {
     setParts(entry.name.split(" "));
   }, [entry]);
@@ -61,37 +62,30 @@ export function TaskDescription({ entry }: { entry: Task }) {
 
   return (
     <Grid style={{ padding: "8px" }}>
-      <Typography
-        variant={"subtitle1"}
-        style={{
-          cursor: "pointer",
-          fontWeight: 100,
-          color: "rgba(0,0,0, 0.15)",
-          textTransform: "uppercase",
-          backgroundColor: "rgba(250,30,99,0.25)",
-          padding: "0 0.5em 0 0.25em",
-          borderLeft: "5px solid red",
-          display: "inline-flex",
-          textShadow:
-            "-0.0075em 0.0075em 0 rgba(58,30,99, 0.94),\n" +
-            "  0.005em 0.005em 0 rgba(58,30,99, 0.6),\n" +
-            "  0.01em 0.01em 0 rgba(58,30,99, 0.62),\n" +
-            "  0.015em 0.015em rgba(58,30,99, 0.64),\n" +
-            "  0.02em 0.02em 0 rgba(58,30,99, 0.66),\n" +
-            "  0.025em 0.025em 0 rgba(58,30,99, 0.68),\n" +
-            "  0.03em 0.03em 0 rgba(58,30,99, 0.70),\n" +
-            "  0.035em 0.035em 0 rgba(58,30,99, 0.72)",
-        }}
-      >
-        {cardKeyword ?? "None"}
-      </Typography>
+      <Grid container justifyContent={"space-between"}>
+        <Typography
+          variant={"subtitle1"}
+          style={{
+            cursor: "pointer",
+            textTransform: "uppercase",
+            backgroundColor: "rgba(250,30,99,0.25)",
+            padding: "0 0.5em 0 0.25em",
+            borderLeft: "5px solid red",
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          {cardKeyword ?? "None"}
+        </Typography>
+        <CountdownModal options={{ cardKeyword, cardBody: entry.name }} />
+      </Grid>
       <Typography
         id={`task${entry.id}`}
         style={{
           flex: 1,
           userSelect: "text",
           wordBreak: "break-word",
-          fontSize: "1em",
+          fontSize: "1.5rem",
         }}
       >
         {cardBody ?? "None"}
