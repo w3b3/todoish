@@ -71,7 +71,14 @@ const CountdownModalStyles = makeStyles(({ breakpoints, spacing }: Theme) =>
   })
 );
 
-export function CountdownModal() {
+interface CountdownModalInput {
+  options?: {
+    cardKeyword?: string;
+    cardBody?: string;
+  };
+}
+
+export function CountdownModal({ options }: CountdownModalInput) {
   const countdownModalStyles = CountdownModalStyles();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [openConfigurationSettings, setOpenConfigurationSettings] =
@@ -138,7 +145,19 @@ export function CountdownModal() {
             <Typography variant={"body1"}>Configurations open</Typography>
           ) : (
             <>
-              <Typography variant={"h1"}>{formatTimeCountdown()}</Typography>
+              {options?.cardKeyword && (
+                <Typography variant={"subtitle1"} color={"primary"}>
+                  {options?.cardKeyword}
+                </Typography>
+              )}
+              {options?.cardBody && (
+                <Typography variant={"h1"} color={"secondary"}>
+                  {options?.cardBody}
+                </Typography>
+              )}
+              <Typography variant={"subtitle2"}>
+                {formatTimeCountdown()}
+              </Typography>
               <LinearProgress
                 classes={{
                   root: countdownModalStyles.progressBar,
