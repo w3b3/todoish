@@ -77,7 +77,7 @@ export function TaskDescription({ entry }: { entry: Task }) {
         >
           {cardKeyword ?? "None"}
         </Typography>
-        <CountdownModal options={{ cardKeyword, cardBody }} />
+        <CountdownModal options={{ cardKeyword, cardBody: entry.name }} />
       </Grid>
       <Typography
         id={`task${entry.id}`}
