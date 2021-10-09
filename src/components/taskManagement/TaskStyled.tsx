@@ -27,7 +27,7 @@ const TaskStyle = makeStyles(({ breakpoints, spacing }: Theme) =>
         "  0.025em 0.025em 0 rgba(58,30,99, 0.68),\n" +
         "  0.03em 0.03em 0 rgba(58,30,99, 0.70),\n" +
         "  0.035em 0.035em 0 rgba(58,30,99, 0.72)",
-      minHeight: ({ task }: TaskStyleProps) => "min(35vh, 400px)",
+      // minHeight: ({ task }: TaskStyleProps) => "min(35vh, 400px)",
       padding: spacing(2),
       backgroundColor: ({ task, order }: TaskStyleProps) =>
         colorPositionInArray(order).base,
@@ -39,13 +39,13 @@ const TaskStyle = makeStyles(({ breakpoints, spacing }: Theme) =>
           : "10px solid transparent",
       [breakpoints.down("md")]: {
         width: "calc(45% - 1%)",
-        minHeight: "50vh",
+        // minHeight: "50vh",
         padding: spacing(1),
       },
       [breakpoints.down("xs")]: {
         width: "100%",
         maxWidth: "100%",
-        minHeight: "65vh",
+        // minHeight: "65vh",
         padding: spacing(0),
       },
     },
