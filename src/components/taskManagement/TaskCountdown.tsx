@@ -6,6 +6,7 @@ import {
   Theme,
 } from "@material-ui/core";
 import { useEffect, useState } from "react";
+import { Task } from "../../types/types";
 
 const CountdownModalStyles = makeStyles(({ breakpoints, spacing }: Theme) =>
   createStyles({
@@ -20,15 +21,18 @@ const COUNTDOWN_TIME = 25;
 const PROGRESS_BAR_SLOTS = 100;
 
 export function TaskCountdown({
-  countdownAutoDelete,
+  entry,
+  handleDelete,
 }: {
-  countdownAutoDelete: () => void;
+  entry: Task;
+  handleDelete: (id: string) => void;
 }) {
   const countdownModalStyles = CountdownModalStyles();
   const [remaining, setRemaining] = useState(COUNTDOWN_TIME);
   useEffect(() => {
     if (remaining === 0) {
-      countdownAutoDelete();
+      // countdownAutoDelete();
+      handleDelete(entry.id);
     } else {
       setTimeout(() => setRemaining(remaining - 1), 1000);
     }

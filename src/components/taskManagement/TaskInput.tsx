@@ -30,16 +30,15 @@ const TaskInputStyles = makeStyles(({ breakpoints, spacing }: Theme) =>
 
 export function TaskInput({
   handleTypeTaskName,
-  taskName,
   handleEnter,
 }: {
   // handleTypeTaskName: (event: SyntheticEvent<HTMLInputElement>) => void;
   handleTypeTaskName: (event: ChangeEvent<HTMLInputElement>) => void;
-  taskName: string;
+  // taskName: string;
   handleEnter: (event: KeyboardEvent) => void;
 }) {
   const taskInputStyles = TaskInputStyles();
-  const { locale } = useContext(AppSettingsContext);
+  const { locale, taskName } = useContext(AppSettingsContext);
   const [isFocused, setIsFocused] = useState(false);
   // if (isEditing.isEditing) {
   //   return null;

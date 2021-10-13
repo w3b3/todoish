@@ -5,7 +5,7 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { Locale, Task } from "../../types/types";
+import { Locale } from "../../types/types";
 import { addEntry } from "../../api/addEntry";
 import { getAllEntries } from "../../api/getAllEntries";
 import { deleteEntry } from "../../api/deleteEntry";
@@ -28,6 +28,8 @@ import {
 import { TaskStyled } from "./TaskStyled";
 import { TaskCountdown } from "./TaskCountdown";
 import { TaskControls } from "./TaskControls";
+import { theme } from "../../theme/theme";
+import { findTask } from "../../utils";
 
 export const TaskManagementStyles = makeStyles(
   ({ breakpoints, spacing }: Theme) =>
@@ -56,49 +58,75 @@ export const TaskManagementStyles = makeStyles(
         },
       },
 
-      containerRootOverride: {
-        // width: "100%",
-        // flex: 1,
-        // display: "flex",
-        // flexDirection: "column",
-        // justifyContent: "center",
-        // alignItems: "center",
-        // [breakpoints.down("sm")]: {
-        // padding: 0,
-        // },
-      },
+      containerRootOverride: {},
 
       tasksControlsWrapper: {
         marginTop: "auto",
-        backgroundColor: "rgba(255, 255, 255, 0.25)",
+        backgroundColor: "rgba(255, 255, 255, 0.15)",
         padding: spacing(1),
         display: "flex",
         justifyContent: "flex-end",
         alignItems: "center",
+        "& button:not(:first-child)": {
+          marginLeft: theme.spacing(1),
+        },
       },
     })
 );
 
-function ArticlesList(props: {
-  tasks: Task[];
-  callbackfn: (entry: Task, i: number) => JSX.Element;
+function ArticlesList({
+  handleTypeTaskName,
+  handleEnter,
+  handleDelete,
+}: {
+  handleTypeTaskName: (event: any) => void;
+  handleEnter: (event: any) => void;
+  handleDelete: (id: string) => void;
 }) {
   const taskManagementStyles = TaskManagementStyles();
-
+  const { isEditing, taskList } = useContext(AppSettingsContext);
   return (
     <section className={taskManagementStyles.articlesWrapper}>
-      {props.tasks && props.tasks.map(props.callbackfn)}
+      {taskList &&
+        taskList.map((entry, i) => {
+          return (
+            <TaskStyled key={entry.id} task={entry} order={i}>
+              <TaskDescription entry={entry} />
+
+              {isEditing.isEditing && isEditing.id === entry.id && (
+                <TaskInput
+                  // handleAddTask={handleAddTask}
+                  handleTypeTaskName={handleTypeTaskName}
+                  handleEnter={handleEnter}
+                  // taskName={taskName}
+                />
+              )}
+              <TaskControls entry={entry} />
+              {entry.isDone && (
+                <TaskCountdown entry={entry} handleDelete={handleDelete} />
+              )}
+            </TaskStyled>
+          );
+        })}
     </section>
   );
 }
 
 export function TaskManagement() {
   const taskManagementStyles = TaskManagementStyles();
-  const { locale, setLocale, toggleEditing, isEditing, keywords } =
-    useContext(AppSettingsContext);
+  const {
+    locale,
+    setLocale,
+    toggleEditing,
+    isEditing,
+    keywords,
+    taskName,
+    setTaskName,
+    taskList,
+    setTaskList,
+    // currentFilter,
+  } = useContext(AppSettingsContext);
   // const [internalKeywords, setInternalKeywords] = useState(keywords);
-  const [taskName, setTaskName] = useState<string>("");
-  const [taskList, setTaskList] = useState<Task[]>([]);
   const [totalNumberOfTasks, setTotalNumberOfTasks] = useState<number>(0);
   // const [apiPagination, setApiPagination] = useState<string>("");
 
@@ -114,24 +142,20 @@ export function TaskManagement() {
     setTaskName(target.value);
   };
 
-  const handleEdit = async (id: string) => {
-    toggleEditing(id);
-    setTaskName(
-      taskList.find((e) => e.id === id)?.name ?? "N/A"
-    ); /*N/A should never occur*/
-  };
-
-  const handleCancelEdit = () => {
+  const handleDelete = async (id: string) => {
     toggleEditing();
     setTaskName("");
+    await deleteEntry(id);
+    const newList = await getAllEntries();
+    setTaskList(newList.tasks);
+    // setApiPagination(newList.pagination);
+    setTotalNumberOfTasks(newList.tasks.length); //TEMPORARY SOLUTION - FLAKY SINCE ITS WITHOUT PAGINATION
   };
-
-  const findTask = (id: string) => taskList.find((e) => e.id === id);
 
   const handleAddTask = async () => {
     if (!taskName) return;
-    if (isEditing.isEditing) {
-      const newTask = { ...findTask(isEditing.id)! };
+    if (taskList && isEditing.isEditing) {
+      const newTask = { ...findTask(isEditing.id, taskList)! };
       newTask.name = taskName;
       newTask.lastUpdateTime = new Date().valueOf();
       newTask.tags?.push("updated");
@@ -150,48 +174,6 @@ export function TaskManagement() {
     }
   };
 
-  const handleDelete = async (id: string) => {
-    toggleEditing();
-    setTaskName("");
-    await deleteEntry(id);
-    const newList = await getAllEntries();
-    setTaskList(newList.tasks);
-    // setApiPagination(newList.pagination);
-    setTotalNumberOfTasks(newList.tasks.length); //TEMPORARY SOLUTION - FLAKY SINCE ITS WITHOUT PAGINATION
-  };
-
-  const handleFavorite = async (id: string) => {
-    const newTask = { ...findTask(id)! };
-    newTask.tags = newTask.tags.find((tag) => tag === "favorite")
-      ? newTask.tags.filter((tag) => tag !== "favorite")
-      : newTask.tags.concat("favorite");
-    await editEntry(newTask);
-    toggleEditing();
-    const newList = await getAllEntries();
-    setTaskList(newList.tasks);
-  };
-
-  const handleComplete = async (id: string) => {
-    const newTask = { ...findTask(id)! };
-    newTask.isDone = true;
-    newTask.tags = newTask.tags.filter((tag) => tag !== "favorite");
-    newTask.lastUpdateTime = new Date().valueOf();
-    await editEntry(newTask);
-    const newList = await getAllEntries();
-    setTaskList(newList.tasks);
-  };
-
-  const handleRestore = async (id: string) => {
-    const newTask = { ...findTask(id)! };
-    newTask.isDone = false;
-    newTask.lastUpdateTime = new Date().valueOf();
-    await editEntry(newTask);
-    toggleEditing();
-    setTaskName("");
-    const newList = await getAllEntries();
-    setTaskList(newList.tasks);
-  };
-
   useEffect(() => {
     getAllEntries().then((newList) => {
       if (newList && newList.tasks) {
@@ -200,7 +182,7 @@ export function TaskManagement() {
         // setApiPagination(newList.pagination);
       }
     });
-  }, []);
+  }, [setTaskList]);
 
   const handleLocaleClick = () => {
     setLocale(locale === "pt-br" ? "en-us" : "pt-br");
@@ -213,7 +195,7 @@ export function TaskManagement() {
             // handleAddTask={handleAddTask}
             handleTypeTaskName={handleTypeTaskName}
             handleEnter={handleEnter}
-            taskName={taskName}
+            // taskName={taskName}
           />
         )}
         <Box className={taskManagementStyles.emptyWrapper}>
@@ -232,7 +214,7 @@ export function TaskManagement() {
         // handleAddTask={handleAddTask}
         handleTypeTaskName={handleTypeTaskName}
         handleEnter={handleEnter}
-        taskName={taskName}
+        // taskName={taskName}
       />
       <Grid container>
         <Typography display={"inline"}>
@@ -268,37 +250,9 @@ export function TaskManagement() {
         </Box>
       </Grid>
       <ArticlesList
-        tasks={taskList}
-        callbackfn={(entry, i) => {
-          return (
-            <TaskStyled key={entry.id} task={entry} order={i}>
-              <TaskDescription entry={entry} />
-
-              {isEditing.isEditing && isEditing.id === entry.id && (
-                <TaskInput
-                  // handleAddTask={handleAddTask}
-                  handleTypeTaskName={handleTypeTaskName}
-                  handleEnter={handleEnter}
-                  taskName={taskName}
-                />
-              )}
-              <TaskControls
-                entry={entry}
-                handleDelete={handleDelete}
-                handleRestore={handleRestore}
-                handleFavorite={handleFavorite}
-                handleComplete={handleComplete}
-                handleCancelEdit={handleCancelEdit}
-                handleEdit={handleEdit}
-              />
-              {entry.isDone && (
-                <TaskCountdown
-                  countdownAutoDelete={() => handleDelete(entry.id)}
-                />
-              )}
-            </TaskStyled>
-          );
-        }}
+        handleEnter={handleEnter}
+        handleTypeTaskName={handleTypeTaskName}
+        handleDelete={handleDelete}
       />
       <section style={{ display: "flex", alignItems: "center" }}>
         <Typography variant={"body1"}>

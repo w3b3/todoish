@@ -1,4 +1,5 @@
 import { createContext, useState } from "react";
+import { Task } from "../types/types";
 
 export interface IAppSettingsContext {
   isLoading: boolean;
@@ -11,6 +12,12 @@ export interface IAppSettingsContext {
   setLocale: (locale: string) => void;
   keywords: Set<string>;
   addKeyword: (keyword: string) => void;
+  currentFilter: string | null;
+  setCurrentFilter: (filter: string) => void;
+  taskName: string | null;
+  setTaskName: (task: string | null) => void;
+  taskList: Task[] | null;
+  setTaskList: (list: Task[] | null) => void;
 }
 
 export const AppSettingsContext = createContext<IAppSettingsContext>({
@@ -24,6 +31,12 @@ export const AppSettingsContext = createContext<IAppSettingsContext>({
   setLocale: (language) => ({}),
   keywords: new Set(),
   addKeyword: (keyword) => ({}),
+  currentFilter: null,
+  setCurrentFilter: (filter) => ({}),
+  taskName: null,
+  setTaskName: (name) => ({}),
+  taskList: null,
+  setTaskList: (list) => ({}),
 });
 
 export const AppSettingsProvider = (props: any) => {
@@ -34,7 +47,10 @@ export const AppSettingsProvider = (props: any) => {
     id: "",
   });
   const [locale, setLocale] = useState("pt-br");
+  const [currentFilter, setCurrentFilter] = useState<string | null>(null);
   const [keywords, setKeywords] = useState<Set<string>>(new Set());
+  const [taskName, setTaskName] = useState<string | null>(null);
+  const [taskList, setTaskList] = useState<Task[] | null>(null);
   return (
     <AppSettingsContext.Provider
       value={{
@@ -52,6 +68,12 @@ export const AppSettingsProvider = (props: any) => {
           const _ = keywords.add(keyword);
           setKeywords(_);
         },
+        currentFilter,
+        setCurrentFilter: (filter) => setCurrentFilter(filter),
+        taskName,
+        setTaskName: (name) => setTaskName(name),
+        taskList,
+        setTaskList: (list) => setTaskList(list),
       }}
     >
       {props.children}
