@@ -20,7 +20,6 @@ import {
   Container,
   createStyles,
   Grid,
-  Link,
   makeStyles,
   Theme,
   Typography,
