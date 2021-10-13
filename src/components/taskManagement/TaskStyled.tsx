@@ -2,7 +2,6 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core";
 import React, { PropsWithChildren, useContext } from "react";
 import { EditMode, Task } from "../../types/types";
 import AppSettingsContext from "../../context/appSettingsContext";
-import { colorPositionInArray } from "../../utils";
 
 interface TaskStyleProps {
   task: Task;
