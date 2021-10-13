@@ -15,6 +15,10 @@ export const STRINGS = {
     en: "Saved items",
     pt: "Itens salvos",
   },
+  CLEAR_FILTER: {
+    en: "Clear filter",
+    pt: "Limpar filtro",
+  },
   CANCEL: {
     en: "Cancel",
     pt: "Cancelar",

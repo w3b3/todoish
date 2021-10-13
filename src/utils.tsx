@@ -1,4 +1,6 @@
 import { Colors, Task } from "./types/types";
+import { useContext } from "react";
+import AppSettingsContext from "./context/appSettingsContext";
 
 export const sortTasks = (a: Task, b: Task) => {
   return a.lastUpdateTime || a.creationTime > b.lastUpdateTime || b.creationTime
@@ -22,4 +24,12 @@ export const colorPositionInArray = (i: number, type?: string) => {
 export const findTask = (id: string, taskList: Task[] | null): Task | null => {
   if (taskList === null) return null;
   return taskList.find((e) => e.id === id) ?? null;
+};
+
+export const useFilterEntry = (entry: Task) => {
+  const { currentFilter } = useContext(AppSettingsContext);
+  if (currentFilter) {
+    return entry.name.startsWith(currentFilter);
+  }
+  return true;
 };

@@ -13,7 +13,7 @@ export interface IAppSettingsContext {
   keywords: Set<string>;
   addKeyword: (keyword: string) => void;
   currentFilter: string | null;
-  setCurrentFilter: (filter: string) => void;
+  setCurrentFilter: (filter: string | null) => void;
   taskName: string | null;
   setTaskName: (task: string | null) => void;
   taskList: Task[] | null;
