@@ -46,14 +46,14 @@ export const TaskManagementStyles = makeStyles(
         alignItems: "center",
       },
       articlesWrapper: {
-        minHeight: "50vh",
+        // minHeight: "50vh",
         display: "flex",
+        justifyContent: "center",
         // alignItems: "flex-start",
         flexWrap: "wrap",
         padding: spacing(1),
         [breakpoints.down("sm")]: {
           padding: 0,
-          justifyContent: "center",
         },
       },
 

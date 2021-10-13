@@ -2,7 +2,6 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core";
 import React, { PropsWithChildren, useContext } from "react";
 import { EditMode, Task } from "../../types/types";
 import AppSettingsContext from "../../context/appSettingsContext";
-import { colorPositionInArray } from "../../utils";
 
 interface TaskStyleProps {
   task: Task;
@@ -16,7 +15,7 @@ const TaskStyle = makeStyles(({ breakpoints, spacing }: Theme) =>
       display: ({ task, isEditing }: TaskStyleProps) =>
         isEditing.isEditing && task.id !== isEditing.id ? "none" : "flex",
       flexDirection: "column",
-      margin: spacing(1, "auto"),
+      margin: spacing(1),
       width: `25%`,
       boxShadow:
         "-0.0075em 0.0075em 0 rgba(58,30,99, 0.94),\n" +
@@ -27,26 +26,17 @@ const TaskStyle = makeStyles(({ breakpoints, spacing }: Theme) =>
         "  0.025em 0.025em 0 rgba(58,30,99, 0.68),\n" +
         "  0.03em 0.03em 0 rgba(58,30,99, 0.70),\n" +
         "  0.035em 0.035em 0 rgba(58,30,99, 0.72)",
-      // minHeight: ({ task }: TaskStyleProps) => "min(35vh, 400px)",
-      // padding: spacing(2),
-      backgroundColor: ({ task, order }: TaskStyleProps) =>
-        colorPositionInArray(order).base,
-      backgroundImage: ({ task, order }: TaskStyleProps) =>
-        colorPositionInArray(order).gradient,
-      // border: ({ task }: TaskStyleProps) =>
-      //   task.tags.includes("favorite")
-      //     ? "10px solid crimson"
-      //     : "10px solid transparent",
+      backgroundColor: "rgb(211 211 211 / 70%)",
+      // backgroundColor: ({ task, order }: TaskStyleProps) =>
+      //   colorPositionInArray(order).base,
+      // backgroundImage: ({ task, order }: TaskStyleProps) =>
+      //   colorPositionInArray(order).gradient,
       [breakpoints.down("md")]: {
         width: "calc(45% - 1%)",
-        // minHeight: "50vh",
-        // padding: spacing(1),
       },
       [breakpoints.down("xs")]: {
         width: "100%",
         maxWidth: "100%",
-        // minHeight: "65vh",
-        // padding: spacing(0),
       },
     },
   })
