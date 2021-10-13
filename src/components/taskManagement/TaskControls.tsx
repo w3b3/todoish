@@ -1,5 +1,4 @@
 import { Task } from "../../types/types";
-import { TaskDate } from "./TaskDate";
 import { DeleteButton } from "./DeleteButton";
 import { RestoreButton } from "./RestoreButton";
 import FavoriteButton from "./FavoriteButton";
@@ -22,7 +21,7 @@ function TaskControls(props: {
 
   return (
     <section className={taskManagementStyles.tasksControlsWrapper}>
-      <TaskDate entry={props.entry} />
+      {/*<TaskDate entry={props.entry} />*/}
       <DeleteButton entry={props.entry} handleDelete={props.handleDelete} />
       <RestoreButton entry={props.entry} handleRestore={props.handleRestore} />
       <FavoriteButton

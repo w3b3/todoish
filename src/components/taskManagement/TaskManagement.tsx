@@ -28,6 +28,7 @@ import {
 import { TaskStyled } from "./TaskStyled";
 import { TaskCountdown } from "./TaskCountdown";
 import { TaskControls } from "./TaskControls";
+import { theme } from "../../theme/theme";
 
 export const TaskManagementStyles = makeStyles(
   ({ breakpoints, spacing }: Theme) =>
@@ -70,11 +71,14 @@ export const TaskManagementStyles = makeStyles(
 
       tasksControlsWrapper: {
         marginTop: "auto",
-        backgroundColor: "rgba(255, 255, 255, 0.25)",
+        backgroundColor: "rgba(255, 255, 255, 0.15)",
         padding: spacing(1),
         display: "flex",
         justifyContent: "flex-end",
         alignItems: "center",
+        "& button:not(:first-child)": {
+          marginLeft: theme.spacing(1),
+        },
       },
     })
 );

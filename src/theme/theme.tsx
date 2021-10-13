@@ -7,15 +7,12 @@ const theme = createTheme({
     secondary: colors.indigo,
   },
   typography: {
-    fontFamily: ["Raleway", "sans-serif"].join(","),
+    fontFamily: ["Source Code Pro", "monospace"].join(","),
   },
   overrides: {
     MuiButton: {
       root: {
         border: "4px solid white",
-        "&:not(:first-child)": {
-          marginLeft: "8px",
-        },
       },
       outlinedPrimary: {
         color: "black",
