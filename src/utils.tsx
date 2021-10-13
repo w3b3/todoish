@@ -18,3 +18,8 @@ export const colorPositionInArray = (i: number, type?: string) => {
       return Colors[i % Colors.length];
   }
 };
+
+export const findTask = (id: string, taskList: Task[] | null): Task | null => {
+  if (taskList === null) return null;
+  return taskList.find((e) => e.id === id) ?? null;
+};

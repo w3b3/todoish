@@ -5,39 +5,83 @@ import FavoriteButton from "./FavoriteButton";
 import { CompleteButton } from "./CompleteButton";
 import { CancelEditButton } from "./CancelEditButton";
 import { EditButton } from "./EditButton";
-import React from "react";
+import React, { useContext } from "react";
 import { TaskManagementStyles } from "./TaskManagement";
+import { deleteEntry } from "../../api/deleteEntry";
+import { getAllEntries } from "../../api/getAllEntries";
+import { editEntry } from "../../api/editEntry";
+import AppSettingsContext from "../../context/appSettingsContext";
+import { findTask } from "../../utils";
 
-function TaskControls(props: {
-  entry: Task;
-  handleDelete: (id: string) => Promise<void>;
-  handleRestore: (id: string) => Promise<void>;
-  handleFavorite: (id: string) => Promise<void>;
-  handleComplete: (id: string) => Promise<void>;
-  handleCancelEdit: () => void;
-  handleEdit: (id: string) => Promise<void>;
-}) {
+function TaskControls({ entry }: { entry: Task }) {
   const taskManagementStyles = TaskManagementStyles();
+  const { toggleEditing, setTaskName, taskList, setTaskList } =
+    useContext(AppSettingsContext);
+  // const [totalNumberOfTasks, setTotalNumberOfTasks] = useState<number>(0);
+
+  const handleEdit = async (id: string) => {
+    toggleEditing(id);
+    setTaskName(
+      taskList?.find((e) => e.id === id)?.name ?? null
+    ); /*N/A should never occur*/
+  };
+
+  const handleCancelEdit = () => {
+    toggleEditing();
+    setTaskName("");
+  };
+  /*This is duplicated*/
+  const handleDelete = async (id: string) => {
+    toggleEditing();
+    setTaskName("");
+    await deleteEntry(id);
+    const newList = await getAllEntries();
+    setTaskList(newList.tasks);
+    // setApiPagination(newList.pagination);
+    // setTotalNumberOfTasks(newList.tasks.length); //TEMPORARY SOLUTION - FLAKY SINCE ITS WITHOUT PAGINATION
+  };
+
+  const handleFavorite = async (id: string) => {
+    const newTask = { ...findTask(id, taskList)! };
+    newTask.tags = newTask.tags.find((tag) => tag === "favorite")
+      ? newTask.tags.filter((tag) => tag !== "favorite")
+      : newTask.tags.concat("favorite");
+    await editEntry(newTask);
+    toggleEditing();
+    const newList = await getAllEntries();
+    setTaskList(newList.tasks);
+  };
+
+  const handleComplete = async (id: string) => {
+    const newTask = { ...findTask(id, taskList)! };
+    newTask.isDone = true;
+    newTask.tags = newTask.tags.filter((tag) => tag !== "favorite");
+    newTask.lastUpdateTime = new Date().valueOf();
+    await editEntry(newTask);
+    const newList = await getAllEntries();
+    setTaskList(newList.tasks);
+  };
+
+  const handleRestore = async (id: string) => {
+    const newTask = { ...findTask(id, taskList)! };
+    newTask.isDone = false;
+    newTask.lastUpdateTime = new Date().valueOf();
+    await editEntry(newTask);
+    toggleEditing();
+    setTaskName("");
+    const newList = await getAllEntries();
+    setTaskList(newList.tasks);
+  };
 
   return (
     <section className={taskManagementStyles.tasksControlsWrapper}>
-      {/*<TaskDate entry={props.entry} />*/}
-      <DeleteButton entry={props.entry} handleDelete={props.handleDelete} />
-      <RestoreButton entry={props.entry} handleRestore={props.handleRestore} />
-      <FavoriteButton
-        handleFavorite={props.handleFavorite}
-        entry={props.entry}
-      />
-      <CompleteButton
-        handleComplete={props.handleComplete}
-        entry={props.entry}
-      />
-
-      <CancelEditButton
-        handleCancelEdit={props.handleCancelEdit}
-        entry={props.entry}
-      />
-      <EditButton handleEdit={props.handleEdit} entry={props.entry} />
+      {/*<TaskDate entry={entry} />*/}
+      <DeleteButton entry={entry} handleDelete={handleDelete} />
+      <RestoreButton entry={entry} handleRestore={handleRestore} />
+      <FavoriteButton handleFavorite={handleFavorite} entry={entry} />
+      <CompleteButton handleComplete={handleComplete} entry={entry} />
+      <CancelEditButton handleCancelEdit={handleCancelEdit} entry={entry} />
+      <EditButton handleEdit={handleEdit} entry={entry} />
     </section>
   );
 }

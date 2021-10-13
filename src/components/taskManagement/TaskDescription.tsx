@@ -39,7 +39,8 @@ const useStyles = makeStyles(() =>
 );
 
 export function TaskDescription({ entry }: { entry: Task }) {
-  const { isEditing, addKeyword } = useContext(AppSettingsContext);
+  const { isEditing, addKeyword, setCurrentFilter } =
+    useContext(AppSettingsContext);
   const [parts, setParts] = useState<string[] | null>(null);
   const [cardBody, setCardBody] = useState<string>("");
   const [cardKeyword, setCardKeyword] = useState<string>("");
@@ -92,7 +93,11 @@ export function TaskDescription({ entry }: { entry: Task }) {
   return (
     <Grid>
       <Grid container justifyContent={"space-between"} alignItems={"stretch"}>
-        <Typography variant={"subtitle1"} className={styles.keywordFont}>
+        <Typography
+          variant={"subtitle1"}
+          className={styles.keywordFont}
+          onClick={() => setCurrentFilter(cardKeyword)}
+        >
           {cardKeyword ?? "None"}
         </Typography>
         <TaskDate entry={entry} />
