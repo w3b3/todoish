@@ -20,7 +20,6 @@ import {
   Container,
   createStyles,
   Grid,
-  Link,
   makeStyles,
   Theme,
   Typography,
@@ -29,7 +28,7 @@ import { TaskStyled } from "./TaskStyled";
 import { TaskCountdown } from "./TaskCountdown";
 import { TaskControls } from "./TaskControls";
 import { theme } from "../../theme/theme";
-import { findTask } from "../../utils";
+import { findTask, useFilterEntry } from "../../utils";
 
 export const TaskManagementStyles = makeStyles(
   ({ breakpoints, spacing }: Theme) =>
@@ -88,7 +87,7 @@ function ArticlesList({
   return (
     <section className={taskManagementStyles.articlesWrapper}>
       {taskList &&
-        taskList.map((entry, i) => {
+        taskList.filter(useFilterEntry).map((entry, i) => {
           return (
             <TaskStyled key={entry.id} task={entry} order={i}>
               <TaskDescription entry={entry} />
@@ -124,6 +123,7 @@ export function TaskManagement() {
     setTaskName,
     taskList,
     setTaskList,
+    setCurrentFilter,
     // currentFilter,
   } = useContext(AppSettingsContext);
   // const [internalKeywords, setInternalKeywords] = useState(keywords);
@@ -216,7 +216,7 @@ export function TaskManagement() {
         handleEnter={handleEnter}
         // taskName={taskName}
       />
-      <Grid container>
+      <Grid container justifyContent={"center"} alignItems={"center"}>
         <Typography display={"inline"}>
           <Box display={"flex"} whiteSpace={"nowrap"}>
             <i className="fas fa-tasks" />
@@ -230,20 +230,34 @@ export function TaskManagement() {
         </Typography>
         <Box style={{ display: "flex", flexWrap: "wrap" }}>
           {keywords.size > 0 ? (
-            Array.from(keywords.values()).map((e, i) => (
-              <Box
-                marginLeft={1}
-                marginRight={1}
-                fontWeight={"bold"}
-                display={"inline"}
-                key={`${e}${i}`}
-                style={{ cursor: "pointer" }}
+            <>
+              {Array.from(keywords.values()).map((e, i) => (
+                <Box
+                  marginLeft={1}
+                  marginRight={1}
+                  fontWeight={"bold"}
+                  display={"inline"}
+                  key={`${e}${i}`}
+                  style={{ cursor: "pointer" }}
+                >
+                  <Button
+                    variant={"outlined"}
+                    onClick={() => setCurrentFilter(e)}
+                  >
+                    {e.toUpperCase()}
+                  </Button>
+                </Box>
+              ))}
+              <Button
+                variant={"outlined"}
+                startIcon={<i className="far fa-window-close" />}
+                onClick={() => setCurrentFilter(null)}
               >
-                <Link variant={"subtitle1"} color={"secondary"}>
-                  {e.toUpperCase()}
-                </Link>
-              </Box>
-            ))
+                {locale === Locale.BR
+                  ? STRINGS.CLEAR_FILTER.pt
+                  : STRINGS.CLEAR_FILTER.en}
+              </Button>
+            </>
           ) : (
             <Typography>No filter yet</Typography>
           )}
