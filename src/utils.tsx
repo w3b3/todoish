@@ -28,6 +28,10 @@ export const findTask = (id: string, taskList: Task[] | null): Task | null => {
 
 export const useFilterEntry = (entry: Task) => {
   const { currentFilter } = useContext(AppSettingsContext);
+  if (currentFilter === "*") {
+    return entry.tags.includes("favorite");
+  }
+
   if (currentFilter) {
     return entry.name.startsWith(currentFilter);
   }
