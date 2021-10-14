@@ -46,6 +46,7 @@ function TaskControls({ entry }: { entry: Task }) {
     newTask.tags = newTask.tags.find((tag) => tag === "favorite")
       ? newTask.tags.filter((tag) => tag !== "favorite")
       : newTask.tags.concat("favorite");
+    setTaskName("");
     await editEntry(newTask);
     toggleEditing();
     const newList = await getAllEntries();
