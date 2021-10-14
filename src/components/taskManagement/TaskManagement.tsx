@@ -100,7 +100,6 @@ function ArticlesList({
                   // handleAddTask={handleAddTask}
                   handleTypeTaskName={handleTypeTaskName}
                   handleEnter={handleEnter}
-                  // taskName={taskName}
                 />
               )}
               <TaskControls entry={entry} />
@@ -118,7 +117,6 @@ export function TaskManagement() {
   const taskManagementStyles = TaskManagementStyles();
   const {
     locale,
-    setLocale,
     toggleEditing,
     isEditing,
     keywords,
@@ -187,10 +185,6 @@ export function TaskManagement() {
     });
   }, [setTaskList]);
 
-  const handleLocaleClick = () => {
-    setLocale(locale === "pt-br" ? "en-us" : "pt-br");
-  };
-
   const handleFilterHighlighted = () => {
     if (currentFilter === "*") {
       setCurrentFilter(null);
@@ -207,7 +201,6 @@ export function TaskManagement() {
             // handleAddTask={handleAddTask}
             handleTypeTaskName={handleTypeTaskName}
             handleEnter={handleEnter}
-            // taskName={taskName}
           />
         )}
         <Box className={taskManagementStyles.emptyWrapper}>
@@ -226,7 +219,6 @@ export function TaskManagement() {
         // handleAddTask={handleAddTask}
         handleTypeTaskName={handleTypeTaskName}
         handleEnter={handleEnter}
-        // taskName={taskName}
       />
       <Grid container justifyContent={"center"} alignItems={"center"}>
         <Typography display={"inline"}>
@@ -276,17 +268,6 @@ export function TaskManagement() {
         handleTypeTaskName={handleTypeTaskName}
         handleDelete={handleDelete}
       />
-      <section style={{ display: "flex", alignItems: "center" }}>
-        <Typography variant={"body1"}>
-          {locale === Locale.BR
-            ? STRINGS.LANGUAGE_SWITCHER.pt
-            : STRINGS.LANGUAGE_SWITCHER.en}
-        </Typography>
-
-        <Button variant={"contained"} onClick={handleLocaleClick}>
-          {locale}
-        </Button>
-      </section>
     </Container>
   );
 }

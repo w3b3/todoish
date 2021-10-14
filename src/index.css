@@ -1,4 +1,6 @@
 body {
+  overflow-y: scroll;
+  scroll-behavior: smooth;
   margin: 0;
   padding: 0;
   background-color: #372b26;
