@@ -6,7 +6,6 @@ import {
   Button,
   CircularProgress,
   createStyles,
-  Grid,
   makeStyles,
   Typography,
 } from "@material-ui/core";
