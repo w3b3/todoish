@@ -2,6 +2,8 @@ import { Task } from "../../types/types";
 import React, { useContext, useEffect, useState } from "react";
 import AppSettingsContext from "../../context/appSettingsContext";
 import {
+  Box,
+  Button,
   CircularProgress,
   createStyles,
   Grid,
@@ -16,15 +18,18 @@ import { TaskDate } from "./TaskDate";
 const useStyles = makeStyles(() =>
   createStyles({
     keywordFont: {
-      cursor: "pointer",
+      // cursor: "pointer",
       textTransform: "uppercase",
-      backgroundColor: "rgba(250,30,99,0.25)",
       padding: "0 0.5em 0 0.25em",
-      borderLeft: "5px solid red",
+      borderRadius: "4px",
       display: "flex",
       alignItems: "center",
+      textDecoration: "underline",
+      fontWeight: "bold",
+      // backgroundColor: "rgba(255, 255, 255, 0.15)",
     },
     bodyFont: {
+      // fontFamily: "Rampart One",
       flex: 1,
       userSelect: "text",
       wordBreak: "break-word",
@@ -34,6 +39,12 @@ const useStyles = makeStyles(() =>
     doneWrapper: {
       flex: 1,
       whiteSpace: "pre-wrap",
+    },
+    header: {
+      display: "flex",
+      alignItems: "space-between",
+      backgroundColor: "rgba(255, 255, 255, 0.15)",
+      flexWrap: "nowrap",
     },
   })
 );
@@ -91,21 +102,21 @@ export function TaskDescription({ entry }: { entry: Task }) {
   }
 
   return (
-    <Grid>
-      <Grid container justifyContent={"space-between"} alignItems={"stretch"}>
-        <Typography
-          variant={"subtitle1"}
+    <>
+      <Box className={styles.header}>
+        <Button
+          variant={"text"}
           className={styles.keywordFont}
           onClick={() => setCurrentFilter(cardKeyword)}
         >
           {cardKeyword ?? "None"}
-        </Typography>
+        </Button>
         <TaskDate entry={entry} />
         <CountdownModal options={{ cardKeyword, cardBody: entry.name }} />
-      </Grid>
+      </Box>
       <Typography id={`task${entry.id}`} className={styles.bodyFont}>
         {cardBody ?? "None"}
       </Typography>
-    </Grid>
+    </>
   );
 }

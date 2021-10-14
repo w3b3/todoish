@@ -5,7 +5,7 @@ import { Box, createStyles, makeStyles, Typography } from "@material-ui/core";
 
 const useStyles = makeStyles(() =>
   createStyles({
-    root: { backgroundColor: "rgba(255, 255, 255, 0.15)", flex: 1 },
+    root: { flex: 1 },
     font: { whiteSpace: "nowrap" },
   })
 );
