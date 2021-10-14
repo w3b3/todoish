@@ -1,5 +1,7 @@
 import {
+  Box,
   Button,
+  CircularProgress,
   createStyles,
   Dialog,
   DialogActions,
@@ -13,15 +15,7 @@ import React, { useCallback, useEffect, useState } from "react";
 
 const CountdownModalStyles = makeStyles(({ breakpoints, spacing }: Theme) =>
   createStyles({
-    dialog: {
-      // "& button": {
-      //   border: "4px solid transparent",
-      //   color: "gray",
-      // },
-      // "& button:hover": {
-      //   border: "4px solid crimson",
-      // },
-    },
+    dialog: {},
 
     dialogContentOverride: {
       display: "flex",
@@ -34,40 +28,13 @@ const CountdownModalStyles = makeStyles(({ breakpoints, spacing }: Theme) =>
       width: "100%",
     },
     paperOverride: {
-      backgroundColor: "rgba(0, 0, 0, 0.9)",
-      color: "white",
+      backgroundColor: "rgb(92 95 101 / 95%)",
     },
-    primaryButton: {
-      // backgroundColor: "#fdd401",
-      // fontWeight: "bold",
-      // "&:hover": {
-      //   backgroundColor: "#fdd401",
-      // },
-    },
-    primaryButtonLabel: {
-      // color: "#000",
-    },
-    secondaryButton: {
-      // backgroundColor: "#333",
-      // fontWeight: "normal",
-      // "&:hover": {
-      //   backgroundColor: "#fdd401",
-      // },
-    },
-    secondaryButtonLabel: {
-      // color: "ghostwhite",
-    },
-    timer: {
-      // backgroundColor: "tomato",
-      // color: "whitesmoke",
-      // border: "4px solid whitesmoke",
-      // fontWeight: "bold",
-      // "&:hover, &:active, &:focus": {
-      //   backgroundColor: "black",
-      //   color: "tomato",
-      //   borderColor: "tomato",
-      // },
-    },
+    primaryButton: {},
+    primaryButtonLabel: {},
+    secondaryButton: {},
+    secondaryButtonLabel: {},
+    timer: {},
   })
 );
 
@@ -126,8 +93,8 @@ export function CountdownModal({ options }: CountdownModalInput) {
   };
 
   return (
-    <>
-      <Button color={"primary"} variant={"contained"} onClick={openModal}>
+    <Box>
+      <Button color={"primary"} variant={"outlined"} onClick={openModal}>
         <i className="fas fa-stopwatch" />
         &nbsp;Timer
       </Button>
@@ -154,17 +121,15 @@ export function CountdownModal({ options }: CountdownModalInput) {
                 </Typography>
               )}
               {options?.cardBody && (
-                <Typography
-                  variant={"body1"}
-                  color={"secondary"}
-                  style={{ fontSize: "1.5em" }}
-                >
+                <Typography variant={"body1"} style={{ fontSize: "1.5em" }}>
                   {options?.cardBody}
                 </Typography>
               )}
               <Typography variant={"subtitle2"}>
                 {formatTimeCountdown()}
               </Typography>
+
+              <CircularProgress value={getProgressPercentage() * 100} />
               <LinearProgress
                 classes={{
                   root: countdownModalStyles.progressBar,
@@ -194,6 +159,6 @@ export function CountdownModal({ options }: CountdownModalInput) {
           </Button>
         </DialogActions>
       </Dialog>
-    </>
+    </Box>
   );
 }

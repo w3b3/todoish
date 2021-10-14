@@ -19,8 +19,11 @@ import {
   Button,
   Container,
   createStyles,
+  FormControlLabel,
+  FormGroup,
   Grid,
   makeStyles,
+  Switch,
   Theme,
   Typography,
 } from "@material-ui/core";
@@ -124,7 +127,7 @@ export function TaskManagement() {
     taskList,
     setTaskList,
     setCurrentFilter,
-    // currentFilter,
+    currentFilter,
   } = useContext(AppSettingsContext);
   // const [internalKeywords, setInternalKeywords] = useState(keywords);
   const [totalNumberOfTasks, setTotalNumberOfTasks] = useState<number>(0);
@@ -187,6 +190,15 @@ export function TaskManagement() {
   const handleLocaleClick = () => {
     setLocale(locale === "pt-br" ? "en-us" : "pt-br");
   };
+
+  const handleFilterHighlighted = () => {
+    if (currentFilter === "*") {
+      setCurrentFilter(null);
+    } else {
+      setCurrentFilter("*");
+    }
+  };
+
   if (totalNumberOfTasks === 0) {
     return (
       <Container classes={{ root: taskManagementStyles.containerRootOverride }}>
@@ -228,41 +240,37 @@ export function TaskManagement() {
             } (${totalNumberOfTasks})`}
           </Box>
         </Typography>
-        <Box style={{ display: "flex", flexWrap: "wrap" }}>
-          {keywords.size > 0 ? (
-            <>
-              {Array.from(keywords.values()).map((e, i) => (
-                <Box
-                  marginLeft={1}
-                  marginRight={1}
-                  fontWeight={"bold"}
-                  display={"inline"}
-                  key={`${e}${i}`}
-                  style={{ cursor: "pointer" }}
-                >
-                  <Button
-                    variant={"outlined"}
-                    onClick={() => setCurrentFilter(e)}
-                  >
-                    {e.toUpperCase()}
-                  </Button>
-                </Box>
-              ))}
-              <Button
-                variant={"outlined"}
-                startIcon={<i className="far fa-window-close" />}
-                onClick={() => setCurrentFilter(null)}
-              >
-                {locale === Locale.BR
-                  ? STRINGS.CLEAR_FILTER.pt
-                  : STRINGS.CLEAR_FILTER.en}
-              </Button>
-            </>
-          ) : (
-            <Typography>No filter yet</Typography>
-          )}
-        </Box>
+        <FormGroup style={{ marginLeft: theme.spacing(2) }}>
+          <FormControlLabel
+            control={<Switch onClick={handleFilterHighlighted} />}
+            label="Show only highlighted"
+          />
+        </FormGroup>
       </Grid>
+      {keywords.size > 0 ? (
+        <Grid container style={{ display: "flex", flexWrap: "wrap" }}>
+          {Array.from(keywords.values()).map((e, i) => (
+            <Button
+              key={`${e}${i}`}
+              variant={"outlined"}
+              onClick={() => setCurrentFilter(e)}
+            >
+              {e.toUpperCase()}
+            </Button>
+          ))}
+          <Button
+            variant={"outlined"}
+            startIcon={<i className="far fa-window-close" />}
+            onClick={() => setCurrentFilter(null)}
+          >
+            {locale === Locale.BR
+              ? STRINGS.CLEAR_FILTER.pt
+              : STRINGS.CLEAR_FILTER.en}
+          </Button>
+        </Grid>
+      ) : (
+        <Typography>No filter yet</Typography>
+      )}
       <ArticlesList
         handleEnter={handleEnter}
         handleTypeTaskName={handleTypeTaskName}

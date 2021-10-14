@@ -17,20 +17,14 @@ const TaskStyle = makeStyles(({ breakpoints, spacing }: Theme) =>
       flexDirection: "column",
       margin: spacing(1),
       width: `25%`,
-      boxShadow:
-        "-0.0075em 0.0075em 0 rgba(58,30,99, 0.94),\n" +
-        "  0.005em 0.005em 0 rgba(58,30,99, 0.6),\n" +
-        "  0.01em 0.01em 0 rgba(58,30,99, 0.62),\n" +
-        "  0.015em 0.015em rgba(58,30,99, 0.64),\n" +
-        "  0.02em 0.02em 0 rgba(58,30,99, 0.66),\n" +
-        "  0.025em 0.025em 0 rgba(58,30,99, 0.68),\n" +
-        "  0.03em 0.03em 0 rgba(58,30,99, 0.70),\n" +
-        "  0.035em 0.035em 0 rgba(58,30,99, 0.72)",
-      backgroundColor: "rgb(211 211 211 / 70%)",
-      // backgroundColor: ({ task, order }: TaskStyleProps) =>
-      //   colorPositionInArray(order).base,
-      // backgroundImage: ({ task, order }: TaskStyleProps) =>
-      //   colorPositionInArray(order).gradient,
+      backgroundImage: ({ task }: TaskStyleProps) =>
+        task.tags.includes("favorite")
+          ? "linear-gradient(43deg,#58d041 0%,#50c8c0 46%,#70ffcc 100%)"
+          : "none",
+      border: "1px solid",
+      borderColor: ({ task }: TaskStyleProps) =>
+        task.tags.includes("favorite") ? "white" : "#222",
+      borderRadius: "4px",
       [breakpoints.down("md")]: {
         width: "calc(45% - 1%)",
       },

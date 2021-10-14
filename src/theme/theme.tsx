@@ -7,7 +7,7 @@ const theme = createTheme({
     secondary: colors.indigo,
   },
   typography: {
-    fontFamily: ["Source Code Pro", "monospace"].join(","),
+    fontFamily: ["Source Sans Pro", "monospace"].join(","),
   },
   overrides: {
     MuiButton: {
