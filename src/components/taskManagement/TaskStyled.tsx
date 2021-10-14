@@ -17,7 +17,13 @@ const TaskStyle = makeStyles(({ breakpoints, spacing }: Theme) =>
       flexDirection: "column",
       margin: spacing(1),
       width: `25%`,
-      border: "1px solid #333",
+      backgroundImage: ({ task }: TaskStyleProps) =>
+        task.tags.includes("favorite")
+          ? "linear-gradient(43deg,#58d041 0%,#50c8c0 46%,#70ffcc 100%)"
+          : "none",
+      border: "1px solid",
+      borderColor: ({ task }: TaskStyleProps) =>
+        task.tags.includes("favorite") ? "white" : "#222",
       borderRadius: "4px",
       [breakpoints.down("md")]: {
         width: "calc(45% - 1%)",
