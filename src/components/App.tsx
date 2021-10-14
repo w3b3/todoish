@@ -13,7 +13,6 @@ import {
   DialogTitle,
   makeStyles,
   SwipeableDrawer,
-  Typography,
 } from "@material-ui/core";
 import { Locale } from "../types/types";
 import { STRINGS } from "../strings/strings";
