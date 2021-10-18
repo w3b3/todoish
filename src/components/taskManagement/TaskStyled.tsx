@@ -48,8 +48,15 @@ export const TaskStyled = ({
 }: PropsWithChildren<TaskProps>) => {
   const { isEditing } = useContext(AppSettingsContext);
   const classes = TaskStyle({ task, isEditing, order });
+  // const [isFocused, setIsFocused] = useState(false);
   return (
-    <article className={classes.article} key={task.id}>
+    <article
+      className={classes.article}
+      key={task.id}
+      // onMouseOver={() => setIsFocused(true)}
+      // onMouseLeave={() => setIsFocused(false)}
+    >
+      {/*{isFocused && <i className="fas fa-arrow-circle-right" />}*/}
       {children}
     </article>
   );

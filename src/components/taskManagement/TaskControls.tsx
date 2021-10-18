@@ -12,6 +12,7 @@ import { getAllEntries } from "../../api/getAllEntries";
 import { editEntry } from "../../api/editEntry";
 import AppSettingsContext from "../../context/appSettingsContext";
 import { findTask } from "../../utils";
+import { Box } from "@material-ui/core";
 
 function TaskControls({ entry }: { entry: Task }) {
   const taskManagementStyles = TaskManagementStyles();
@@ -75,7 +76,7 @@ function TaskControls({ entry }: { entry: Task }) {
   };
 
   return (
-    <section className={taskManagementStyles.tasksControlsWrapper}>
+    <Box className={taskManagementStyles.tasksControlsWrapper}>
       {/*<TaskDate entry={entry} />*/}
       <DeleteButton entry={entry} handleDelete={handleDelete} />
       <RestoreButton entry={entry} handleRestore={handleRestore} />
@@ -83,7 +84,7 @@ function TaskControls({ entry }: { entry: Task }) {
       <CompleteButton handleComplete={handleComplete} entry={entry} />
       <CancelEditButton handleCancelEdit={handleCancelEdit} entry={entry} />
       <EditButton handleEdit={handleEdit} entry={entry} />
-    </section>
+    </Box>
   );
 }
 
