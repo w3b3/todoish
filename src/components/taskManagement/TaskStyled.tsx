@@ -16,21 +16,14 @@ const TaskStyle = makeStyles(({ breakpoints, spacing }: Theme) =>
         isEditing.isEditing && task.id !== isEditing.id ? "none" : "flex",
       flexDirection: "column",
       margin: spacing(1),
-      width: `25%`,
+      width: "45%",
       backgroundImage: ({ task }: TaskStyleProps) =>
         task.tags.includes("favorite")
           ? "linear-gradient(43deg,#58d041 0%,#50c8c0 46%,#70ffcc 100%)"
-          : "none",
-      border: "1px solid",
-      borderColor: ({ task }: TaskStyleProps) =>
-        task.tags.includes("favorite") ? "white" : "#222",
+          : "linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%)",
       borderRadius: "4px",
       [breakpoints.down("md")]: {
-        width: "calc(45% - 1%)",
-      },
-      [breakpoints.down("xs")]: {
-        width: "100%",
-        maxWidth: "100%",
+        width: "unset",
       },
     },
   })
@@ -48,15 +41,8 @@ export const TaskStyled = ({
 }: PropsWithChildren<TaskProps>) => {
   const { isEditing } = useContext(AppSettingsContext);
   const classes = TaskStyle({ task, isEditing, order });
-  // const [isFocused, setIsFocused] = useState(false);
   return (
-    <article
-      className={classes.article}
-      key={task.id}
-      // onMouseOver={() => setIsFocused(true)}
-      // onMouseLeave={() => setIsFocused(false)}
-    >
-      {/*{isFocused && <i className="fas fa-arrow-circle-right" />}*/}
+    <article className={classes.article} key={task.id}>
       {children}
     </article>
   );

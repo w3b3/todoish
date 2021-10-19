@@ -5,7 +5,7 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { Locale } from "../../types/types";
+import { Locale, Task } from "../../types/types";
 import { addEntry } from "../../api/addEntry";
 import { getAllEntries } from "../../api/getAllEntries";
 import { deleteEntry } from "../../api/deleteEntry";
@@ -110,6 +110,56 @@ function ArticlesList({
           );
         })}
     </section>
+  );
+}
+
+function TaskSummary(props: {
+  locale: string;
+  totalNumberOfTasks: number;
+  onClick: () => void;
+}) {
+  return (
+    <Grid container justifyContent={"center"} alignItems={"center"}>
+      <Typography display={"inline"}>
+        <Box display={"flex"} whiteSpace={"nowrap"}>
+          <i className="fas fa-tasks" />
+          &nbsp;
+          {`${
+            props.locale === Locale.BR
+              ? STRINGS.LIST_TITLE.pt
+              : STRINGS.LIST_TITLE.en
+          } (${props.totalNumberOfTasks})`}
+        </Box>
+      </Typography>
+      <FormGroup style={{ marginLeft: theme.spacing(2) }}>
+        <FormControlLabel
+          control={<Switch onClick={props.onClick} />}
+          label="Show only highlighted"
+        />
+      </FormGroup>
+    </Grid>
+  );
+}
+
+function TaskKeywords(props: {
+  strings: Set<string>;
+  callbackfn: (e: any, i: number) => JSX.Element;
+  onClick: () => void;
+  locale: string;
+}) {
+  return (
+    <Grid container style={{ display: "flex", flexWrap: "wrap" }}>
+      {Array.from(props.strings.values()).map(props.callbackfn)}
+      <Button
+        variant={"outlined"}
+        startIcon={<i className="far fa-window-close" />}
+        onClick={props.onClick}
+      >
+        {props.locale === Locale.BR
+          ? STRINGS.CLEAR_FILTER.pt
+          : STRINGS.CLEAR_FILTER.en}
+      </Button>
+    </Grid>
   );
 }
 
@@ -220,28 +270,15 @@ export function TaskManagement() {
         handleTypeTaskName={handleTypeTaskName}
         handleEnter={handleEnter}
       />
-      <Grid container justifyContent={"center"} alignItems={"center"}>
-        <Typography display={"inline"}>
-          <Box display={"flex"} whiteSpace={"nowrap"}>
-            <i className="fas fa-tasks" />
-            &nbsp;
-            {`${
-              locale === Locale.BR
-                ? STRINGS.LIST_TITLE.pt
-                : STRINGS.LIST_TITLE.en
-            } (${totalNumberOfTasks})`}
-          </Box>
-        </Typography>
-        <FormGroup style={{ marginLeft: theme.spacing(2) }}>
-          <FormControlLabel
-            control={<Switch onClick={handleFilterHighlighted} />}
-            label="Show only highlighted"
-          />
-        </FormGroup>
-      </Grid>
+      <TaskSummary
+        locale={locale}
+        totalNumberOfTasks={totalNumberOfTasks}
+        onClick={handleFilterHighlighted}
+      />
       {keywords.size > 0 ? (
-        <Grid container style={{ display: "flex", flexWrap: "wrap" }}>
-          {Array.from(keywords.values()).map((e, i) => (
+        <TaskKeywords
+          strings={keywords}
+          callbackfn={(e, i) => (
             <Button
               key={`${e}${i}`}
               variant={"outlined"}
@@ -249,17 +286,10 @@ export function TaskManagement() {
             >
               {e.toUpperCase()}
             </Button>
-          ))}
-          <Button
-            variant={"outlined"}
-            startIcon={<i className="far fa-window-close" />}
-            onClick={() => setCurrentFilter(null)}
-          >
-            {locale === Locale.BR
-              ? STRINGS.CLEAR_FILTER.pt
-              : STRINGS.CLEAR_FILTER.en}
-          </Button>
-        </Grid>
+          )}
+          onClick={() => setCurrentFilter(null)}
+          locale={locale}
+        />
       ) : (
         <Typography>No filter yet</Typography>
       )}
