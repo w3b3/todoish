@@ -61,6 +61,7 @@ export function TaskInput({
           onChange={handleTypeTaskName}
           onKeyPress={handleEnter}
           value={taskName}
+          autoComplete={"off"}
         />
         {/*<SaveButton handleAddTask={handleAddTask} taskName={taskName} />*/}
         {/*<button onClick={cleanAllEntries}>Clean all entries</button>*/}

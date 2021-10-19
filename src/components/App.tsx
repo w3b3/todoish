@@ -10,11 +10,13 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  FormControlLabel,
+  FormControl,
   FormGroup,
+  InputLabel,
   makeStyles,
+  MenuItem,
+  Select,
   SwipeableDrawer,
-  Switch,
   Typography,
 } from "@material-ui/core";
 import { Locale } from "../types/types";
@@ -77,10 +79,19 @@ function App() {
                   ? STRINGS.LANGUAGE_SWITCHER.pt
                   : STRINGS.LANGUAGE_SWITCHER.en}
               </Typography>
-              <FormControlLabel
-                control={<Switch onClick={handleLocaleClick} />}
-                label={locale.toUpperCase()}
-              />
+              <FormControl fullWidth>
+                <InputLabel id="locale-select-label">Locale</InputLabel>
+                <Select
+                  id="locale-select"
+                  label="Locale"
+                  labelId={"locale-select-label"}
+                  onChange={handleLocaleClick}
+                  value={locale}
+                >
+                  <MenuItem value={"pt-br"}>Portugues</MenuItem>
+                  <MenuItem value={"en-us"}>English</MenuItem>
+                </Select>
+              </FormControl>
             </FormGroup>
           </DialogContent>
           <DialogActions>

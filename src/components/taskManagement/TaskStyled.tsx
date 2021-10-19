@@ -24,7 +24,7 @@ const TaskStyle = makeStyles(({ breakpoints, spacing }: Theme) =>
           ? "linear-gradient(43deg,#58d041 0%,#50c8c0 46%,#70ffcc 100%)"
           : "linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%)",
       borderRadius: "4px",
-      [breakpoints.down("md")]: {
+      [breakpoints.down("sm")]: {
         width: "100%",
       },
     },
