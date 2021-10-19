@@ -16,7 +16,9 @@ const TaskStyle = makeStyles(({ breakpoints, spacing }: Theme) =>
         isEditing.isEditing && task.id !== isEditing.id ? "none" : "flex",
       flexDirection: "column",
       marginTop: spacing(2),
-      minWidth: "100%",
+      width: "43%",
+      marginLeft: "1%",
+      marginRight: "1%",
       backgroundImage: ({ task }: TaskStyleProps) =>
         task.tags.includes("favorite")
           ? "linear-gradient(43deg,#58d041 0%,#50c8c0 46%,#70ffcc 100%)"
