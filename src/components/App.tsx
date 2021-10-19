@@ -5,21 +5,18 @@ import AppSettingsContext from "../context/appSettingsContext";
 import { Header } from "./Header";
 import { Logo } from "./Logo";
 import {
-  Box,
   Button,
   createStyles,
   DialogActions,
   DialogContent,
   DialogTitle,
   FormControl,
-  FormControlLabel,
   FormGroup,
   InputLabel,
   makeStyles,
   MenuItem,
   Select,
   SwipeableDrawer,
-  Switch,
   Typography,
 } from "@material-ui/core";
 import { Locale } from "../types/types";
