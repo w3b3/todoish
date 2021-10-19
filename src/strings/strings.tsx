@@ -43,6 +43,10 @@ export const STRINGS = {
     en: "Edit",
     pt: "Editar",
   },
+  UPDATE_TASK: {
+    en: "Update",
+    pt: "Atualizar",
+  },
   PIN_TASK: {
     en: "Highlight",
     pt: "Destacar",

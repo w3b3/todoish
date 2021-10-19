@@ -78,6 +78,10 @@ export interface EditButtonInterface extends TaskManagementButton {
   handleEdit: (id: string) => any;
 }
 
+export interface UpdateButtonInterface extends TaskManagementButton {
+  handleAdd: () => any;
+}
+
 export interface RestoreButtonInterface extends TaskManagementButton {
   handleRestore: (id: string) => any;
 }
