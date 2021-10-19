@@ -24,6 +24,7 @@ import {
   Grid,
   makeStyles,
   Switch,
+  TextField,
   Theme,
   Typography,
 } from "@material-ui/core";
@@ -54,6 +55,7 @@ export const TaskManagementStyles = makeStyles(
         justifyContent: "center",
         // alignItems: "flex-start",
         flexWrap: "wrap",
+        marginTop: spacing(3),
         padding: spacing(1),
         [breakpoints.down("sm")]: {
           padding: 0,
@@ -65,7 +67,7 @@ export const TaskManagementStyles = makeStyles(
       tasksControlsWrapper: {
         marginTop: "auto",
         backgroundColor: "rgba(255, 255, 255, 0.15)",
-        padding: spacing(1),
+        // padding: spacing(1),
         display: "flex",
         justifyContent: "flex-end",
         alignItems: "center",
@@ -78,15 +80,15 @@ export const TaskManagementStyles = makeStyles(
 
 function ArticlesList({
   handleTypeTaskName,
-  handleEnter,
+  handleAddTask,
   handleDelete,
 }: {
   handleTypeTaskName: (event: any) => void;
-  handleEnter: (event: any) => void;
+  handleAddTask: () => void;
   handleDelete: (id: string) => void;
 }) {
   const taskManagementStyles = TaskManagementStyles();
-  const { isEditing, taskList } = useContext(AppSettingsContext);
+  const { taskList, isEditing } = useContext(AppSettingsContext);
   return (
     <section className={taskManagementStyles.articlesWrapper}>
       {taskList &&
@@ -94,15 +96,17 @@ function ArticlesList({
           return (
             <TaskStyled key={entry.id} task={entry} order={i}>
               <TaskDescription entry={entry} />
-
               {isEditing.isEditing && isEditing.id === entry.id && (
-                <TaskInput
-                  // handleAddTask={handleAddTask}
-                  handleTypeTaskName={handleTypeTaskName}
-                  handleEnter={handleEnter}
+                <TextField
+                  variant={"outlined"}
+                  multiline={true}
+                  minRows={5}
+                  maxRows={10}
+                  defaultValue={entry.name}
+                  onChange={handleTypeTaskName}
                 />
               )}
-              <TaskControls entry={entry} />
+              <TaskControls entry={entry} handleAddTask={handleAddTask} />
               {entry.isDone && (
                 <TaskCountdown entry={entry} handleDelete={handleDelete} />
               )}
@@ -110,6 +114,56 @@ function ArticlesList({
           );
         })}
     </section>
+  );
+}
+
+function TaskSummary(props: {
+  locale: string;
+  totalNumberOfTasks: number;
+  onClick: () => void;
+}) {
+  return (
+    <Grid container justifyContent={"center"} alignItems={"center"}>
+      <Typography display={"inline"}>
+        <Box display={"flex"} whiteSpace={"nowrap"}>
+          <i className="fas fa-tasks" />
+          &nbsp;
+          {`${
+            props.locale === Locale.BR
+              ? STRINGS.LIST_TITLE.pt
+              : STRINGS.LIST_TITLE.en
+          } (${props.totalNumberOfTasks})`}
+        </Box>
+      </Typography>
+      <FormGroup style={{ marginLeft: theme.spacing(2) }}>
+        <FormControlLabel
+          control={<Switch onClick={props.onClick} />}
+          label="Show only highlighted"
+        />
+      </FormGroup>
+    </Grid>
+  );
+}
+
+function TaskKeywords(props: {
+  strings: Set<string>;
+  callbackfn: (e: any, i: number) => JSX.Element;
+  onClick: () => void;
+  locale: string;
+}) {
+  return (
+    <Grid container style={{ display: "flex", flexWrap: "wrap" }}>
+      {Array.from(props.strings.values()).map(props.callbackfn)}
+      <Button
+        variant={"outlined"}
+        startIcon={<i className="far fa-window-close" />}
+        onClick={props.onClick}
+      >
+        {props.locale === Locale.BR
+          ? STRINGS.CLEAR_FILTER.pt
+          : STRINGS.CLEAR_FILTER.en}
+      </Button>
+    </Grid>
   );
 }
 
@@ -220,28 +274,15 @@ export function TaskManagement() {
         handleTypeTaskName={handleTypeTaskName}
         handleEnter={handleEnter}
       />
-      <Grid container justifyContent={"center"} alignItems={"center"}>
-        <Typography display={"inline"}>
-          <Box display={"flex"} whiteSpace={"nowrap"}>
-            <i className="fas fa-tasks" />
-            &nbsp;
-            {`${
-              locale === Locale.BR
-                ? STRINGS.LIST_TITLE.pt
-                : STRINGS.LIST_TITLE.en
-            } (${totalNumberOfTasks})`}
-          </Box>
-        </Typography>
-        <FormGroup style={{ marginLeft: theme.spacing(2) }}>
-          <FormControlLabel
-            control={<Switch onClick={handleFilterHighlighted} />}
-            label="Show only highlighted"
-          />
-        </FormGroup>
-      </Grid>
+      <TaskSummary
+        locale={locale}
+        totalNumberOfTasks={totalNumberOfTasks}
+        onClick={handleFilterHighlighted}
+      />
       {keywords.size > 0 ? (
-        <Grid container style={{ display: "flex", flexWrap: "wrap" }}>
-          {Array.from(keywords.values()).map((e, i) => (
+        <TaskKeywords
+          strings={keywords}
+          callbackfn={(e, i) => (
             <Button
               key={`${e}${i}`}
               variant={"outlined"}
@@ -249,24 +290,18 @@ export function TaskManagement() {
             >
               {e.toUpperCase()}
             </Button>
-          ))}
-          <Button
-            variant={"outlined"}
-            startIcon={<i className="far fa-window-close" />}
-            onClick={() => setCurrentFilter(null)}
-          >
-            {locale === Locale.BR
-              ? STRINGS.CLEAR_FILTER.pt
-              : STRINGS.CLEAR_FILTER.en}
-          </Button>
-        </Grid>
+          )}
+          onClick={() => setCurrentFilter(null)}
+          locale={locale}
+        />
       ) : (
         <Typography>No filter yet</Typography>
       )}
       <ArticlesList
-        handleEnter={handleEnter}
+        // handleEnter={handleEnter}
         handleTypeTaskName={handleTypeTaskName}
         handleDelete={handleDelete}
+        handleAddTask={handleAddTask}
       />
     </Container>
   );

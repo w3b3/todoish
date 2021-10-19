@@ -1,7 +1,6 @@
 import {
   Box,
   Button,
-  CircularProgress,
   createStyles,
   Dialog,
   DialogActions,
@@ -28,7 +27,7 @@ const CountdownModalStyles = makeStyles(({ breakpoints, spacing }: Theme) =>
       width: "100%",
     },
     paperOverride: {
-      backgroundColor: "rgb(92 95 101 / 95%)",
+      backgroundImage: "linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%)",
     },
     primaryButton: {},
     primaryButtonLabel: {},
@@ -94,7 +93,7 @@ export function CountdownModal({ options }: CountdownModalInput) {
 
   return (
     <Box>
-      <Button color={"primary"} variant={"outlined"} onClick={openModal}>
+      <Button variant={"contained"} color={"secondary"} onClick={openModal}>
         <i className="fas fa-stopwatch" />
         &nbsp;Timer
       </Button>
@@ -114,22 +113,14 @@ export function CountdownModal({ options }: CountdownModalInput) {
             <>
               {options?.cardKeyword && (
                 <Typography
-                  color={"primary"}
+                  color={"secondary"}
+                  variant={"h1"}
+                  component={"caption"}
                   style={{ textTransform: "uppercase" }}
                 >
                   {options?.cardKeyword}
                 </Typography>
               )}
-              {options?.cardBody && (
-                <Typography variant={"body1"} style={{ fontSize: "1.5em" }}>
-                  {options?.cardBody}
-                </Typography>
-              )}
-              <Typography variant={"subtitle2"}>
-                {formatTimeCountdown()}
-              </Typography>
-
-              <CircularProgress value={getProgressPercentage() * 100} />
               <LinearProgress
                 classes={{
                   root: countdownModalStyles.progressBar,
@@ -137,6 +128,15 @@ export function CountdownModal({ options }: CountdownModalInput) {
                 variant="determinate"
                 value={getProgressPercentage() * 100}
               />
+              <Typography variant={"h2"} color={"primary"}>
+                {formatTimeCountdown()}
+              </Typography>
+
+              {options?.cardBody && (
+                <Typography variant={"body1"}>{options?.cardBody}</Typography>
+              )}
+
+              {/*<CircularProgress value={getProgressPercentage() * 100} />*/}
             </>
           )}
         </DialogContent>

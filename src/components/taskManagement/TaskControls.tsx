@@ -12,8 +12,16 @@ import { getAllEntries } from "../../api/getAllEntries";
 import { editEntry } from "../../api/editEntry";
 import AppSettingsContext from "../../context/appSettingsContext";
 import { findTask } from "../../utils";
+import { Box } from "@material-ui/core";
+import { UpdateButton } from "./UpdateButton";
 
-function TaskControls({ entry }: { entry: Task }) {
+function TaskControls({
+  entry,
+  handleAddTask,
+}: {
+  entry: Task;
+  handleAddTask: () => void;
+}) {
   const taskManagementStyles = TaskManagementStyles();
   const { toggleEditing, setTaskName, taskList, setTaskList } =
     useContext(AppSettingsContext);
@@ -75,15 +83,15 @@ function TaskControls({ entry }: { entry: Task }) {
   };
 
   return (
-    <section className={taskManagementStyles.tasksControlsWrapper}>
-      {/*<TaskDate entry={entry} />*/}
+    <Box className={taskManagementStyles.tasksControlsWrapper}>
+      <UpdateButton entry={entry} handleAdd={handleAddTask} />
       <DeleteButton entry={entry} handleDelete={handleDelete} />
       <RestoreButton entry={entry} handleRestore={handleRestore} />
       <FavoriteButton handleFavorite={handleFavorite} entry={entry} />
       <CompleteButton handleComplete={handleComplete} entry={entry} />
       <CancelEditButton handleCancelEdit={handleCancelEdit} entry={entry} />
       <EditButton handleEdit={handleEdit} entry={entry} />
-    </section>
+    </Box>
   );
 }
 

@@ -17,23 +17,15 @@ import { TaskDate } from "./TaskDate";
 const useStyles = makeStyles(() =>
   createStyles({
     keywordFont: {
-      // cursor: "pointer",
       textTransform: "uppercase",
-      padding: "0 0.5em 0 0.25em",
-      borderRadius: "4px",
-      display: "flex",
-      alignItems: "center",
-      textDecoration: "underline",
-      fontWeight: "bold",
-      // backgroundColor: "rgba(255, 255, 255, 0.15)",
     },
     bodyFont: {
-      // fontFamily: "Rampart One",
       flex: 1,
       userSelect: "text",
       wordBreak: "break-word",
-      fontSize: "1.5rem",
-      padding: theme.spacing(2),
+    },
+    body: {
+      padding: theme.spacing(3),
     },
     doneWrapper: {
       flex: 1,
@@ -104,7 +96,7 @@ export function TaskDescription({ entry }: { entry: Task }) {
     <>
       <Box className={styles.header}>
         <Button
-          variant={"text"}
+          variant={"contained"}
           className={styles.keywordFont}
           onClick={() => setCurrentFilter(cardKeyword)}
         >
@@ -113,9 +105,11 @@ export function TaskDescription({ entry }: { entry: Task }) {
         <TaskDate entry={entry} />
         <CountdownModal options={{ cardKeyword, cardBody: entry.name }} />
       </Box>
-      <Typography id={`task${entry.id}`} className={styles.bodyFont}>
-        {cardBody ?? "None"}
-      </Typography>
+      <Box className={styles.body}>
+        <Typography id={`task${entry.id}`} className={styles.bodyFont}>
+          {cardBody ?? "None"}
+        </Typography>
+      </Box>
     </>
   );
 }

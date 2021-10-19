@@ -8,8 +8,8 @@ export const STRINGS = {
     pt: "Escreva aqui",
   },
   LANGUAGE_SWITCHER: {
-    en: "If you prefer to change the language of the app, click here",
-    pt: "Se voce preferir trocar o idioma do app, clique aqui",
+    en: "App language selection (en-us/pt-br):",
+    pt: "Selecione o idioma do app (en-us/pt-br):",
   },
   LIST_TITLE: {
     en: "Saved items",
@@ -42,6 +42,10 @@ export const STRINGS = {
   EDIT_TASK: {
     en: "Edit",
     pt: "Editar",
+  },
+  UPDATE_TASK: {
+    en: "Update",
+    pt: "Atualizar",
   },
   PIN_TASK: {
     en: "Highlight",
