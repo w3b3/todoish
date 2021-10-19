@@ -8,8 +8,8 @@ export const STRINGS = {
     pt: "Escreva aqui",
   },
   LANGUAGE_SWITCHER: {
-    en: "App language selection (en-us/pt-br):",
-    pt: "Selecione o idioma do app (en-us/pt-br):",
+    en: "App language selection:",
+    pt: "Selecione o idioma do app:",
   },
   LIST_TITLE: {
     en: "Saved items",

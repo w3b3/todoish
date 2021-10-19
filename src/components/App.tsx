@@ -5,14 +5,19 @@ import AppSettingsContext from "../context/appSettingsContext";
 import { Header } from "./Header";
 import { Logo } from "./Logo";
 import {
+  Box,
   Button,
   createStyles,
   DialogActions,
   DialogContent,
   DialogTitle,
+  FormControl,
   FormControlLabel,
   FormGroup,
+  InputLabel,
   makeStyles,
+  MenuItem,
+  Select,
   SwipeableDrawer,
   Switch,
   Typography,
@@ -77,10 +82,19 @@ function App() {
                   ? STRINGS.LANGUAGE_SWITCHER.pt
                   : STRINGS.LANGUAGE_SWITCHER.en}
               </Typography>
-              <FormControlLabel
-                control={<Switch onClick={handleLocaleClick} />}
-                label={locale.toUpperCase()}
-              />
+              <FormControl fullWidth>
+                <InputLabel id="locale-select-label">Locale</InputLabel>
+                <Select
+                  id="locale-select"
+                  label="Locale"
+                  labelId={"locale-select-label"}
+                  onChange={handleLocaleClick}
+                  value={locale}
+                >
+                  <MenuItem value={"pt-br"}>Portugues</MenuItem>
+                  <MenuItem value={"en-us"}>English</MenuItem>
+                </Select>
+              </FormControl>
             </FormGroup>
           </DialogContent>
           <DialogActions>
