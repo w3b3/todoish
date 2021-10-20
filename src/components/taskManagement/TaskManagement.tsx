@@ -183,6 +183,16 @@ export function TaskManagement() {
   const [totalNumberOfTasks, setTotalNumberOfTasks] = useState<number>(0);
   // const [apiPagination, setApiPagination] = useState<string>("");
 
+  useEffect(() => {
+    getAllEntries().then((newList) => {
+      if (newList && newList.tasks) {
+        setTaskList(newList.tasks);
+        setTotalNumberOfTasks(newList.tasks.length); //TEMPORARY SOLUTION - FLAKY SINCE ITS WITHOUT PAGINATION
+        // setApiPagination(newList.pagination);
+      }
+    });
+  }, []);
+
   const handleEnter = (typeEvent: KeyboardEvent) => {
     if (typeEvent.key === "Enter") {
       handleAddTask();
@@ -226,16 +236,6 @@ export function TaskManagement() {
       setTotalNumberOfTasks(newList.tasks.length); //TEMPORARY SOLUTION - FLAKY SINCE ITS WITHOUT PAGINATION
     }
   };
-
-  useEffect(() => {
-    getAllEntries().then((newList) => {
-      if (newList && newList.tasks) {
-        setTaskList(newList.tasks);
-        setTotalNumberOfTasks(newList.tasks.length); //TEMPORARY SOLUTION - FLAKY SINCE ITS WITHOUT PAGINATION
-        // setApiPagination(newList.pagination);
-      }
-    });
-  }, [setTaskList]);
 
   const handleFilterHighlighted = () => {
     if (currentFilter === "*") {
