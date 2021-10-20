@@ -191,6 +191,7 @@ export function TaskManagement() {
         // setApiPagination(newList.pagination);
       }
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleEnter = (typeEvent: KeyboardEvent) => {
