@@ -125,15 +125,13 @@ function TaskSummary(props: {
   return (
     <Grid container justifyContent={"center"} alignItems={"center"}>
       <Typography display={"inline"}>
-        <Box display={"flex"} whiteSpace={"nowrap"}>
-          <i className="fas fa-tasks" />
-          &nbsp;
-          {`${
-            props.locale === Locale.BR
-              ? STRINGS.LIST_TITLE.pt
-              : STRINGS.LIST_TITLE.en
-          } (${props.totalNumberOfTasks})`}
-        </Box>
+        <i className="fas fa-tasks" />
+        &nbsp;
+        {`${
+          props.locale === Locale.BR
+            ? STRINGS.LIST_TITLE.pt
+            : STRINGS.LIST_TITLE.en
+        } (${props.totalNumberOfTasks})`}
       </Typography>
       <FormGroup style={{ marginLeft: theme.spacing(2) }}>
         <FormControlLabel
