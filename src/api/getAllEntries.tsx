@@ -4,7 +4,13 @@ import { mockApiResponse } from "../mocks";
 /*This conditional is used for debugging purposes only*/
 const isDevelopment = process.env.REACT_APP_ENV === "development";
 
-export const getAllEntries = async () => {
+interface GetAllEntriesResponse {
+  tasks: any;
+  rowCount: any;
+  pagination: any;
+}
+
+export const getAllEntries = async (): Promise<GetAllEntriesResponse> => {
   try {
     /*This conditional is used for debugging purposes only*/
     if (isDevelopment) {
@@ -34,7 +40,7 @@ export const getAllEntries = async () => {
       rowCount: parsedResponse.profile.nested[0].queries[0].rowCount,
       pagination: parsedResponse.pageState,
     };
-  } catch (e) {
+  } catch (e: any) {
     console.info("Error: getAllEntries", { e });
     return e;
   }

@@ -125,15 +125,13 @@ function TaskSummary(props: {
   return (
     <Grid container justifyContent={"center"} alignItems={"center"}>
       <Typography display={"inline"}>
-        <Box display={"flex"} whiteSpace={"nowrap"}>
-          <i className="fas fa-tasks" />
-          &nbsp;
-          {`${
-            props.locale === Locale.BR
-              ? STRINGS.LIST_TITLE.pt
-              : STRINGS.LIST_TITLE.en
-          } (${props.totalNumberOfTasks})`}
-        </Box>
+        <i className="fas fa-tasks" />
+        &nbsp;
+        {`${
+          props.locale === Locale.BR
+            ? STRINGS.LIST_TITLE.pt
+            : STRINGS.LIST_TITLE.en
+        } (${props.totalNumberOfTasks})`}
       </Typography>
       <FormGroup style={{ marginLeft: theme.spacing(2) }}>
         <FormControlLabel
@@ -185,6 +183,17 @@ export function TaskManagement() {
   const [totalNumberOfTasks, setTotalNumberOfTasks] = useState<number>(0);
   // const [apiPagination, setApiPagination] = useState<string>("");
 
+  useEffect(() => {
+    getAllEntries().then((newList) => {
+      if (newList && newList.tasks) {
+        setTaskList(newList.tasks);
+        setTotalNumberOfTasks(newList.tasks.length); //TEMPORARY SOLUTION - FLAKY SINCE ITS WITHOUT PAGINATION
+        // setApiPagination(newList.pagination);
+      }
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const handleEnter = (typeEvent: KeyboardEvent) => {
     if (typeEvent.key === "Enter") {
       handleAddTask();
@@ -228,16 +237,6 @@ export function TaskManagement() {
       setTotalNumberOfTasks(newList.tasks.length); //TEMPORARY SOLUTION - FLAKY SINCE ITS WITHOUT PAGINATION
     }
   };
-
-  useEffect(() => {
-    getAllEntries().then((newList) => {
-      if (newList && newList.tasks) {
-        setTaskList(newList.tasks);
-        setTotalNumberOfTasks(newList.tasks.length); //TEMPORARY SOLUTION - FLAKY SINCE ITS WITHOUT PAGINATION
-        // setApiPagination(newList.pagination);
-      }
-    });
-  }, [setTaskList]);
 
   const handleFilterHighlighted = () => {
     if (currentFilter === "*") {
