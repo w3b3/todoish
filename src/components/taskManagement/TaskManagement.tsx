@@ -172,15 +172,17 @@ function TaskSummary(props: {
   );
 }
 
-function TaskKeywords(props: {
+function TaskKeywords({
+  strings,
+  onClick,
+}: {
   strings: Set<string>;
   onClick: () => void;
-  locale: string;
 }) {
-  const { setCurrentFilter } = useContext(AppSettingsContext);
+  const { setCurrentFilter, locale } = useContext(AppSettingsContext);
   return (
     <Grid container style={{ display: "flex", flexWrap: "wrap" }}>
-      {Array.from(props.strings.values()).map((e, i) => (
+      {Array.from(strings.values()).map((e, i) => (
         <Button
           key={`${e}${i}`}
           variant={"outlined"}
@@ -192,9 +194,9 @@ function TaskKeywords(props: {
       <Button
         variant={"outlined"}
         startIcon={<i className="far fa-window-close" />}
-        onClick={props.onClick}
+        onClick={onClick}
       >
-        {props.locale === Locale.BR
+        {locale === Locale.BR
           ? STRINGS.CLEAR_FILTER.pt
           : STRINGS.CLEAR_FILTER.en}
       </Button>
@@ -321,7 +323,6 @@ export function TaskManagement() {
         <TaskKeywords
           strings={keywords}
           onClick={() => setCurrentFilter(null)}
-          locale={locale}
         />
       ) : (
         <Typography>No filter yet</Typography>
