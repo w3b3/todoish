@@ -174,13 +174,21 @@ function TaskSummary(props: {
 
 function TaskKeywords(props: {
   strings: Set<string>;
-  callbackfn: (e: any, i: number) => JSX.Element;
   onClick: () => void;
   locale: string;
 }) {
+  const { setCurrentFilter } = useContext(AppSettingsContext);
   return (
     <Grid container style={{ display: "flex", flexWrap: "wrap" }}>
-      {Array.from(props.strings.values()).map(props.callbackfn)}
+      {Array.from(props.strings.values()).map((e, i) => (
+        <Button
+          key={`${e}${i}`}
+          variant={"outlined"}
+          onClick={() => setCurrentFilter(e)}
+        >
+          {e.toUpperCase()}
+        </Button>
+      ))}
       <Button
         variant={"outlined"}
         startIcon={<i className="far fa-window-close" />}
@@ -312,15 +320,6 @@ export function TaskManagement() {
       {keywords.size > 0 ? (
         <TaskKeywords
           strings={keywords}
-          callbackfn={(e, i) => (
-            <Button
-              key={`${e}${i}`}
-              variant={"outlined"}
-              onClick={() => setCurrentFilter(e)}
-            >
-              {e.toUpperCase()}
-            </Button>
-          )}
           onClick={() => setCurrentFilter(null)}
           locale={locale}
         />
