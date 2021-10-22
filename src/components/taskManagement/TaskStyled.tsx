@@ -6,7 +6,6 @@ import AppSettingsContext from "../../context/appSettingsContext";
 interface TaskStyleProps {
   task: Task;
   isEditing: EditMode;
-  order: number;
 }
 
 const TaskStyle = makeStyles(({ breakpoints, spacing }: Theme) =>
@@ -33,16 +32,14 @@ const TaskStyle = makeStyles(({ breakpoints, spacing }: Theme) =>
 
 interface TaskProps {
   task: Task;
-  order: number;
 }
 
 export const TaskStyled = ({
   task,
-  order,
   children,
 }: PropsWithChildren<TaskProps>) => {
   const { isEditing } = useContext(AppSettingsContext);
-  const classes = TaskStyle({ task, isEditing, order });
+  const classes = TaskStyle({ task, isEditing });
   return (
     <article className={classes.article} key={task.id}>
       {children}

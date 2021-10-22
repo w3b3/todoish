@@ -15,7 +15,6 @@ import { TaskInput } from "./TaskInput";
 import AppSettingsContext from "../../context/appSettingsContext";
 import { STRINGS } from "../../strings/strings";
 import {
-  Box,
   Button,
   Container,
   createStyles,
@@ -27,7 +26,9 @@ import {
   TextField,
   Theme,
   Typography,
+  useMediaQuery,
 } from "@material-ui/core";
+import Skeleton from "@material-ui/lab/Skeleton";
 import { TaskStyled } from "./TaskStyled";
 import { TaskCountdown } from "./TaskCountdown";
 import { TaskControls } from "./TaskControls";
@@ -89,30 +90,49 @@ function ArticlesList({
 }) {
   const taskManagementStyles = TaskManagementStyles();
   const { taskList, isEditing } = useContext(AppSettingsContext);
+  const isLargerViewport = useMediaQuery(theme.breakpoints.up("md"));
   return (
     <section className={taskManagementStyles.articlesWrapper}>
-      {taskList &&
-        taskList.filter(useFilterEntry).map((entry, i) => {
-          return (
-            <TaskStyled key={entry.id} task={entry} order={i}>
-              <TaskDescription entry={entry} />
-              {isEditing.isEditing && isEditing.id === entry.id && (
-                <TextField
-                  variant={"outlined"}
-                  multiline={true}
-                  minRows={5}
-                  maxRows={10}
-                  defaultValue={entry.name}
-                  onChange={handleTypeTaskName}
-                />
-              )}
-              <TaskControls entry={entry} handleAddTask={handleAddTask} />
-              {entry.isDone && (
-                <TaskCountdown entry={entry} handleDelete={handleDelete} />
-              )}
-            </TaskStyled>
-          );
-        })}
+      {taskList?.length ?? -1 > 0
+        ? /*TODO: assertion above `?` should guarantee taskList not `!`*/
+          taskList!.filter(useFilterEntry).map((entry) => {
+            return (
+              <TaskStyled key={entry.id} task={entry}>
+                <TaskDescription entry={entry} />
+                {isEditing.isEditing && isEditing.id === entry.id && (
+                  <TextField
+                    variant={"outlined"}
+                    multiline={true}
+                    minRows={5}
+                    maxRows={10}
+                    defaultValue={entry.name}
+                    onChange={handleTypeTaskName}
+                  />
+                )}
+                <TaskControls entry={entry} handleAddTask={handleAddTask} />
+                {entry.isDone && (
+                  <TaskCountdown entry={entry} handleDelete={handleDelete} />
+                )}
+              </TaskStyled>
+            );
+          })
+        : new Array(10).fill("", 0, 9).map((_) => (
+            <Skeleton
+              style={{
+                display: "block",
+                backgroundImage:
+                  "linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%)",
+                marginTop: theme.spacing(2),
+                width: isLargerViewport ? "43%" : "100%",
+                marginLeft: "1%",
+                marginRight: "1%",
+                borderRadius: "4px",
+              }}
+              variant={"rect"}
+              height={isLargerViewport ? 160 : 184}
+              animation={"pulse"}
+            />
+          ))}
     </section>
   );
 }
@@ -166,7 +186,7 @@ function TaskKeywords(props: {
 }
 
 export function TaskManagement() {
-  const taskManagementStyles = TaskManagementStyles();
+  // const taskManagementStyles = TaskManagementStyles();
   const {
     locale,
     toggleEditing,
@@ -245,7 +265,7 @@ export function TaskManagement() {
       setCurrentFilter("*");
     }
   };
-
+  /* TODO: Still need an implementation for a really empty list
   if (totalNumberOfTasks === 0) {
     return (
       <Container classes={{ root: taskManagementStyles.containerRootOverride }}>
@@ -262,10 +282,12 @@ export function TaskManagement() {
               ? STRINGS.EMPTY_LIST.pt
               : STRINGS.EMPTY_LIST.en}
           </Typography>
+          <Skeleton variant="rect" width={210} height={118} />
         </Box>
       </Container>
     );
   }
+  */
   return (
     <Container>
       <TaskInput
