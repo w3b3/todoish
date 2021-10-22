@@ -15,6 +15,7 @@ import { TaskInput } from "./TaskInput";
 import AppSettingsContext from "../../context/appSettingsContext";
 import { STRINGS } from "../../strings/strings";
 import {
+  Box,
   Button,
   Container,
   createStyles,
@@ -89,50 +90,58 @@ function ArticlesList({
   handleDelete: (id: string) => void;
 }) {
   const taskManagementStyles = TaskManagementStyles();
-  const { taskList, isEditing } = useContext(AppSettingsContext);
+  const { taskList, isEditing, locale } = useContext(AppSettingsContext);
   const isLargerViewport = useMediaQuery(theme.breakpoints.up("md"));
   return (
     <section className={taskManagementStyles.articlesWrapper}>
-      {taskList?.length ?? -1 > 0
-        ? /*TODO: assertion above `?` should guarantee taskList not `!`*/
-          taskList!.filter(useFilterEntry).map((entry) => {
-            return (
-              <TaskStyled key={entry.id} task={entry}>
-                <TaskDescription entry={entry} />
-                {isEditing.isEditing && isEditing.id === entry.id && (
-                  <TextField
-                    variant={"outlined"}
-                    multiline={true}
-                    minRows={5}
-                    maxRows={10}
-                    defaultValue={entry.name}
-                    onChange={handleTypeTaskName}
-                  />
-                )}
-                <TaskControls entry={entry} handleAddTask={handleAddTask} />
-                {entry.isDone && (
-                  <TaskCountdown entry={entry} handleDelete={handleDelete} />
-                )}
-              </TaskStyled>
-            );
-          })
-        : new Array(10).fill("", 0, 9).map((_) => (
-            <Skeleton
-              style={{
-                display: "block",
-                backgroundImage:
-                  "linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%)",
-                marginTop: theme.spacing(2),
-                width: isLargerViewport ? "43%" : "100%",
-                marginLeft: "1%",
-                marginRight: "1%",
-                borderRadius: "4px",
-              }}
-              variant={"rect"}
-              height={isLargerViewport ? 160 : 184}
-              animation={"pulse"}
-            />
-          ))}
+      {taskList === null ? (
+        new Array(10).fill("", 0, 9).map((_) => (
+          <Skeleton
+            style={{
+              backgroundImage:
+                "linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%)",
+              marginTop: theme.spacing(2),
+              width: isLargerViewport ? "43%" : "100%",
+              marginLeft: "1%",
+              marginRight: "1%",
+              borderRadius: "4px",
+            }}
+            variant={"rect"}
+            height={184}
+            animation={"pulse"}
+          />
+        ))
+      ) : taskList.length === 0 ? (
+        <Box className={taskManagementStyles.emptyWrapper}>
+          <Typography variant={"h1"} align={"center"}>
+            {locale === Locale.BR
+              ? STRINGS.EMPTY_LIST.pt
+              : STRINGS.EMPTY_LIST.en}
+          </Typography>
+        </Box>
+      ) : (
+        taskList.filter(useFilterEntry).map((entry) => {
+          return (
+            <TaskStyled key={entry.id} task={entry}>
+              <TaskDescription entry={entry} />
+              {isEditing.isEditing && isEditing.id === entry.id && (
+                <TextField
+                  variant={"outlined"}
+                  multiline={true}
+                  minRows={5}
+                  maxRows={10}
+                  defaultValue={entry.name}
+                  onChange={handleTypeTaskName}
+                />
+              )}
+              <TaskControls entry={entry} handleAddTask={handleAddTask} />
+              {entry.isDone && (
+                <TaskCountdown entry={entry} handleDelete={handleDelete} />
+              )}
+            </TaskStyled>
+          );
+        })
+      )}
     </section>
   );
 }
