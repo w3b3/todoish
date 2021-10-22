@@ -14,7 +14,8 @@ const TaskStyle = makeStyles(({ breakpoints, spacing }: Theme) =>
       display: ({ task, isEditing }: TaskStyleProps) =>
         isEditing.isEditing && task.id !== isEditing.id ? "none" : "flex",
       flexDirection: "column",
-      marginTop: spacing(2),
+      marginTop: spacing(1),
+      marginBottom: spacing(1),
       width: "43%",
       marginLeft: "1%",
       marginRight: "1%",
