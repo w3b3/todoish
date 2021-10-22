@@ -33,7 +33,7 @@ export const useFilterEntry = (entry: Task) => {
   }
 
   if (currentFilter) {
-    return entry.name.startsWith(currentFilter);
+    return entry.name.toUpperCase().startsWith(currentFilter);
   }
   return true;
 };

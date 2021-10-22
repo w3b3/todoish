@@ -23,6 +23,8 @@ const useStyles = makeStyles(() =>
       flex: 1,
       userSelect: "text",
       wordBreak: "break-word",
+      minHeight: theme.spacing(6),
+      display: "block",
     },
     body: {
       padding: theme.spacing(3),

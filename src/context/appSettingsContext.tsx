@@ -65,7 +65,7 @@ export const AppSettingsProvider = (props: any) => {
         keywords,
         addKeyword: (keyword) => {
           // debugger;
-          const _ = keywords.add(keyword);
+          const _ = keywords.add(keyword.toUpperCase());
           setKeywords(_);
         },
         currentFilter,

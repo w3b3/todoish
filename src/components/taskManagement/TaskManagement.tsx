@@ -27,7 +27,9 @@ import {
   TextField,
   Theme,
   Typography,
+  useMediaQuery,
 } from "@material-ui/core";
+import Skeleton from "@material-ui/lab/Skeleton";
 import { TaskStyled } from "./TaskStyled";
 import { TaskCountdown } from "./TaskCountdown";
 import { TaskControls } from "./TaskControls";
@@ -88,13 +90,39 @@ function ArticlesList({
   handleDelete: (id: string) => void;
 }) {
   const taskManagementStyles = TaskManagementStyles();
-  const { taskList, isEditing } = useContext(AppSettingsContext);
+  const { taskList, isEditing, locale } = useContext(AppSettingsContext);
+  const isLargerViewport = useMediaQuery(theme.breakpoints.up("md"));
   return (
     <section className={taskManagementStyles.articlesWrapper}>
-      {taskList &&
-        taskList.filter(useFilterEntry).map((entry, i) => {
+      {taskList === null ? (
+        new Array(10).fill("", 0, 9).map((_) => (
+          <Skeleton
+            style={{
+              backgroundImage:
+                "linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%)",
+              marginTop: theme.spacing(2),
+              width: isLargerViewport ? "43%" : "100%",
+              marginLeft: "1%",
+              marginRight: "1%",
+              borderRadius: "4px",
+            }}
+            variant={"rect"}
+            height={184}
+            animation={"pulse"}
+          />
+        ))
+      ) : taskList.length === 0 ? (
+        <Box className={taskManagementStyles.emptyWrapper}>
+          <Typography variant={"h1"} align={"center"}>
+            {locale === Locale.BR
+              ? STRINGS.EMPTY_LIST.pt
+              : STRINGS.EMPTY_LIST.en}
+          </Typography>
+        </Box>
+      ) : (
+        taskList.filter(useFilterEntry).map((entry) => {
           return (
-            <TaskStyled key={entry.id} task={entry} order={i}>
+            <TaskStyled key={entry.id} task={entry}>
               <TaskDescription entry={entry} />
               {isEditing.isEditing && isEditing.id === entry.id && (
                 <TextField
@@ -112,7 +140,8 @@ function ArticlesList({
               )}
             </TaskStyled>
           );
-        })}
+        })
+      )}
     </section>
   );
 }
@@ -143,21 +172,31 @@ function TaskSummary(props: {
   );
 }
 
-function TaskKeywords(props: {
+function TaskKeywords({
+  strings,
+  onClick,
+}: {
   strings: Set<string>;
-  callbackfn: (e: any, i: number) => JSX.Element;
   onClick: () => void;
-  locale: string;
 }) {
+  const { setCurrentFilter, locale } = useContext(AppSettingsContext);
   return (
     <Grid container style={{ display: "flex", flexWrap: "wrap" }}>
-      {Array.from(props.strings.values()).map(props.callbackfn)}
+      {Array.from(strings.values()).map((e, i) => (
+        <Button
+          key={`${e}${i}`}
+          variant={"outlined"}
+          onClick={() => setCurrentFilter(e)}
+        >
+          {e.toUpperCase()}
+        </Button>
+      ))}
       <Button
         variant={"outlined"}
         startIcon={<i className="far fa-window-close" />}
-        onClick={props.onClick}
+        onClick={onClick}
       >
-        {props.locale === Locale.BR
+        {locale === Locale.BR
           ? STRINGS.CLEAR_FILTER.pt
           : STRINGS.CLEAR_FILTER.en}
       </Button>
@@ -166,7 +205,7 @@ function TaskKeywords(props: {
 }
 
 export function TaskManagement() {
-  const taskManagementStyles = TaskManagementStyles();
+  // const taskManagementStyles = TaskManagementStyles();
   const {
     locale,
     toggleEditing,
@@ -245,7 +284,7 @@ export function TaskManagement() {
       setCurrentFilter("*");
     }
   };
-
+  /* TODO: Still need an implementation for a really empty list
   if (totalNumberOfTasks === 0) {
     return (
       <Container classes={{ root: taskManagementStyles.containerRootOverride }}>
@@ -262,10 +301,12 @@ export function TaskManagement() {
               ? STRINGS.EMPTY_LIST.pt
               : STRINGS.EMPTY_LIST.en}
           </Typography>
+          <Skeleton variant="rect" width={210} height={118} />
         </Box>
       </Container>
     );
   }
+  */
   return (
     <Container>
       <TaskInput
@@ -281,17 +322,7 @@ export function TaskManagement() {
       {keywords.size > 0 ? (
         <TaskKeywords
           strings={keywords}
-          callbackfn={(e, i) => (
-            <Button
-              key={`${e}${i}`}
-              variant={"outlined"}
-              onClick={() => setCurrentFilter(e)}
-            >
-              {e.toUpperCase()}
-            </Button>
-          )}
           onClick={() => setCurrentFilter(null)}
-          locale={locale}
         />
       ) : (
         <Typography>No filter yet</Typography>
