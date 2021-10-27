@@ -1,7 +1,7 @@
 import { CONSTANTS, headers } from "./_";
-import { mockApiResponse } from "../mocks";
-
+// import { mockApiResponse } from "../mocks";
 /*This conditional is used for debugging purposes only*/
+// const isLocalDevelopment = process.env.REACT_APP_ENV === "local";
 const isDevelopment = process.env.REACT_APP_ENV === "development";
 
 interface GetAllEntriesResponse {
@@ -13,7 +13,7 @@ interface GetAllEntriesResponse {
 export const getAllEntries = async (): Promise<GetAllEntriesResponse> => {
   try {
     /*This conditional is used for debugging purposes only*/
-    if (isDevelopment) {
+    /*if (isLocalDevelopment) {
       console.info(process.env.REACT_APP_ENV, isDevelopment);
       //early return interrupts the flow below
       return {
@@ -21,9 +21,15 @@ export const getAllEntries = async (): Promise<GetAllEntriesResponse> => {
         rowCount: 2,
         pagination: "jsalkdj239102931",
       };
-    }
+    }*/
     const response = await fetch(
-      `https://${process.env.REACT_APP_ASTRA_DB_ID}-${process.env.REACT_APP_ASTRA_DB_REGION}.apps.astra.datastax.com/api/rest/v2/namespaces/${process.env.REACT_APP_ASTRA_DB_KEYSPACE}/collections/${CONSTANTS.TASKS_COLLECTION}?page-size=20&profile=true`,
+      `https://${process.env.REACT_APP_ASTRA_DB_ID}-${
+        process.env.REACT_APP_ASTRA_DB_REGION
+      }.apps.astra${
+        isDevelopment ? "-dev" : ""
+      }.datastax.com/api/rest/v2/namespaces/${
+        process.env.REACT_APP_ASTRA_DB_KEYSPACE
+      }/collections/${CONSTANTS.TASKS_COLLECTION}?page-size=20&profile=true`,
       {
         method: "GET",
         headers,

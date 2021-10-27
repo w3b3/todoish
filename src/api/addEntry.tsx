@@ -1,6 +1,7 @@
 import { CONSTANTS, headers } from "./_";
 import { Task } from "../types/types";
 import { v4 as uuidv4 } from "uuid";
+const isDevelopment = process.env.REACT_APP_ENV === "development";
 
 export const addEntry = async (entry: string) => {
   try {
@@ -13,7 +14,13 @@ export const addEntry = async (entry: string) => {
       tags: [],
     };
     const response = await fetch(
-      `https://${process.env.REACT_APP_ASTRA_DB_ID}-${process.env.REACT_APP_ASTRA_DB_REGION}.apps.astra.datastax.com/api/rest/v2/namespaces/${process.env.REACT_APP_ASTRA_DB_KEYSPACE}/collections/${CONSTANTS.TASKS_COLLECTION}/${bodyPartial.id}`,
+      `https://${process.env.REACT_APP_ASTRA_DB_ID}-${
+        process.env.REACT_APP_ASTRA_DB_REGION
+      }.apps.astra${
+        isDevelopment ? "-dev" : ""
+      }.datastax.com/api/rest/v2/namespaces/${
+        process.env.REACT_APP_ASTRA_DB_KEYSPACE
+      }/collections/${CONSTANTS.TASKS_COLLECTION}/${bodyPartial.id}`,
       {
         method: "PUT",
         headers,
