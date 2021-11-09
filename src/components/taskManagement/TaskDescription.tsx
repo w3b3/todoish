@@ -23,8 +23,16 @@ const useStyles = makeStyles(() =>
       flex: 1,
       userSelect: "text",
       wordBreak: "break-word",
-      minHeight: theme.spacing(6),
+      minHeight: theme.spacing(8),
       display: "block",
+      fontFamily: "Luckiest Guy",
+      fontSize: "2em",
+      textShadow: "-1px 2px 0px #000000",
+      color: "#ffffff",
+      mixBlendMode: "overlay",
+      textAlign: "center",
+      contain: "strict",
+      lineHeight: "1.2em",
     },
     body: {
       padding: theme.spacing(3),
@@ -108,7 +116,11 @@ export function TaskDescription({ entry }: { entry: Task }) {
         <CountdownModal options={{ cardKeyword, cardBody: entry.name }} />
       </Box>
       <Box className={styles.body}>
-        <Typography id={`task${entry.id}`} className={styles.bodyFont}>
+        <Typography
+          id={`task${entry.id}`}
+          variant={"h1"}
+          className={styles.bodyFont}
+        >
           {cardBody ?? "None"}
         </Typography>
       </Box>
