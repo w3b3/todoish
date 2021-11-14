@@ -20,9 +20,9 @@ const isDevelopment = process.env.REACT_APP_ENV === "development";
 export const getAllEntries = async (): Promise<GetAllEntriesResponse> => {
   try {
     const response = await fetch(
-      `https://ohtugokvbh.execute-api.us-east-1.amazonaws.com/${
-        isDevelopment ? "d" : "p"
-      }/hello`
+      isDevelopment
+        ? "https://api-dev.brasileiro.ca/todoish/tasks"
+        : "https://api.brasileiro.ca/todoish/tasks"
     );
     const parsedResponse: LambdaResponse = await response.json();
     return {
