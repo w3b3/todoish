@@ -224,14 +224,12 @@ export function TaskManagement() {
   } = useContext(AppSettingsContext);
   // const [internalKeywords, setInternalKeywords] = useState(keywords);
   const [totalNumberOfTasks, setTotalNumberOfTasks] = useState<number>(0);
-  // const [apiPagination, setApiPagination] = useState<string>("");
 
   useEffect(() => {
     getAllEntries().then((newList) => {
       if (newList && newList.tasks) {
         setTaskList(newList.tasks);
         setTotalNumberOfTasks(newList.tasks.length); //TEMPORARY SOLUTION - FLAKY SINCE ITS WITHOUT PAGINATION
-        // setApiPagination(newList.pagination);
       }
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -255,7 +253,6 @@ export function TaskManagement() {
     await deleteEntry(id);
     const newList = await getAllEntries();
     setTaskList(newList.tasks);
-    // setApiPagination(newList.pagination);
     setTotalNumberOfTasks(newList.tasks.length); //TEMPORARY SOLUTION - FLAKY SINCE ITS WITHOUT PAGINATION
   };
 
@@ -275,8 +272,6 @@ export function TaskManagement() {
     const newList = await getAllEntries();
     if (newList && newList.tasks) {
       setTaskList(newList.tasks);
-      // setApiPagination(newList.pagination);
-      // setTotalNumberOfTasks(newList.rowCount); //DOES NOT WORK
       setTotalNumberOfTasks(newList.tasks.length); //TEMPORARY SOLUTION - FLAKY SINCE ITS WITHOUT PAGINATION
     }
   };
