@@ -11,6 +11,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import React, { useCallback, useEffect, useState } from "react";
+import { Task } from "../types/types";
 
 const CountdownModalStyles = makeStyles(({ breakpoints, spacing }: Theme) =>
   createStyles({
@@ -37,14 +38,7 @@ const CountdownModalStyles = makeStyles(({ breakpoints, spacing }: Theme) =>
   })
 );
 
-interface CountdownModalInput {
-  options?: {
-    cardKeyword?: string;
-    cardBody?: string;
-  };
-}
-
-export function CountdownModal({ options }: CountdownModalInput) {
+export function CountdownModal({ entry }: { entry: Task }) {
   const countdownModalStyles = CountdownModalStyles();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [openConfigurationSettings, setOpenConfigurationSettings] =
@@ -91,6 +85,8 @@ export function CountdownModal({ options }: CountdownModalInput) {
     // setTimer(0);
   };
 
+  /*TODO: entry replaces options*/
+
   return (
     <Box>
       <Button variant={"contained"} color={"secondary"} onClick={openModal}>
@@ -111,16 +107,14 @@ export function CountdownModal({ options }: CountdownModalInput) {
             <Typography variant={"body1"}>Configurations open</Typography>
           ) : (
             <>
-              {options?.cardKeyword && (
-                <Typography
-                  color={"secondary"}
-                  variant={"h1"}
-                  component={"caption"}
-                  style={{ textTransform: "uppercase" }}
-                >
-                  {options?.cardKeyword}
-                </Typography>
-              )}
+              {/*<Typography*/}
+              {/*  color={"secondary"}*/}
+              {/*  variant={"h1"}*/}
+              {/*  component={"caption"}*/}
+              {/*  style={{ textTransform: "uppercase" }}*/}
+              {/*>*/}
+              {/*  {entry?.cardKeyword}*/}
+              {/*</Typography>*/}
               <LinearProgress
                 classes={{
                   root: countdownModalStyles.progressBar,
@@ -132,9 +126,7 @@ export function CountdownModal({ options }: CountdownModalInput) {
                 {formatTimeCountdown()}
               </Typography>
 
-              {options?.cardBody && (
-                <Typography variant={"body1"}>{options?.cardBody}</Typography>
-              )}
+              <Typography variant={"body1"}>{entry?.name}</Typography>
 
               {/*<CircularProgress value={getProgressPercentage() * 100} />*/}
             </>

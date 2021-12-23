@@ -4,6 +4,7 @@ import { TaskManagement } from "./taskManagement/TaskManagement";
 import AppSettingsContext from "../context/appSettingsContext";
 import { Header } from "./Header";
 import { Logo } from "./Logo";
+import { UserAvatar } from "./UserAvatar";
 import {
   Button,
   createStyles,
@@ -43,68 +44,12 @@ const useStyles = makeStyles(() =>
 );
 
 function App() {
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const { locale, setLocale } = useContext(AppSettingsContext);
-  const styles = useStyles();
-  const handleLocaleClick = () => {
-    setLocale(locale === "pt-br" ? "en-us" : "pt-br");
-  };
-  const handleToggleDrawer = () => setIsDrawerOpen(!isDrawerOpen);
   return (
     <>
       <Header>
         <Clock />
         <Logo />
-        <Button
-          variant={"text"}
-          title="Menu"
-          startIcon={<i className="fas fa-bars" />}
-          onClick={handleToggleDrawer}
-        >
-          Menu
-        </Button>
-        <SwipeableDrawer
-          classes={{ paper: styles.drawerRoot }}
-          anchor={"right"}
-          open={isDrawerOpen}
-          onOpen={() => setIsDrawerOpen(true)}
-          onClose={() => setIsDrawerOpen(false)}
-        >
-          {/*<Container>*/}
-          <DialogTitle>Settings menu</DialogTitle>
-          <DialogContent classes={{ root: styles.dialogRoot }}>
-            <FormGroup style={{ marginLeft: theme.spacing(2) }}>
-              <Typography>
-                {locale === Locale.BR
-                  ? STRINGS.LANGUAGE_SWITCHER.pt
-                  : STRINGS.LANGUAGE_SWITCHER.en}
-              </Typography>
-              <FormControl fullWidth>
-                <InputLabel id="locale-select-label">Locale</InputLabel>
-                <Select
-                  id="locale-select"
-                  label="Locale"
-                  labelId={"locale-select-label"}
-                  onChange={handleLocaleClick}
-                  value={locale}
-                >
-                  <MenuItem value={"pt-br"}>Portugues</MenuItem>
-                  <MenuItem value={"en-us"}>English</MenuItem>
-                </Select>
-              </FormControl>
-            </FormGroup>
-          </DialogContent>
-          <DialogActions>
-            <Button
-              variant={"contained"}
-              color={"primary"}
-              onClick={handleToggleDrawer}
-            >
-              Close
-            </Button>
-          </DialogActions>
-          {/*</Container>*/}
-        </SwipeableDrawer>
+        <UserAvatar />
       </Header>
       <TaskManagement />
     </>

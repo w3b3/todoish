@@ -60,7 +60,7 @@ export function TaskInput({
           }
           onChange={handleTypeTaskName}
           onKeyPress={handleEnter}
-          value={taskName ?? "None yet"}
+          defaultValue={taskName}
           autoComplete={"off"}
         />
         {/*<SaveButton handleAddTask={handleAddTask} taskName={taskName} />*/}

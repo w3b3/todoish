@@ -19,10 +19,14 @@ import {
   Button,
   Container,
   createStyles,
+  FormControl,
   FormControlLabel,
   FormGroup,
   Grid,
+  InputLabel,
   makeStyles,
+  MenuItem,
+  Select,
   Switch,
   TextField,
   Theme,
@@ -173,42 +177,43 @@ function TaskSummary(props: {
   );
 }
 
-function TaskKeywords({
-  strings,
-  onClick,
-}: {
-  strings: Set<string>;
-  onClick: () => void;
-}) {
-  const { setCurrentFilter, locale } = useContext(AppSettingsContext);
-  return (
-    <Grid container style={{ display: "flex", flexWrap: "wrap" }}>
-      {Array.from(strings.values()).map((e, i) => (
-        <Button
-          key={`${e}${i}`}
-          variant={"outlined"}
-          onClick={() => setCurrentFilter(e)}
-        >
-          {e.toUpperCase()}
-        </Button>
-      ))}
-      <Button
-        variant={"outlined"}
-        startIcon={<i className="far fa-window-close" />}
-        onClick={onClick}
-      >
-        {locale === Locale.BR
-          ? STRINGS.CLEAR_FILTER.pt
-          : STRINGS.CLEAR_FILTER.en}
-      </Button>
-    </Grid>
-  );
-}
+// function TaskKeywords({
+//   strings,
+//   onClick,
+// }: {
+//   strings: Set<string>;
+//   onClick: () => void;
+// }) {
+//   const { setCurrentFilter, locale } = useContext(AppSettingsContext);
+//   return (
+//     <Grid container style={{ display: "flex", flexWrap: "wrap" }}>
+//       {Array.from(strings.values()).map((e, i) => (
+//         <Button
+//           key={`${e}${i}`}
+//           variant={"outlined"}
+//           onClick={() => setCurrentFilter(e)}
+//         >
+//           {e.toUpperCase()}
+//         </Button>
+//       ))}
+//       <Button
+//         variant={"outlined"}
+//         startIcon={<i className="far fa-window-close" />}
+//         onClick={onClick}
+//       >
+//         {locale === Locale.BR
+//           ? STRINGS.CLEAR_FILTER.pt
+//           : STRINGS.CLEAR_FILTER.en}
+//       </Button>
+//     </Grid>
+//   );
+// }
 
 export function TaskManagement() {
   // const taskManagementStyles = TaskManagementStyles();
   const {
     locale,
+    setLocale,
     toggleEditing,
     isEditing,
     keywords,
@@ -308,6 +313,10 @@ export function TaskManagement() {
     );
   }
   */
+
+  const handleLocaleClick = () => {
+    setLocale(locale === "pt-br" ? "en-us" : "pt-br");
+  };
   return (
     <Container>
       <TaskInput
@@ -320,14 +329,34 @@ export function TaskManagement() {
         totalNumberOfTasks={totalNumberOfTasks}
         onClick={handleFilterHighlighted}
       />
-      {keywords.size > 0 ? (
-        <TaskKeywords
-          strings={keywords}
-          onClick={() => setCurrentFilter(null)}
-        />
-      ) : (
-        <Typography>No filter yet</Typography>
-      )}
+      {/*{keywords.size > 0 ? (*/}
+      {/*  <TaskKeywords*/}
+      {/*    strings={keywords}*/}
+      {/*    onClick={() => setCurrentFilter(null)}*/}
+      {/*  />*/}
+      {/*) : (*/}
+      {/*  <Typography>No filter yet</Typography>*/}
+      {/*)}*/}
+      <FormGroup style={{ marginLeft: theme.spacing(2) }}>
+        {/*<Typography>*/}
+        {/*  {locale === Locale.BR*/}
+        {/*    ? STRINGS.LANGUAGE_SWITCHER.pt*/}
+        {/*    : STRINGS.LANGUAGE_SWITCHER.en}*/}
+        {/*</Typography>*/}
+        <FormControl fullWidth>
+          <InputLabel id="locale-select-label">Locale</InputLabel>
+          <Select
+            id="locale-select"
+            label="Locale"
+            labelId={"locale-select-label"}
+            onChange={handleLocaleClick}
+            value={locale}
+          >
+            <MenuItem value={"pt-br"}>Portugues</MenuItem>
+            <MenuItem value={"en-us"}>English</MenuItem>
+          </Select>
+        </FormControl>
+      </FormGroup>
       <ArticlesList
         // handleEnter={handleEnter}
         handleTypeTaskName={handleTypeTaskName}

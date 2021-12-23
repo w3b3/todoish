@@ -4,7 +4,7 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core";
 const LogoStyles = makeStyles(({ breakpoints, spacing }: Theme) =>
   createStyles({
     logo: {
-      height: "50%",
+      height: "80%",
     },
   })
 );
