@@ -1,10 +1,4 @@
-import {
-  Grid,
-  Container,
-  createStyles,
-  makeStyles,
-  Theme,
-} from "@material-ui/core";
+import { Grid, createStyles, makeStyles, Theme } from "@material-ui/core";
 import React, { PropsWithChildren } from "react";
 
 const HeaderStyles = makeStyles(({ breakpoints, spacing }: Theme) =>

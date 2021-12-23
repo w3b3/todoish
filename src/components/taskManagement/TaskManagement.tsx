@@ -16,7 +16,6 @@ import AppSettingsContext from "../../context/appSettingsContext";
 import { STRINGS } from "../../strings/strings";
 import {
   Box,
-  Button,
   Container,
   createStyles,
   FormControl,
@@ -216,7 +215,6 @@ export function TaskManagement() {
     setLocale,
     toggleEditing,
     isEditing,
-    keywords,
     taskName,
     setTaskName,
     taskList,

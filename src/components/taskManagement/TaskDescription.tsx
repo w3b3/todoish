@@ -1,5 +1,5 @@
 import { Task } from "../../types/types";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import AppSettingsContext from "../../context/appSettingsContext";
 import {
   CircularProgress,
@@ -36,8 +36,7 @@ const useStyles = makeStyles(() =>
 );
 
 export function TaskDescription({ entry }: { entry: Task }) {
-  const { isEditing, addKeyword, setCurrentFilter } =
-    useContext(AppSettingsContext);
+  const { isEditing } = useContext(AppSettingsContext);
   const styles = useStyles();
 
   if (entry.isDone) {
