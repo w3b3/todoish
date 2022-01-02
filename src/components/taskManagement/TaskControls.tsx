@@ -14,7 +14,8 @@ import AppSettingsContext from "../../context/appSettingsContext";
 import { findTask } from "../../utils";
 import { Box } from "@material-ui/core";
 import { UpdateButton } from "./UpdateButton";
-import {CountdownModal} from "../CountdownModal";
+import { CountdownModal } from "../CountdownModal";
+import { TaskDate } from "./TaskDate";
 
 function TaskControls({
   entry,
@@ -85,6 +86,7 @@ function TaskControls({
 
   return (
     <Box className={taskManagementStyles.tasksControlsWrapper}>
+      <TaskDate entry={entry} />
       <CountdownModal entry={entry} />
       <UpdateButton entry={entry} handleAdd={handleAddTask} />
       <DeleteButton entry={entry} handleDelete={handleDelete} />

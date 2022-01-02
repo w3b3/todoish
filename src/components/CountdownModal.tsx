@@ -89,7 +89,7 @@ export function CountdownModal({ entry }: { entry: Task }) {
 
   return (
     <Box>
-      <Button variant={"contained"} color={"secondary"} onClick={openModal}>
+      <Button variant={"outlined"} onClick={openModal}>
         <i className="fas fa-stopwatch" />
         &nbsp;Timer
       </Button>

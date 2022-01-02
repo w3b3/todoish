@@ -11,8 +11,6 @@ export function CompleteButton({
   const { locale, isEditing } = useContext(AppSettingsContext);
   return entry.isDone || isEditing.isEditing ? null : (
     <Button
-      color={"primary"}
-      variant={"contained"}
       onClick={() => handleComplete(entry.id)}
       disabled={isEditing.isEditing && isEditing.id !== entry.id}
       // style={{ backgroundColor: "green", color: "white" }}

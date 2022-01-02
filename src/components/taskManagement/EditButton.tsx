@@ -9,7 +9,7 @@ export function EditButton({ handleEdit, entry }: EditButtonInterface) {
 
   return isEditing.isEditing || entry.isDone ? null : (
     <Button
-      variant={"contained"}
+      variant={"outlined"}
       onClick={() => handleEdit(entry.id)}
       startIcon={<i className="fas fa-angle-double-down" />}
     >
