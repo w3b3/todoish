@@ -19,11 +19,12 @@ export const isDevelopment = process.env.REACT_APP_ENV === "development";
 
 export const getAllEntries = async (): Promise<GetAllEntriesResponse> => {
   try {
+    /* ENV "local" relies on package.json "proxy": "https://api.brasileiro.ca",
+     *  In this case the up to be hit would be "/todoish/tasks" and the domain is the above */
+
     const response = await fetch(
       isDevelopment
         ? "https://api-dev.brasileiro.ca/todoish/tasks"
-        : process.env.REACT_APP_ENV === "local"
-        ? "/todoish/tasks"
         : "https://api.brasileiro.ca/todoish/tasks"
     );
     const parsedResponse: LambdaResponse = await response.json();

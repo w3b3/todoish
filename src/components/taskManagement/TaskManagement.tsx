@@ -40,8 +40,8 @@ export const TaskManagementStyles = makeStyles(
         // justifyContent: "center",
         // alignItems: "flex-start",
         // flexWrap: "wrap",
-        // marginTop: spacing(3),
-        // padding: spacing(2),
+        marginTop: spacing(2),
+        padding: spacing(0),
         // [breakpoints.down("sm")]: {
         //   padding: 0,
         // },
