@@ -2,15 +2,13 @@ import { CompleteButtonInterface, Locale } from "../../types/types";
 import React, { useContext } from "react";
 import AppSettingsContext from "../../context/appSettingsContext";
 import { STRINGS } from "../../strings/strings";
-import { Button, useMediaQuery } from "@material-ui/core";
-import { theme } from "../../theme/theme";
+import { Button } from "@material-ui/core";
 
 export function CompleteButton({
   handleComplete,
   entry,
 }: CompleteButtonInterface) {
   const { locale, isEditing } = useContext(AppSettingsContext);
-  const matches = useMediaQuery(theme.breakpoints.up("sm"));
 
   return entry.isDone || isEditing.isEditing ? null : (
     <Button
