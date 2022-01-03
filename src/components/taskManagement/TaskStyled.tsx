@@ -24,14 +24,13 @@ const TaskStyle = makeStyles(({ breakpoints, spacing }: Theme) =>
       // marginTop: spacing(1),
       marginBottom: spacing(2),
       padding: theme.spacing(1),
-      // border: ({ task }: TaskStyleProps) =>
-      //   task.tags.includes("favorite")
-      //     ? "3px solid hotpink"
-      //     : "3px solid transparent",
+      backgroundImage: ({ task }: TaskStyleProps) =>
+        task.tags.includes("favorite")
+          ? "linear-gradient(90deg,#bcc 0%,#fff 100%)"
+          : "linear-gradient(0deg,#ddd 0%,#eee 100%)",
       boxShadow: "0 0 5px 0 #888",
       marginLeft: theme.spacing(1),
       marginRight: theme.spacing(1),
-      backgroundImage: "linear-gradient(0deg,#ddd 0%,#eee 100%)",
       borderRadius: "4px",
     },
   })
