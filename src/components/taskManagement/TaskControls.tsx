@@ -28,7 +28,6 @@ function TaskControls({
   const { toggleEditing, setTaskName, taskList, setTaskList, isEditing } =
     useContext(AppSettingsContext);
   // const [totalNumberOfTasks, setTotalNumberOfTasks] = useState<number>(0);
-
   const handleEdit = async (id: string) => {
     toggleEditing(id);
     setTaskName(
@@ -87,7 +86,7 @@ function TaskControls({
   return (
     <Box className={taskManagementStyles.tasksControlsWrapper}>
       <TaskDate entry={entry} />
-      {!isEditing && <CountdownModal entry={entry} />}
+      {!isEditing.isEditing && <CountdownModal entry={entry} />}
       <UpdateButton entry={entry} handleAdd={handleAddTask} />
       <DeleteButton entry={entry} handleDelete={handleDelete} />
       <RestoreButton entry={entry} handleRestore={handleRestore} />
