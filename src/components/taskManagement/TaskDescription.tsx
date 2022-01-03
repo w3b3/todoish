@@ -6,12 +6,9 @@ import {
   createStyles,
   makeStyles,
   Typography,
-  Container,
-  Grid,
 } from "@material-ui/core";
 import { ExclusionMessages } from "./ExclusionMessages";
 import { theme } from "../../theme/theme";
-import { TaskDate } from "./TaskDate";
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -24,9 +21,13 @@ const useStyles = makeStyles(() =>
       wordBreak: "break-word",
       display: "block",
       color: "#000",
+      paddingTop: theme.spacing(1),
+      paddingLeft: theme.spacing(2),
+      paddingRight: theme.spacing(2),
+      paddingBottom: theme.spacing(2),
     },
     body: {
-      padding: theme.spacing(1),
+      padding: theme.spacing(0),
     },
     doneWrapper: {
       flex: 1,
@@ -61,17 +62,13 @@ export function TaskDescription({ entry }: { entry: Task }) {
 
   return (
     <>
-      <Grid container className={styles.body} justifyContent={"space-between"}>
-        <TaskDate entry={entry} />
-        <Typography color={"secondary"}>
-          🏷{entry.name.split(" ")[0]}{" "}
-        </Typography>
-      </Grid>
-      <Container>
-        <Typography id={`task${entry.id}`} className={styles.bodyFont}>
-          {entry.name ?? "None"}
-        </Typography>
-      </Container>
+      {/*<Grid container className={styles.body} justifyContent={"space-between"}>*/}
+      {/*  <Typography>🏷{entry.name.split(" ")[0]} </Typography>*/}
+      {/*  <TaskDate entry={entry} />*/}
+      {/*</Grid>*/}
+      <Typography id={`task${entry.id}`} className={styles.bodyFont}>
+        {entry.name ?? "None"}
+      </Typography>
     </>
   );
 }

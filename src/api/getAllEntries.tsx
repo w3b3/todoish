@@ -15,13 +15,15 @@ interface GetAllEntriesResponse {
   rowCount: number;
   pagination: string;
 }
-const isDevelopment = process.env.REACT_APP_ENV === "development";
+export const isDevelopment = process.env.REACT_APP_ENV === "development";
 
 export const getAllEntries = async (): Promise<GetAllEntriesResponse> => {
   try {
     const response = await fetch(
       isDevelopment
         ? "https://api-dev.brasileiro.ca/todoish/tasks"
+        : process.env.REACT_APP_ENV === "local"
+        ? "/todoish/tasks"
         : "https://api.brasileiro.ca/todoish/tasks"
     );
     const parsedResponse: LambdaResponse = await response.json();

@@ -9,8 +9,10 @@ import {
   makeStyles,
   Theme,
   Typography,
+  useMediaQuery,
 } from "@material-ui/core";
 import React, { useCallback, useEffect, useState } from "react";
+import { theme } from "../theme/theme";
 import { Task } from "../types/types";
 
 const CountdownModalStyles = makeStyles(({ breakpoints, spacing }: Theme) =>
@@ -45,6 +47,9 @@ export function CountdownModal({ entry }: { entry: Task }) {
     useState(false);
   const [timer, setTimer] = useState(0);
   const [startTime, setStartTime] = useState(0);
+
+  const matches = useMediaQuery(theme.breakpoints.up("sm"));
+
   const getN60SecBlocks = (n: number) => 60 * 1000 * n;
   const formatTimeCountdown = () => {
     return new Date(Math.round(timer))
@@ -89,9 +94,9 @@ export function CountdownModal({ entry }: { entry: Task }) {
 
   return (
     <Box>
-      <Button variant={"contained"} color={"secondary"} onClick={openModal}>
+      <Button variant={"outlined"} onClick={openModal}>
         <i className="fas fa-stopwatch" />
-        &nbsp;Timer
+        {matches && "Timer"}
       </Button>
       <Dialog
         open={isModalOpen}
@@ -107,14 +112,6 @@ export function CountdownModal({ entry }: { entry: Task }) {
             <Typography variant={"body1"}>Configurations open</Typography>
           ) : (
             <>
-              {/*<Typography*/}
-              {/*  color={"secondary"}*/}
-              {/*  variant={"h1"}*/}
-              {/*  component={"caption"}*/}
-              {/*  style={{ textTransform: "uppercase" }}*/}
-              {/*>*/}
-              {/*  {entry?.cardKeyword}*/}
-              {/*</Typography>*/}
               <LinearProgress
                 classes={{
                   root: countdownModalStyles.progressBar,
@@ -127,8 +124,6 @@ export function CountdownModal({ entry }: { entry: Task }) {
               </Typography>
 
               <Typography variant={"body1"}>{entry?.name}</Typography>
-
-              {/*<CircularProgress value={getProgressPercentage() * 100} />*/}
             </>
           )}
         </DialogContent>

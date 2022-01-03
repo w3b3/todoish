@@ -9,18 +9,17 @@ export function CompleteButton({
   entry,
 }: CompleteButtonInterface) {
   const { locale, isEditing } = useContext(AppSettingsContext);
+
   return entry.isDone || isEditing.isEditing ? null : (
     <Button
-      color={"primary"}
-      variant={"contained"}
       onClick={() => handleComplete(entry.id)}
       disabled={isEditing.isEditing && isEditing.id !== entry.id}
-      // style={{ backgroundColor: "green", color: "white" }}
-      title="Concluido"
-      startIcon={<i className="fas fa-check-circle" />}
+      variant={"outlined"}
+      color={"primary"}
     >
-      {/*<span className="hidden-mobile">&nbsp;</span>*/}
+      <i className="fas fa-check-circle" />
       <span>
+        &nbsp;
         {locale === Locale.BR
           ? STRINGS.COMPLETE_TASK.pt
           : STRINGS.COMPLETE_TASK.en}
