@@ -14,8 +14,6 @@ export function CompleteButton({
     <Button
       onClick={() => handleComplete(entry.id)}
       disabled={isEditing.isEditing && isEditing.id !== entry.id}
-      variant={"outlined"}
-      color={"primary"}
     >
       <i className="fas fa-check-circle" />
       <span>

@@ -13,26 +13,25 @@ const TaskStyle = makeStyles(({ breakpoints, spacing }: Theme) =>
   createStyles({
     article: {
       "&:hover": {
-        boxShadow: "0 0 4px 0 #000",
-        border: "3px solid crimson",
+        boxShadow: "0 0 3px 0 #444",
+        // border: "3px solid #ace",
+        backgroundImage: "linear-gradient(0deg,#ccc 0%,#eee 100%)",
       },
+      cursor: "pointer",
       display: ({ task, isEditing }: TaskStyleProps) =>
         isEditing.isEditing && task.id !== isEditing.id ? "none" : "flex",
       flexDirection: "column",
       // marginTop: spacing(1),
-      marginBottom: spacing(1),
+      marginBottom: spacing(2),
       padding: theme.spacing(1),
-      border: ({ task }: TaskStyleProps) =>
-        task.tags.includes("favorite")
-          ? "3px solid hotpink"
-          : "3px solid transparent",
-      boxShadow: "0 0 4px 0 #999",
-      maxWidth: "100%",
-      // width: "43%",
+      // border: ({ task }: TaskStyleProps) =>
+      //   task.tags.includes("favorite")
+      //     ? "3px solid hotpink"
+      //     : "3px solid transparent",
+      boxShadow: "0 0 5px 0 #888",
       marginLeft: theme.spacing(1),
       marginRight: theme.spacing(1),
-      backgroundImage: "linear-gradient(0deg,#eee 0%,#ddd 100%)",
-
+      backgroundImage: "linear-gradient(0deg,#ddd 0%,#eee 100%)",
       borderRadius: "4px",
     },
   })
