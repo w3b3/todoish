@@ -22,10 +22,10 @@ export const TaskManagementStyles = makeStyles(
   ({ breakpoints, spacing }: Theme) =>
     createStyles({
       root: {
-        padding: spacing(2),
-        [breakpoints.down("sm")]: {
-          padding: spacing(1),
-        },
+        // padding: spacing(2),
+        // [breakpoints.down("sm")]: {
+        //   padding: spacing(1),
+        // },
       },
       emptyWrapper: {
         flex: 1,
@@ -34,15 +34,17 @@ export const TaskManagementStyles = makeStyles(
         alignItems: "center",
       },
       articlesWrapper: {
-        display: "flex",
-        justifyContent: "center",
+        // width: "100%",
+        // maxWidth: "100%",
+        // display: "flex",
+        // justifyContent: "center",
         // alignItems: "flex-start",
-        flexWrap: "wrap",
-        marginTop: spacing(3),
-        padding: spacing(2),
-        [breakpoints.down("sm")]: {
-          padding: 0,
-        },
+        // flexWrap: "wrap",
+        // marginTop: spacing(3),
+        // padding: spacing(2),
+        // [breakpoints.down("sm")]: {
+        //   padding: 0,
+        // },
       },
 
       containerRootOverride: {},

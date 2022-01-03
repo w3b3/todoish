@@ -2,7 +2,8 @@ import { FavoriteButtonInterface, Locale } from "../../types/types";
 import React, { useContext } from "react";
 import AppSettingsContext from "../../context/appSettingsContext";
 import { STRINGS } from "../../strings/strings";
-import { Button } from "@material-ui/core";
+import { Button, useMediaQuery } from "@material-ui/core";
+import { theme } from "../../theme/theme";
 
 export const FavoriteButton = ({
   handleFavorite,
@@ -22,19 +23,21 @@ export const FavoriteButton = ({
 function FavoriteAddButton({ handleFavorite, entry }: FavoriteButtonInterface) {
   const { isEditing } = useContext(AppSettingsContext);
   const { locale } = useContext(AppSettingsContext);
+  const matches = useMediaQuery(theme.breakpoints.up("sm"));
 
   return (
     <Button
       color={"secondary"}
-      variant={"contained"}
+      variant={"outlined"}
       onClick={() => handleFavorite(entry.id)}
       disabled={isEditing.isEditing && isEditing.id !== entry.id}
-      title={locale === Locale.BR ? STRINGS.PIN_TASK.pt : STRINGS.PIN_TASK.en}
-      startIcon={<i className="fas fa-thumbs-up" />}
     >
-      <span>
-        {locale === Locale.BR ? STRINGS.PIN_TASK.pt : STRINGS.PIN_TASK.en}
-      </span>
+      <i className="fas fa-thumbs-up" />
+      {matches && (
+        <span>
+          {locale === Locale.BR ? STRINGS.PIN_TASK.pt : STRINGS.PIN_TASK.en}
+        </span>
+      )}
     </Button>
   );
 }
@@ -44,6 +47,7 @@ export function FavoriteRemoveButton({
   entry,
 }: FavoriteButtonInterface) {
   const { locale, isEditing } = useContext(AppSettingsContext);
+  const matches = useMediaQuery(theme.breakpoints.up("sm"));
 
   return (
     <Button
@@ -51,14 +55,13 @@ export function FavoriteRemoveButton({
       disabled={isEditing.isEditing && isEditing.id !== entry.id}
       color={"secondary"}
       variant={"contained"}
-      title={
-        locale === Locale.BR ? STRINGS.UNPIN_TASK.pt : STRINGS.UNPIN_TASK.en
-      }
-      startIcon={<i className="fas fa-exclamation-circle" />}
     >
-      <span>
-        {locale === Locale.BR ? STRINGS.UNPIN_TASK.pt : STRINGS.UNPIN_TASK.en}
-      </span>
+      <i className="fas fa-exclamation-circle" />
+      {matches && (
+        <span>
+          {locale === Locale.BR ? STRINGS.UNPIN_TASK.pt : STRINGS.UNPIN_TASK.en}
+        </span>
+      )}
     </Button>
   );
 }
