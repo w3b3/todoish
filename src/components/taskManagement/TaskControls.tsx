@@ -4,7 +4,7 @@ import { RestoreButton } from "./RestoreButton";
 import FavoriteButton from "./FavoriteButton";
 import { CompleteButton } from "./CompleteButton";
 import { CancelEditButton } from "./CancelEditButton";
-import { EditButton } from "./EditButton";
+// import { EditButton } from "./EditButton";
 import React, { useContext } from "react";
 import { TaskManagementStyles } from "./TaskManagement";
 import { deleteEntry } from "../../api/deleteEntry";
@@ -14,7 +14,7 @@ import AppSettingsContext from "../../context/appSettingsContext";
 import { findTask } from "../../utils";
 import { Box } from "@material-ui/core";
 import { UpdateButton } from "./UpdateButton";
-import { CountdownModal } from "../CountdownModal";
+// import { CountdownModal } from "../CountdownModal";
 import { TaskDate } from "./TaskDate";
 
 function TaskControls({
@@ -25,15 +25,15 @@ function TaskControls({
   handleAddTask: () => void;
 }) {
   const taskManagementStyles = TaskManagementStyles();
-  const { toggleEditing, setTaskName, taskList, setTaskList, isEditing } =
+  const { toggleEditing, setTaskName, taskList, setTaskList } =
     useContext(AppSettingsContext);
   // const [totalNumberOfTasks, setTotalNumberOfTasks] = useState<number>(0);
-  const handleEdit = async (id: string) => {
+  /*const handleEdit = async (id: string) => {
     toggleEditing(id);
     setTaskName(
       taskList?.find((e) => e.id === id)?.name ?? null
-    ); /*N/A should never occur*/
-  };
+    ); /!*N/A should never occur*!/
+  };*/
 
   const handleCancelEdit = () => {
     toggleEditing();

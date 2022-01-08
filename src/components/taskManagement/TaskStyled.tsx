@@ -13,7 +13,10 @@ const TaskStyle = makeStyles(({ breakpoints, spacing }: Theme) =>
   createStyles({
     article: {
       "&:hover": {
-        boxShadow: "0 0 4px 2px crimson",
+        border: ({ task }: TaskStyleProps) =>
+          task.tags.includes("favorite")
+            ? "10px solid hotpink"
+            : "10px solid white",
 
         // border: "3px solid #ace",
         // backgroundImage: "linear-gradient(0deg,#ccc 0%,#eee 100%)",
@@ -26,15 +29,20 @@ const TaskStyle = makeStyles(({ breakpoints, spacing }: Theme) =>
       // marginTop: spacing(1),
       marginBottom: spacing(2),
       padding: theme.spacing(1),
+      border: ({ task }: TaskStyleProps) =>
+        task.tags.includes("favorite")
+          ? "10px solid crimson"
+          : "10px solid transparent",
       // backgroundImage: ({ task }: TaskStyleProps) =>
       //   task.tags.includes("favorite")
       //     ? "linear-gradient(90deg,#bcc 0%,#fff 100%)"
       //     : "linear-gradient(0deg,#ddd 0%,#eee 100%)",
-      boxShadow: "0 0 4px 0 #888",
+      boxShadow: "0 0 6px 2px #000",
       marginLeft: "auto",
       marginRight: "auto",
       borderRadius: "4px",
-      backgroundColor: "#777",
+      backgroundColor: "#222",
+      color: "#bbb",
       // border: "3px solid black",
     },
   })
