@@ -94,7 +94,7 @@ export function CountdownModal({ entry }: { entry: Task }) {
 
   return (
     <Box>
-      <Button variant={"outlined"} onClick={openModal}>
+      <Button onClick={openModal}>
         <i className="fas fa-stopwatch" />
         {matches && "Timer"}
       </Button>
@@ -109,7 +109,7 @@ export function CountdownModal({ entry }: { entry: Task }) {
           classes={{ root: countdownModalStyles.dialogContentOverride }}
         >
           {openConfigurationSettings ? (
-            <Typography variant={"body1"}>Configurations open</Typography>
+            <Typography>Configurations open</Typography>
           ) : (
             <>
               <LinearProgress
@@ -119,29 +119,17 @@ export function CountdownModal({ entry }: { entry: Task }) {
                 variant="determinate"
                 value={getProgressPercentage() * 100}
               />
-              <Typography variant={"h2"} color={"primary"}>
-                {formatTimeCountdown()}
-              </Typography>
+              <Typography>{formatTimeCountdown()}</Typography>
 
-              <Typography variant={"body1"}>{entry?.name}</Typography>
+              <Typography>{entry?.name}</Typography>
             </>
           )}
         </DialogContent>
         <DialogActions>
           {!openConfigurationSettings && (
-            <Button
-              color={!openConfigurationSettings ? "primary" : "secondary"}
-              variant={"contained"}
-              onClick={closeModal}
-            >
-              Task completed
-            </Button>
+            <Button onClick={closeModal}>Task completed</Button>
           )}
-          <Button
-            color={openConfigurationSettings ? "primary" : "secondary"}
-            variant={"contained"}
-            onClick={openConfiguration}
-          >
+          <Button onClick={openConfiguration}>
             {openConfigurationSettings ? "Save config" : "Config timer"}
           </Button>
         </DialogActions>

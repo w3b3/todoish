@@ -27,8 +27,6 @@ function FavoriteAddButton({ handleFavorite, entry }: FavoriteButtonInterface) {
 
   return (
     <Button
-      color={"secondary"}
-      variant={"outlined"}
       onClick={() => handleFavorite(entry.id)}
       disabled={isEditing.isEditing && isEditing.id !== entry.id}
     >
@@ -53,8 +51,6 @@ export function FavoriteRemoveButton({
     <Button
       onClick={() => handleFavorite(entry.id)}
       disabled={isEditing.isEditing && isEditing.id !== entry.id}
-      color={"secondary"}
-      variant={"contained"}
     >
       <i className="fas fa-exclamation-circle" />
       {matches && (

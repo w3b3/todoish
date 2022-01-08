@@ -10,7 +10,7 @@ export function UpdateButton({ handleAdd }: UpdateButtonInterface) {
   const matches = useMediaQuery(theme.breakpoints.up("sm"));
 
   return isEditing.isEditing ? (
-    <Button variant={"outlined"} color={"primary"} onClick={handleAdd}>
+    <Button onClick={handleAdd}>
       <i className="fas fa-check-circle" />
 
       {matches && (

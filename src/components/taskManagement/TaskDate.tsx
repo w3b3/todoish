@@ -14,7 +14,6 @@ const useStyles = makeStyles(() =>
     font: {
       // fontSize: "0.75rem",
       // fontWeight: "bold",
-      color: theme.palette.secondary.main,
       textDecoration: "underline",
       "& > i": {
         marginRight: theme.spacing(0.5),

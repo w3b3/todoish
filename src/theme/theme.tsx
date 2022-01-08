@@ -3,8 +3,14 @@ import { createTheme, ThemeOptions } from "@material-ui/core/styles";
 
 const theme = createTheme({
   palette: {
-    // primary: colors.amber,
-    // secondary: colors.indigo,
+    text: {
+      primary: "#FFF",
+      secondary: "#AAA",
+      disabled: "#FF0",
+      hint: "#0FF",
+    },
+    // primary: { main: "#333" },
+    // secondary: { main: "#0FF" },
   },
   typography: {
     // fontFamily: ["Source Sans Pro", "monospace"].join(","),

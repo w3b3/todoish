@@ -52,7 +52,7 @@ export function ArticlesList({
           ))
       ) : taskList.length === 0 ? (
         <Box className={taskManagementStyles.emptyWrapper}>
-          <Typography variant={"h1"} align={"center"}>
+          <Typography align={"center"}>
             {locale === Locale.BR
               ? STRINGS.EMPTY_LIST.pt
               : STRINGS.EMPTY_LIST.en}

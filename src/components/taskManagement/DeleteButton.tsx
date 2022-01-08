@@ -9,8 +9,6 @@ export function DeleteButton({ handleDelete, entry }: DeleteButtonInterface) {
 
   return entry.isDone ? (
     <Button
-      variant={"contained"}
-      color={"primary"}
       onClick={() => handleDelete(entry.id)}
       startIcon={<i className="fas fa-trash-alt" />}
       // style={{ backgroundColor: "tomato", color: "white" }}
