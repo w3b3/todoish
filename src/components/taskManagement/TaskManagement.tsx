@@ -11,7 +11,7 @@ import { deleteEntry } from "../../api/deleteEntry";
 import { editEntry } from "../../api/editEntry";
 import { TaskInput } from "./TaskInput";
 import AppSettingsContext from "../../context/appSettingsContext";
-import { createStyles, makeStyles, Theme } from "@material-ui/core";
+import { createStyles, makeStyles, Theme, Container } from "@material-ui/core";
 import { theme } from "../../theme/theme";
 import { findTask } from "../../utils";
 import { ArticlesList } from "./ArticlesList";
@@ -56,6 +56,7 @@ export const TaskManagementStyles = makeStyles(
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
+        flexWrap: "wrap",
         "& button:not(:first-child)": {
           marginLeft: theme.spacing(1),
         },
@@ -146,17 +147,19 @@ export function TaskManagement() {
   // Need component for an empty list
   return (
     <>
-      <TaskInput
-        // handleAddTask={handleAddTask}
-        handleTypeTaskName={handleTypeTaskName}
-        handleEnter={handleEnter}
-      />
-      <TaskSummary
-        locale={locale}
-        totalNumberOfTasks={totalNumberOfTasks}
-        onClick={handleFilterHighlighted}
-      />
-      <LocaleSelector onChange={handleLocaleClick} value={locale} />
+      <Container>
+        <TaskInput
+          // handleAddTask={handleAddTask}
+          handleTypeTaskName={handleTypeTaskName}
+          handleEnter={handleEnter}
+        />
+        <TaskSummary
+          locale={locale}
+          totalNumberOfTasks={totalNumberOfTasks}
+          onClick={handleFilterHighlighted}
+        />
+        <LocaleSelector onChange={handleLocaleClick} value={locale} />
+      </Container>
       <ArticlesList
         // handleEnter={handleEnter}
         handleTypeTaskName={handleTypeTaskName}

@@ -30,7 +30,7 @@ const CountdownModalStyles = makeStyles(({ breakpoints, spacing }: Theme) =>
       width: "100%",
     },
     paperOverride: {
-      backgroundImage: "linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%)",
+      // backgroundImage: "linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%)",
     },
     primaryButton: {},
     primaryButtonLabel: {},

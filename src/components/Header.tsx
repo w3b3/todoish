@@ -1,4 +1,10 @@
-import { Grid, createStyles, makeStyles, Theme } from "@material-ui/core";
+import {
+  Grid,
+  createStyles,
+  makeStyles,
+  Theme,
+  Container,
+} from "@material-ui/core";
 import React, { PropsWithChildren } from "react";
 
 const HeaderStyles = makeStyles(({ breakpoints, spacing }: Theme) =>
@@ -14,12 +20,12 @@ const HeaderStyles = makeStyles(({ breakpoints, spacing }: Theme) =>
       position: "sticky",
       left: 0,
       top: 0,
-      backgroundColor: "#FDD401",
-      backgroundImage:
-        "linear-gradient(43deg, #FFCC70 0%, #C850C0 46%,#4158D0 100%)",
+      backgroundColor: "white",
+      // backgroundImage:
+      //   "linear-gradient(43deg, #FFCC70 0%, #C850C0 46%,#4158D0 100%)",
 
       borderBottom: "1px solid rgb(51 51 51 / 28%)",
-      boxShadow: "0 -15px 25px rgb(51 51 51)",
+      // boxShadow: "0 -15px 25px rgb(51 51 51)",
       zIndex: 100,
     },
   })
@@ -29,8 +35,10 @@ export const Header = ({ children }: PropsWithChildren<any>) => {
   const headerStyles = HeaderStyles();
 
   return (
-    <Grid container className={headerStyles.root}>
-      {children}
-    </Grid>
+    <Container>
+      <Grid container className={headerStyles.root}>
+        {children}
+      </Grid>
+    </Container>
   );
 };

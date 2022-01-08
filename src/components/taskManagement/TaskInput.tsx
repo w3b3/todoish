@@ -15,7 +15,7 @@ const TaskInputStyles = makeStyles(({ breakpoints, spacing }: Theme) =>
     },
     textField: {
       flex: 1,
-      fontSize: "1em",
+      // fontSize: "1em",
     },
   })
 );
@@ -46,7 +46,7 @@ export function TaskInput({
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          fontSize: "3em",
+          // fontSize: "3em",
         }}
       >
         <TextField

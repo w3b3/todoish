@@ -13,10 +13,12 @@ const TaskStyle = makeStyles(({ breakpoints, spacing }: Theme) =>
   createStyles({
     article: {
       "&:hover": {
-        boxShadow: "0 0 3px 0 #444",
+        boxShadow: "0 0 4px 2px crimson",
+
         // border: "3px solid #ace",
-        backgroundImage: "linear-gradient(0deg,#ccc 0%,#eee 100%)",
+        // backgroundImage: "linear-gradient(0deg,#ccc 0%,#eee 100%)",
       },
+      maxWidth: "75%",
       cursor: "pointer",
       display: ({ task, isEditing }: TaskStyleProps) =>
         isEditing.isEditing && task.id !== isEditing.id ? "none" : "flex",
@@ -24,14 +26,15 @@ const TaskStyle = makeStyles(({ breakpoints, spacing }: Theme) =>
       // marginTop: spacing(1),
       marginBottom: spacing(2),
       padding: theme.spacing(1),
-      backgroundImage: ({ task }: TaskStyleProps) =>
-        task.tags.includes("favorite")
-          ? "linear-gradient(90deg,#bcc 0%,#fff 100%)"
-          : "linear-gradient(0deg,#ddd 0%,#eee 100%)",
-      boxShadow: "0 0 5px 0 #888",
-      marginLeft: theme.spacing(1),
-      marginRight: theme.spacing(1),
+      // backgroundImage: ({ task }: TaskStyleProps) =>
+      //   task.tags.includes("favorite")
+      //     ? "linear-gradient(90deg,#bcc 0%,#fff 100%)"
+      //     : "linear-gradient(0deg,#ddd 0%,#eee 100%)",
+      boxShadow: "0 0 4px 0 #888",
+      marginLeft: "auto",
+      marginRight: "auto",
       borderRadius: "4px",
+      // border: "3px solid black",
     },
   })
 );

@@ -12,8 +12,8 @@ import { theme } from "../../theme/theme";
 const useStyles = makeStyles(() =>
   createStyles({
     font: {
-      fontSize: "0.75rem",
-      fontWeight: "bold",
+      // fontSize: "0.75rem",
+      // fontWeight: "bold",
       color: theme.palette.secondary.main,
       textDecoration: "underline",
       "& > i": {

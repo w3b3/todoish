@@ -14,12 +14,7 @@ export function SaveButton({
   const { locale } = useContext(AppSettingsContext);
 
   return (
-    <Button
-      style={{ backgroundColor: "springgreen", color: "black" }}
-      onClick={handleAddTask}
-      disabled={!taskName}
-      title="Salvar"
-    >
+    <Button onClick={handleAddTask} disabled={!taskName} title="Salvar">
       <i className="fas fa-cloud-upload-alt" />
       <span className="hidden-mobile">&nbsp;</span>
       <span>
