@@ -30,12 +30,12 @@ export const getAllEntries = async (): Promise<GetAllEntriesResponse> => {
         headers: {
           "x-todoish": new Date(Date.now()).toUTCString(),
         },
-        keepalive: true,
-        mode: "cors",
-        redirect: "error",
-        referrerPolicy: "same-origin",
-        credentials: "same-origin",
-        cache: "no-cache",
+        // keepalive: true,
+        // mode: "cors",
+        // redirect: "error",
+        // referrerPolicy: "same-origin",
+        // credentials: "same-origin",
+        // cache: "no-cache",
         // body: "",
       }
     );
