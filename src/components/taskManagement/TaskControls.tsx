@@ -86,14 +86,14 @@ function TaskControls({
   return (
     <Box className={taskManagementStyles.tasksControlsWrapper}>
       <TaskDate entry={entry} />
-      {!isEditing.isEditing && <CountdownModal entry={entry} />}
+      {/*{!isEditing.isEditing && <CountdownModal entry={entry} />}*/}
       <UpdateButton entry={entry} handleAdd={handleAddTask} />
       <DeleteButton entry={entry} handleDelete={handleDelete} />
       <RestoreButton entry={entry} handleRestore={handleRestore} />
       <FavoriteButton handleFavorite={handleFavorite} entry={entry} />
       <CompleteButton handleComplete={handleComplete} entry={entry} />
       <CancelEditButton handleCancelEdit={handleCancelEdit} entry={entry} />
-      <EditButton handleEdit={handleEdit} entry={entry} />
+      {/*<EditButton handleEdit={handleEdit} entry={entry} />*/}
     </Box>
   );
 }

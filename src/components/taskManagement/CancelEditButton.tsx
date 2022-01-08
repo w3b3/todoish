@@ -12,7 +12,7 @@ export function CancelEditButton({
   const matches = useMediaQuery(theme.breakpoints.up("sm"));
 
   return isEditing.isEditing ? (
-    <Button onClick={() => handleCancelEdit()} variant={"outlined"}>
+    <Button onClick={() => handleCancelEdit()}>
       <i className="fas fa-arrow-alt-circle-left" />
       {matches && (
         <span>

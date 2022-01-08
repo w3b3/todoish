@@ -20,7 +20,7 @@ const HeaderStyles = makeStyles(({ breakpoints, spacing }: Theme) =>
       position: "sticky",
       left: 0,
       top: 0,
-      backgroundColor: "white",
+      // backgroundColor: "initial",
       // backgroundImage:
       //   "linear-gradient(43deg, #FFCC70 0%, #C850C0 46%,#4158D0 100%)",
 

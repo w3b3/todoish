@@ -34,6 +34,7 @@ const TaskStyle = makeStyles(({ breakpoints, spacing }: Theme) =>
       marginLeft: "auto",
       marginRight: "auto",
       borderRadius: "4px",
+      backgroundColor: "#777",
       // border: "3px solid black",
     },
   })

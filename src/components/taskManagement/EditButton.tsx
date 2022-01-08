@@ -10,7 +10,7 @@ export function EditButton({ handleEdit, entry }: EditButtonInterface) {
   const matches = useMediaQuery(theme.breakpoints.up("sm"));
 
   return isEditing.isEditing || entry.isDone ? null : (
-    <Button variant={"outlined"} onClick={() => handleEdit(entry.id)}>
+    <Button onClick={() => handleEdit(entry.id)}>
       <i className="fas fa-angle-double-down" />
       {matches && (
         <span>

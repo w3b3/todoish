@@ -47,9 +47,8 @@ export function TaskDescription({ entry }: { entry: Task }) {
           variant={"indeterminate"}
           thickness={5}
           size={"1em"}
-          color={"secondary"}
         />
-        <Typography display={"inline"} color={"secondary"}>
+        <Typography display={"inline"}>
           <ExclusionMessages />
         </Typography>
       </section>
