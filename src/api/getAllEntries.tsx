@@ -24,20 +24,21 @@ export const getAllEntries = async (): Promise<GetAllEntriesResponse> => {
      *  In this case the up to be hit would be "/todoish/tasks" and the domain is the above */
 
     const response = await fetch(
-      `${isDevelopment ? "" : process.env.REACT_APP_API_HOST}/todoish/tasks`
-      // {
-      //   method: "GET",
-      // headers: {
-      //   "x-todoish": new Date(Date.now()).toUTCString(),
-      // },
-      // keepalive: true,
-      // mode: "cors",
-      // redirect: "error",
-      // referrerPolicy: "same-origin",
-      // credentials: "same-origin",
-      // cache: "no-cache",
-      // body: "",
-      // }
+      `${isDevelopment ? "" : process.env.REACT_APP_API_HOST}/todoish/tasks`,
+      {
+        method: "GET",
+        headers: {
+          "x-todoish": new Date(Date.now()).toUTCString(),
+          "cache-control": "no=cache",
+        },
+        // keepalive: true,
+        mode: "cors",
+        // redirect: "error",
+        // referrerPolicy: "same-origin",
+        // credentials: "same-origin",
+        // cache: "no-cache",
+        body: null,
+      }
     );
     const parsedResponse: LambdaResponse = await response.json();
     return {
