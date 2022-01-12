@@ -27,16 +27,17 @@ export const getAllEntries = async (): Promise<GetAllEntriesResponse> => {
       `${isDevelopment ? "" : process.env.REACT_APP_API_HOST}/todoish/tasks`,
       {
         method: "GET",
-        headers: {
-          "x-todoish": new Date(Date.now()).toUTCString(),
-        },
-        // keepalive: true,
-        // mode: "cors",
-        // redirect: "error",
-        // referrerPolicy: "same-origin",
-        // credentials: "same-origin",
-        // cache: "no-cache",
-        // body: "",
+        // headers: {
+        //   "x-todoish": new Date(Date.now()).toUTCString(),
+        //   "cache-control": "no=cache",
+        // },
+        keepalive: true,
+        mode: "cors",
+        redirect: "error",
+        referrerPolicy: "same-origin",
+        credentials: "same-origin",
+        cache: "no-cache",
+        body: null,
       }
     );
     const parsedResponse: LambdaResponse = await response.json();
