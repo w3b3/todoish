@@ -27,9 +27,6 @@ export const getAllEntries = async (): Promise<GetAllEntriesResponse> => {
       `${isDevelopment ? "" : process.env.REACT_APP_API_HOST}/todoish/tasks`,
       {
         method: "GET",
-        headers: {
-          "x-todoish": new Date(Date.now()).toUTCString(),
-        },
         keepalive: true,
         mode: "cors",
         redirect: "error",
