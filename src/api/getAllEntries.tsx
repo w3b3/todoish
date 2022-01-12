@@ -31,12 +31,12 @@ export const getAllEntries = async (): Promise<GetAllEntriesResponse> => {
         //   "x-todoish": new Date(Date.now()).toUTCString(),
         //   "cache-control": "no=cache",
         // },
-        // keepalive: true,
+        keepalive: true,
         mode: "cors",
-        // redirect: "error",
-        // referrerPolicy: "same-origin",
-        // credentials: "same-origin",
-        // cache: "no-cache",
+        redirect: "error",
+        referrerPolicy: "same-origin",
+        credentials: "same-origin",
+        cache: "no-cache",
         body: null,
       }
     );
