@@ -3,7 +3,7 @@ import AppSettingsContext from "../../context/appSettingsContext";
 import { STRINGS } from "../../strings/strings";
 import { Locale } from "../../types/types";
 import { createStyles, makeStyles, TextField, Theme } from "@material-ui/core";
-// import { cleanAllEntries } from "../../api/cleanAllEntries";
+import { cleanAllEntries } from "../../api/cleanAllEntries";
 
 const TaskInputStyles = makeStyles(({ breakpoints, spacing }: Theme) =>
   createStyles({
@@ -64,7 +64,7 @@ export function TaskInput({
           autoComplete={"off"}
         />
         {/*<SaveButton handleAddTask={handleAddTask} taskName={taskName} />*/}
-        {/*<button onClick={cleanAllEntries}>Clean all entries</button>*/}
+        <button onClick={cleanAllEntries}>Clean all entries</button>
       </div>
     </section>
   );
