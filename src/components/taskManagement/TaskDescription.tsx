@@ -48,9 +48,7 @@ export function TaskDescription({ entry }: { entry: Task }) {
           thickness={5}
           size={"1em"}
         />
-        <Typography display={"inline"}>
           <ExclusionMessages />
-        </Typography>
       </section>
     );
   }

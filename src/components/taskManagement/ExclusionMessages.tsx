@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
+import { Typography } from "@material-ui/core";
 
 export const ExclusionMessages = React.memo(() => {
   const [i, setI] = useState(0);
@@ -28,5 +29,5 @@ export const ExclusionMessages = React.memo(() => {
       });
     }, 2500);
   }, [messages]);
-  return <>{messages[i]}</>;
+  return <Typography variant={"body1"}>{messages[i]}</Typography>;
 });
