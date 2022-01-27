@@ -16,7 +16,7 @@ const TaskStyle = makeStyles(({ breakpoints, spacing }: Theme) =>
         border: ({ task }: TaskStyleProps) =>
           task.tags.includes("favorite")
             ? "10px solid hotpink"
-            : "10px solid white",
+            : "10px solid #666",
 
         // border: "3px solid #ace",
         // backgroundImage: "linear-gradient(0deg,#ccc 0%,#eee 100%)",
@@ -32,7 +32,7 @@ const TaskStyle = makeStyles(({ breakpoints, spacing }: Theme) =>
       border: ({ task }: TaskStyleProps) =>
         task.tags.includes("favorite")
           ? "10px solid crimson"
-          : "10px solid transparent",
+          : "10px solid #333",
       // backgroundImage: ({ task }: TaskStyleProps) =>
       //   task.tags.includes("favorite")
       //     ? "linear-gradient(90deg,#bcc 0%,#fff 100%)"
@@ -41,8 +41,8 @@ const TaskStyle = makeStyles(({ breakpoints, spacing }: Theme) =>
       marginLeft: "auto",
       marginRight: "auto",
       borderRadius: "4px",
-      backgroundColor: "#222",
-      color: "#bbb",
+      // backgroundColor: "#222",
+      // color: "#bbb",
       // border: "3px solid black",
     },
   })
