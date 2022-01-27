@@ -3,12 +3,12 @@ import { createTheme, ThemeOptions } from "@material-ui/core/styles";
 
 const theme = createTheme({
   palette: {
-    text: {
-      primary: "#FFF",
-      secondary: "#AAA",
-      disabled: "#FF0",
-      hint: "#0FF",
-    },
+    // text: {
+    //   primary: "#FFF",
+    //   secondary: "#AAA",
+    //   disabled: "#FF0",
+    //   hint: "#0FF",
+    // },
     // primary: { main: "#333" },
     // secondary: { main: "#0FF" },
   },
