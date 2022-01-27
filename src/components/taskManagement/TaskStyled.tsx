@@ -16,7 +16,7 @@ const TaskStyle = makeStyles(({ breakpoints, spacing }: Theme) =>
         border: ({ task }: TaskStyleProps) =>
           task.tags.includes("favorite")
             ? "10px solid hotpink"
-            : "10px solid #666",
+            : "10px solid #555",
 
         // border: "3px solid #ace",
         // backgroundImage: "linear-gradient(0deg,#ccc 0%,#eee 100%)",
@@ -31,8 +31,8 @@ const TaskStyle = makeStyles(({ breakpoints, spacing }: Theme) =>
       padding: theme.spacing(1),
       border: ({ task }: TaskStyleProps) =>
         task.tags.includes("favorite")
-          ? "10px solid crimson"
-          : "10px solid #333",
+          ? "10px solid pink"
+          : "10px solid #BBB",
       // backgroundImage: ({ task }: TaskStyleProps) =>
       //   task.tags.includes("favorite")
       //     ? "linear-gradient(90deg,#bcc 0%,#fff 100%)"
