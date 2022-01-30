@@ -45,7 +45,6 @@
     "eject": "react-scripts eject",
     "prepare": "husky install"
   },
-  "proxy": "https://api-dev.brasileiro.ca",
   "eslintConfig": {
     "extends": [
       "react-app",
