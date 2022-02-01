@@ -20,7 +20,7 @@ const useStyles = makeStyles(() =>
       userSelect: "text",
       wordBreak: "break-word",
       display: "block",
-      // color: "#000",
+
       paddingTop: theme.spacing(1),
       paddingLeft: theme.spacing(2),
       paddingRight: theme.spacing(2),
@@ -48,7 +48,7 @@ export function TaskDescription({ entry }: { entry: Task }) {
           thickness={5}
           size={"1em"}
         />
-          <ExclusionMessages />
+        <ExclusionMessages />
       </section>
     );
   }

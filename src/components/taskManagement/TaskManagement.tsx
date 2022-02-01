@@ -21,12 +21,7 @@ import { LocaleSelector } from "./LocaleSelector";
 export const TaskManagementStyles = makeStyles(
   ({ breakpoints, spacing }: Theme) =>
     createStyles({
-      root: {
-        // padding: spacing(2),
-        // [breakpoints.down("sm")]: {
-        //   padding: spacing(1),
-        // },
-      },
+      root: {},
       emptyWrapper: {
         flex: 1,
         display: "flex",
@@ -34,25 +29,13 @@ export const TaskManagementStyles = makeStyles(
         alignItems: "center",
       },
       articlesWrapper: {
-        // width: "100%",
-        // maxWidth: "100%",
-        // display: "flex",
-        // justifyContent: "center",
-        // alignItems: "flex-start",
-        // flexWrap: "wrap",
         marginTop: spacing(2),
         padding: spacing(0),
-        // [breakpoints.down("sm")]: {
-        //   padding: 0,
-        // },
       },
 
       containerRootOverride: {},
 
       tasksControlsWrapper: {
-        // marginTop: "auto",
-        // backgroundColor: "rgba(255, 255, 255, 0.15)",
-        // padding: spacing(1),
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
@@ -65,7 +48,6 @@ export const TaskManagementStyles = makeStyles(
 );
 
 export function TaskManagement() {
-  // const taskManagementStyles = TaskManagementStyles();
   const {
     locale,
     setLocale,
@@ -78,7 +60,7 @@ export function TaskManagement() {
     setCurrentFilter,
     currentFilter,
   } = useContext(AppSettingsContext);
-  // const [internalKeywords, setInternalKeywords] = useState(keywords);
+
   const [totalNumberOfTasks, setTotalNumberOfTasks] = useState<number>(0);
 
   useEffect(() => {
@@ -88,7 +70,6 @@ export function TaskManagement() {
         setTotalNumberOfTasks(newList.tasks.length); //TEMPORARY SOLUTION - FLAKY SINCE ITS WITHOUT PAGINATION
       }
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleEnter = (typeEvent: KeyboardEvent) => {
@@ -98,7 +79,6 @@ export function TaskManagement() {
   };
 
   const handleTypeTaskName = (typeEvent: SyntheticEvent<HTMLInputElement>) => {
-    //  Use this for field validation
     const target = typeEvent.target as HTMLInputElement;
     setTaskName(target.value);
   };
@@ -144,12 +124,10 @@ export function TaskManagement() {
     setLocale(locale === "pt-br" ? "en-us" : "pt-br");
   };
 
-  // Need component for an empty list
   return (
     <>
       <Container>
         <TaskInput
-          // handleAddTask={handleAddTask}
           handleTypeTaskName={handleTypeTaskName}
           handleEnter={handleEnter}
         />
@@ -161,7 +139,6 @@ export function TaskManagement() {
         <LocaleSelector onChange={handleLocaleClick} value={locale} />
       </Container>
       <ArticlesList
-        // handleEnter={handleEnter}
         handleTypeTaskName={handleTypeTaskName}
         handleDelete={handleDelete}
         handleAddTask={handleAddTask}

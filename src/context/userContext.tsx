@@ -5,5 +5,3 @@ interface UserContext {
 }
 
 export const userContext = createContext<UserContext>({ userId: "" });
-
-// const UserProvider = () => (<UserContext.Provider value={}>{}</>)

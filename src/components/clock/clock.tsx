@@ -38,13 +38,8 @@ const Clock = () => {
   /* https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat#using_datetimeformat
    * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat */
   const timeOptions = {
-    // hour12: true, // TODO: file a bug with Chromium: when this is true, 12:13PM shows as 00:13
-    // dayPeriod: "short", // "narrow", "short", " long" yield the same
     hour: "2-digit", // 2-digit, numeric
     minute: "2-digit",
-    // second: "numeric",
-    // timeZoneName: "short",
-    // timeZone: "America/New_York",
   } as const; /*https://stackoverflow.com/questions/66590691/typescript-type-string-is-not-assignable-to-type-numeric-2-digit-in-d*/
   /*    interface DateTimeFormatOptions node_modules/typescript/lib/lib.es5.d.ts */
   const dateOptions = {

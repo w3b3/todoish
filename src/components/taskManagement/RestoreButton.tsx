@@ -13,7 +13,6 @@ export function RestoreButton({
   return entry.isDone ? (
     <Button
       onClick={() => handleRestore(entry.id)}
-      // style={{ backgroundColor: "cornflowerblue", color: "white" }}
       title="Restaurar"
       startIcon={<i className="fas fa-trash-restore" />}
     >

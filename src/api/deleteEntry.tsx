@@ -9,9 +9,7 @@ export const deleteEntry = async (entry: string) => {
         headers,
       }
     );
-    // Trying to run `.json()` I get the below error:
-    // SyntaxError: JSON.parse: unexpected end of data at line 1 column 1 of the JSON data
-    // const parsedResponse = await response.json();
+
     return response.status;
   } catch (e) {
     console.error("deleteEntry", e);

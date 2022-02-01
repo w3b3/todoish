@@ -29,9 +29,7 @@ const CountdownModalStyles = makeStyles(({ breakpoints, spacing }: Theme) =>
       height: spacing(2),
       width: "100%",
     },
-    paperOverride: {
-      // backgroundImage: "linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%)",
-    },
+    paperOverride: {},
     primaryButton: {},
     primaryButtonLabel: {},
     secondaryButton: {},
@@ -87,7 +85,6 @@ export function CountdownModal({ entry }: { entry: Task }) {
 
   const openConfiguration = () => {
     setOpenConfigurationSettings(!openConfigurationSettings);
-    // setTimer(0);
   };
 
   /*TODO: entry replaces options*/

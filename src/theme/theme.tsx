@@ -1,46 +1,19 @@
 import { createTheme, ThemeOptions } from "@material-ui/core/styles";
-// import { colors } from "@material-ui/core";
 
 const theme = createTheme({
-  palette: {
-    // text: {
-    //   primary: "#FFF",
-    //   secondary: "#AAA",
-    //   disabled: "#FF0",
-    //   hint: "#0FF",
-    // },
-    // primary: { main: "#333" },
-    // secondary: { main: "#0FF" },
-  },
-  typography: {
-    // fontFamily: ["Source Sans Pro", "monospace"].join(","),
-  },
+  palette: {},
+  typography: {},
   overrides: {
     MuiButton: {
-      root: {
-        // border: "4px solid white",
-      },
+      root: {},
       outlinedPrimary: {
-        // color: "black",
-        // backgroundColor: "goldenrod",
-        "&:hover": {
-          // color: "black",
-        },
+        "&:hover": {},
       },
       outlinedSecondary: {
-        // color: "ghostwhite",
-        // backgroundColor: "darkgray",
-        "&:hover": {
-          // color: "black",
-        },
+        "&:hover": {},
       },
       text: {
-        // border: "none",
-        // fontWeight: "bold",
-        "&:hover": {
-          // backgroundColor: colors.amber[700],
-          // borderColor: colors.amber[900],
-        },
+        "&:hover": {},
       },
     },
   },

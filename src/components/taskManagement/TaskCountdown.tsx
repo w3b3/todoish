@@ -31,12 +31,10 @@ export function TaskCountdown({
   const [remaining, setRemaining] = useState(COUNTDOWN_TIME);
   useEffect(() => {
     if (remaining === 0) {
-      // countdownAutoDelete();
       handleDelete(entry.id);
     } else {
       setTimeout(() => setRemaining(remaining - 1), 1000);
     }
-    // eslint-disable-next-line
   }, [remaining]);
 
   return (

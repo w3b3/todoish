@@ -17,33 +17,22 @@ const TaskStyle = makeStyles(({ breakpoints, spacing }: Theme) =>
           task.tags.includes("favorite")
             ? "10px solid hotpink"
             : "10px solid #555",
-
-        // border: "3px solid #ace",
-        // backgroundImage: "linear-gradient(0deg,#ccc 0%,#eee 100%)",
       },
       maxWidth: "75%",
       cursor: "pointer",
       display: ({ task, isEditing }: TaskStyleProps) =>
         isEditing.isEditing && task.id !== isEditing.id ? "none" : "flex",
       flexDirection: "column",
-      // marginTop: spacing(1),
+
       marginBottom: spacing(2),
       padding: theme.spacing(1),
       border: ({ task }: TaskStyleProps) =>
-        task.tags.includes("favorite")
-          ? "10px solid pink"
-          : "10px solid #BBB",
-      // backgroundImage: ({ task }: TaskStyleProps) =>
-      //   task.tags.includes("favorite")
-      //     ? "linear-gradient(90deg,#bcc 0%,#fff 100%)"
-      //     : "linear-gradient(0deg,#ddd 0%,#eee 100%)",
+        task.tags.includes("favorite") ? "10px solid pink" : "10px solid #BBB",
+
       boxShadow: "0 0 6px 2px #000",
       marginLeft: "auto",
       marginRight: "auto",
       borderRadius: "4px",
-      // backgroundColor: "#222",
-      // color: "#bbb",
-      // border: "3px solid black",
     },
   })
 );

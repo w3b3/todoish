@@ -11,7 +11,6 @@ export function DeleteButton({ handleDelete, entry }: DeleteButtonInterface) {
     <Button
       onClick={() => handleDelete(entry.id)}
       startIcon={<i className="fas fa-trash-alt" />}
-      // style={{ backgroundColor: "tomato", color: "white" }}
     >
       <span> {locale === Locale.BR ? STRINGS.ERASE.pt : STRINGS.ERASE.en}</span>
     </Button>

@@ -15,7 +15,6 @@ const TaskInputStyles = makeStyles(({ breakpoints, spacing }: Theme) =>
     },
     textField: {
       flex: 1,
-      // fontSize: "1em",
     },
   })
 );
@@ -24,16 +23,13 @@ export function TaskInput({
   handleTypeTaskName,
   handleEnter,
 }: {
-  // handleTypeTaskName: (event: SyntheticEvent<HTMLInputElement>) => void;
   handleTypeTaskName: (event: ChangeEvent<HTMLInputElement>) => void;
-  // taskName: string;
+
   handleEnter: (event: KeyboardEvent) => void;
 }) {
   const taskInputStyles = TaskInputStyles();
   const { locale, taskName } = useContext(AppSettingsContext);
-  // if (isEditing.isEditing) {
-  //   return null;
-  // }
+
   return (
     <section className={taskInputStyles.root}>
       {/*<label htmlFor="taskDescription" style={{ visibility: "hidden" }}>
@@ -46,7 +42,6 @@ export function TaskInput({
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          // fontSize: "3em",
         }}
       >
         <TextField

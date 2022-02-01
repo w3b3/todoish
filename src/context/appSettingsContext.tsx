@@ -64,7 +64,6 @@ export const AppSettingsProvider = (props: any) => {
         setLocale,
         keywords,
         addKeyword: (keyword) => {
-          // debugger;
           const _ = keywords.add(keyword.toUpperCase());
           setKeywords(_);
         },

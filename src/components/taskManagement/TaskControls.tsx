@@ -4,7 +4,7 @@ import { RestoreButton } from "./RestoreButton";
 import FavoriteButton from "./FavoriteButton";
 import { CompleteButton } from "./CompleteButton";
 import { CancelEditButton } from "./CancelEditButton";
-// import { EditButton } from "./EditButton";
+
 import React, { useContext } from "react";
 import { TaskManagementStyles } from "./TaskManagement";
 import { deleteEntry } from "../../api/deleteEntry";
@@ -14,7 +14,7 @@ import AppSettingsContext from "../../context/appSettingsContext";
 import { findTask } from "../../utils";
 import { Box } from "@material-ui/core";
 import { UpdateButton } from "./UpdateButton";
-// import { CountdownModal } from "../CountdownModal";
+
 import { TaskDate } from "./TaskDate";
 
 function TaskControls({
@@ -27,7 +27,7 @@ function TaskControls({
   const taskManagementStyles = TaskManagementStyles();
   const { toggleEditing, setTaskName, taskList, setTaskList } =
     useContext(AppSettingsContext);
-  // const [totalNumberOfTasks, setTotalNumberOfTasks] = useState<number>(0);
+
   /*const handleEdit = async (id: string) => {
     toggleEditing(id);
     setTaskName(
@@ -46,8 +46,6 @@ function TaskControls({
     await deleteEntry(id);
     const newList = await getAllEntries();
     setTaskList(newList.tasks);
-    // setApiPagination(newList.pagination);
-    // setTotalNumberOfTasks(newList.tasks.length); //TEMPORARY SOLUTION - FLAKY SINCE ITS WITHOUT PAGINATION
   };
 
   const handleFavorite = async (id: string) => {

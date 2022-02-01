@@ -12,8 +12,6 @@ import { theme } from "../../theme/theme";
 const useStyles = makeStyles(() =>
   createStyles({
     font: {
-      // fontSize: "0.75rem",
-      // fontWeight: "bold",
       textDecoration: "underline",
       "& > i": {
         marginRight: theme.spacing(0.5),

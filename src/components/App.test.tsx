@@ -2,11 +2,6 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import App from "./App";
 import userEvent from "@testing-library/user-event";
-// import { mockApiResponse } from "./mocks";
-// https://kentcdodds.com/blog/stop-mocking-fetch
-// jest.mock("./API", () => {
-//   return mockApiResponse;
-// });
 
 test("renders input", () => {
   render(<App />);

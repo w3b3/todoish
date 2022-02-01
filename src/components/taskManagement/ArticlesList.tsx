@@ -16,7 +16,6 @@ function LoadingTask(props: { largerViewport: boolean }) {
   return (
     <Skeleton
       style={{
-        // backgroundImage: "linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%)",
         marginTop: theme.spacing(2),
         width: props.largerViewport ? "43%" : "100%",
         marginLeft: "1%",
