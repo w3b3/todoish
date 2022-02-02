@@ -35,7 +35,8 @@ export function TaskCountdown({
     } else {
       setTimeout(() => setRemaining(remaining - 1), 1000);
     }
-  }, [remaining, entry, handleDelete]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [remaining]);
 
   return (
     <Grid container>

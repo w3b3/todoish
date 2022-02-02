@@ -70,7 +70,8 @@ export function TaskManagement() {
         setTotalNumberOfTasks(newList.tasks.length); //TEMPORARY SOLUTION - FLAKY SINCE ITS WITHOUT PAGINATION
       }
     });
-  }, [setTaskList]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleEnter = (typeEvent: KeyboardEvent) => {
     if (typeEvent.key === "Enter") {
