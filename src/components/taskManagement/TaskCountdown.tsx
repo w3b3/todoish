@@ -35,7 +35,7 @@ export function TaskCountdown({
     } else {
       setTimeout(() => setRemaining(remaining - 1), 1000);
     }
-  }, [remaining]);
+  }, [remaining, entry, handleDelete]);
 
   return (
     <Grid container>

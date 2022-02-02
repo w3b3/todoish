@@ -70,7 +70,7 @@ export function TaskManagement() {
         setTotalNumberOfTasks(newList.tasks.length); //TEMPORARY SOLUTION - FLAKY SINCE ITS WITHOUT PAGINATION
       }
     });
-  }, []);
+  }, [setTaskList]);
 
   const handleEnter = (typeEvent: KeyboardEvent) => {
     if (typeEvent.key === "Enter") {
