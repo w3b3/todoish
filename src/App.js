@@ -13,6 +13,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { alpha, styled } from "@mui/material";
 
 function Copyright(props) {
   return (
@@ -32,12 +33,22 @@ function Copyright(props) {
   );
 }
 
+const AppBackground = styled(Container)(({ theme }) => ({
+  // border: `1px solid ${alpha(theme.palette.divider, 0.2)}`,
+  marginTop: theme.spacing(8),
+  minHeight: `calc(100vh- ${theme.spacing(8)})`,
+  display: `flex`,
+  flexDirection: `column`,
+  // justifyContent: `center`,
+  // alignItems: `center`,
+}));
+
 const defaultTheme = createTheme();
 
 export default function App() {
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
+    // const data = new FormData(event.currentTarget);
     // console.log({
     //   email: data.get("email"),
     //   password: data.get("password"),
@@ -46,7 +57,7 @@ export default function App() {
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Container component="main" maxWidth="xs">
+      <AppBackground component="main" maxWidth="xs">
         <CssBaseline />
         <Box
           sx={{
@@ -115,7 +126,7 @@ export default function App() {
           </Box>
         </Box>
         <Copyright sx={{ mt: 8, mb: 4 }} />
-      </Container>
+      </AppBackground>
     </ThemeProvider>
   );
 }
