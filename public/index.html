@@ -21,6 +21,15 @@
             crossorigin="anonymous"
             referrerpolicy="no-referrer"
     />
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', process.env.REACT_APP_GA_TRACKING_ID);
+</script>
     <title>todoish</title>
   </head>
   <body>
